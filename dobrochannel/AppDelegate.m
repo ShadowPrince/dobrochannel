@@ -17,6 +17,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    // Set app-wide shared cache (first number is megabyte value)
+    /*
+    NSUInteger cacheSizeMemory = 500*1024*1024; // 500 MB
+    NSUInteger cacheSizeDisk = 500*1024*1024; // 500 MB
+    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:sharedCache];
+    [NSURLCache sharedURLCache];
+    sleep(1); // Critically important line, sadly, but it's worth it!
+    */
     return YES;
 }
 

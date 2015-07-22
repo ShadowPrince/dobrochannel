@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A215h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AttachmentViewController">
+            <connections>
+                <outlet property="imageView" destination="XP6-yY-F4b" id="M2x-LF-1IU"/>
+                <outlet property="imageViewButton" destination="ddH-d6-S4h" id="ESy-jv-lgA"/>
+                <outlet property="loadingIndicator" destination="PYv-oy-df4" id="SeV-jW-eFr"/>
+                <outlet property="paramsLabel" destination="uNx-uH-6gF" id="39q-dx-Gdn"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="363"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XP6-yY-F4b">
+                    <rect key="frame" x="0.0" y="8" width="431" height="355"/>
+                    <animations/>
+                </imageView>
+                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddH-d6-S4h">
+                    <rect key="frame" x="0.0" y="8" width="431" height="355"/>
+                    <animations/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500x600, 2543kb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNx-uH-6gF">
+                    <rect key="frame" x="0.0" y="0.0" width="431" height="10"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="O9c-My-Nk9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <size key="shadowOffset" width="-1" height="-1"/>
+                </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PYv-oy-df4">
+                    <rect key="frame" x="206" y="172" width="20" height="20"/>
+                    <animations/>
+                </activityIndicatorView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="uNx-uH-6gF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3m0-lT-jnb"/>
+                <constraint firstItem="XP6-yY-F4b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="8rU-VV-1Ma"/>
+                <constraint firstItem="PYv-oy-df4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ALV-DE-N74"/>
+                <constraint firstItem="uNx-uH-6gF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ac0-64-1wL"/>
+                <constraint firstAttribute="bottom" secondItem="XP6-yY-F4b" secondAttribute="bottom" id="BiH-1g-ukM"/>
+                <constraint firstItem="ddH-d6-S4h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bli-pt-EgH"/>
+                <constraint firstItem="ddH-d6-S4h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="hry-0u-IZg"/>
+                <constraint firstAttribute="bottom" secondItem="ddH-d6-S4h" secondAttribute="bottom" id="j8G-X8-NwN"/>
+                <constraint firstAttribute="trailing" secondItem="ddH-d6-S4h" secondAttribute="trailing" id="jce-fc-sr5"/>
+                <constraint firstAttribute="trailing" secondItem="uNx-uH-6gF" secondAttribute="trailing" id="lWA-UY-yow"/>
+                <constraint firstItem="XP6-yY-F4b" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tdQ-7I-B2x"/>
+                <constraint firstItem="PYv-oy-df4" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="uO5-3p-8Sp"/>
+                <constraint firstAttribute="trailing" secondItem="XP6-yY-F4b" secondAttribute="trailing" id="yCU-tc-vQh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="330.5" y="276.5"/>
+        </view>
+    </objects>
+</document>

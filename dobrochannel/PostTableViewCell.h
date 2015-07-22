@@ -1,0 +1,19 @@
+//
+//  PostTableViewCell.h
+//  dobrochannel
+//
+//  Created by shdwprince on 7/21/15.
+//  Copyright © 2015 Vasiliy Horbachenko. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "BoardTableViewCell.h"
+#import "AutoLayoutStackView.h"
+#import "AttachmentViewController.h"
+
+@interface PostTableViewCell : BoardTableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *idLabel;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+
+@end

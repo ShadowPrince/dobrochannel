@@ -1,25 +1,151 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A215h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="Ek6-88-s05">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="rootNavigationController" id="4jH-qu-oqn" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MNn-2H-vuu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FVX-uq-BJB" kind="relationship" relationship="rootViewController" id="6kc-Uq-hRX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U6I-oC-1zi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1084" y="-447"/>
+        </scene>
+        <!--Thread View Controller-->
+        <scene sceneID="yye-u6-x0N">
+            <objects>
+                <viewController id="wFm-ko-4Gw" customClass="ThreadViewController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="nrm-Cf-pbv" kind="showDetail" identifier="2showAttachmentsController" id="51b-nn-hlE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QpL-zU-Jvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-579" y="-297"/>
+        </scene>
+        <!--Show Attachments View Controller-->
+        <scene sceneID="Mps-uY-cDX">
+            <objects>
+                <viewController id="nrm-Cf-pbv" customClass="ShowAttachmentsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="upt-Aq-RQt"/>
+                        <viewControllerLayoutGuide type="bottom" id="pmX-sw-Dsm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vxi-IR-aAN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" maximumZoomScale="10" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4Z-me-KWf">
+                                <rect key="frame" x="16" y="20" width="288" height="460"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WHx-OH-uLP">
+                                        <rect key="frame" x="-4" y="0.0" width="296" height="460"/>
+                                        <animations/>
+                                    </imageView>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="sb9-oT-TfM">
+                                        <rect key="frame" x="8" y="8" width="272" height="2"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="8Ja-I4-Tfr"/>
+                                        </constraints>
+                                    </progressView>
+                                </subviews>
+                                <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="nrm-Cf-pbv" id="cLy-5c-ndo"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="x4Z-me-KWf" secondAttribute="trailing" id="0cL-cj-iTY"/>
+                            <constraint firstItem="pmX-sw-Dsm" firstAttribute="top" secondItem="WHx-OH-uLP" secondAttribute="bottom" id="8C7-vd-fOR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sb9-oT-TfM" secondAttribute="trailing" constant="4" id="8IM-1C-kiQ"/>
+                            <constraint firstItem="WHx-OH-uLP" firstAttribute="top" secondItem="upt-Aq-RQt" secondAttribute="bottom" id="LvJ-Cs-3Mm"/>
+                            <constraint firstItem="pmX-sw-Dsm" firstAttribute="top" secondItem="x4Z-me-KWf" secondAttribute="bottom" id="Roh-zv-XYP"/>
+                            <constraint firstItem="x4Z-me-KWf" firstAttribute="leading" secondItem="vxi-IR-aAN" secondAttribute="leadingMargin" id="UYL-wk-7qh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WHx-OH-uLP" secondAttribute="trailing" constant="-4" id="gQ5-En-4YD"/>
+                            <constraint firstItem="WHx-OH-uLP" firstAttribute="leading" secondItem="vxi-IR-aAN" secondAttribute="leadingMargin" constant="-4" id="oFk-1R-trK"/>
+                            <constraint firstItem="x4Z-me-KWf" firstAttribute="top" secondItem="upt-Aq-RQt" secondAttribute="bottom" id="p8M-eT-0nl"/>
+                            <constraint firstItem="sb9-oT-TfM" firstAttribute="leading" secondItem="vxi-IR-aAN" secondAttribute="leadingMargin" constant="4" id="tzt-x5-Ij5"/>
+                            <constraint firstItem="sb9-oT-TfM" firstAttribute="top" secondItem="upt-Aq-RQt" secondAttribute="bottom" constant="8" id="vDj-9i-jzF"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="bcG-KB-8Bh" appends="YES" id="3aF-Yj-nMU"/>
+                            <outletCollection property="gestureRecognizers" destination="gdI-lx-2hr" appends="YES" id="bnI-kX-9Ky"/>
+                            <outletCollection property="gestureRecognizers" destination="olA-Uj-9sl" appends="YES" id="LuA-KY-SCX"/>
+                        </connections>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="currentImageView" destination="WHx-OH-uLP" id="2rc-4G-oQU"/>
+                        <outlet property="progressView" destination="sb9-oT-TfM" id="dgs-J1-ABU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vg5-u8-G1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="bcG-KB-8Bh">
+                    <pressTypeMask key="allowedPressTypes"/>
+                    <connections>
+                        <action selector="swipeAway:" destination="nrm-Cf-pbv" id="U5o-28-NQJ"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="gdI-lx-2hr">
+                    <pressTypeMask key="allowedPressTypes"/>
+                    <connections>
+                        <action selector="swipeRight:" destination="nrm-Cf-pbv" id="Gzt-Zg-UpK"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="olA-Uj-9sl">
+                    <pressTypeMask key="allowedPressTypes"/>
+                    <connections>
+                        <action selector="swipeLeft:" destination="nrm-Cf-pbv" id="y0z-FJ-WGH"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-884" y="415"/>
+        </scene>
+        <!--/b/1-->
+        <scene sceneID="PpP-sL-Le1">
+            <objects>
+                <viewController id="FVX-uq-BJB" customClass="BoardViewController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="/b/1" id="XRq-mz-8hQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="pause" id="63t-ER-487"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" id="s29-xI-Idj"/>
+                            <barButtonItem title="Item" id="88q-VN-dgY"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="wFm-ko-4Gw" kind="show" identifier="2threadController" id="Nn8-IG-aUq"/>
+                        <segue destination="nrm-Cf-pbv" kind="showDetail" identifier="2showAttachmentsController" id="W0K-MR-xhK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JCZ-uA-EWk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1024" y="-392"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="51b-nn-hlE"/>
+    </inferredMetricsTieBreakers>
 </document>
