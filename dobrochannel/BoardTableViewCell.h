@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+
+#import "BoardMarkupParser.h"
+
 #import "AttachmentViewController.h"
 #import "AutoLayoutStackView.h"
 
@@ -16,6 +19,7 @@
 @property AttachmentViewController *firstAttachment;
 @property NSUInteger attachmentsCount;
 
+@property (weak) NSString *dynamicText;
 @property (weak) UITextView *dynamicTextView;
 @property (weak) AutoLayoutStackView *dynamicStackView;
 @property (weak) NSLayoutConstraint *dynamicStackViewScrollWidthConstraint;
@@ -26,7 +30,8 @@
                            action:(SEL) action;
 - (NSInteger) positionOfAttachmentView:(UIView *) view;
 
-- (void) populate:(NSManagedObject *) object;
+- (void) populate:(NSManagedObject *) object
+     markupParser:(BoardMarkupParser *) parser;
 - (void) populateForHeightCalculation:(NSManagedObject *) object;
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize;
 - (CGFloat) calculatedHeight:(CGSize) parentSize;

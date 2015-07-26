@@ -29,13 +29,28 @@
     [self loadImageAtIndex];
 }
 
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.downloadingTasks enumerateKeysAndObjectsUsingBlock:^(NSNumber * __nonnull key, NSURLSessionTask * __nonnull obj, BOOL * __nonnull stop) {
+        [obj cancel];
+    }];
+
+    self.downloadingTasks = [NSMutableDictionary new];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void) loadImageAt:(NSUInteger) pos {
     [self.progressView setHidden:YES];
 
+    //@TODO: fix sources with [] symbols loading
     NSManagedObject *attachment = [self.attachments objectAtIndex:pos];
     if (!self.downloadingTasks[[NSNumber numberWithInteger:pos]]) {
-        [[BoardAPI api] requestImage:[attachment valueForKey:@"thumb_src"]
-                       stateCallback:^(NSUInteger processed, NSUInteger total) {}
+        NSString *thumb_src = [attachment valueForKey:@"thumb_src"];
+
+        [[BoardAPI api] requestImage:thumb_src
+                       stateCallback:^(long long processed, long long total) {}
                       finishCallback:^(UIImage *image) {
                            if (!self.imagesLoaded[[NSNumber numberWithInteger:pos]]) {
                                self.imagesLoaded[[NSNumber numberWithInteger:pos]] = image;
@@ -45,8 +60,10 @@
                            }
                        }];
 
-        NSURLSessionTask *task = [[BoardAPI api] requestImage:[attachment valueForKey:@"src"]
-                                                stateCallback:^(NSUInteger processed, NSUInteger total) {
+
+        NSString *src = [attachment valueForKey:@"src"];
+        NSURLSessionTask *task = [[BoardAPI api] requestImage:src
+                                                stateCallback:^(long long processed, long long total) {
                                                     if (self.index != pos)
                                                         return;
 

@@ -13,7 +13,7 @@
 #import "BoardRequestParser.h"
 #import "BoardImageDownloadDelegate.h"
 
-typedef void (^BoardAPIProgressCallback) (NSUInteger, NSUInteger);
+typedef void (^BoardAPIProgressCallback) (long long, long long);
 typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 
 
@@ -26,6 +26,10 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 @property (nonatomic) id<BoardDelegate> delegate;
 
 + (instancetype) api;
+
+- (NSDictionary<NSString *, NSArray<NSString *>*> *) boardsList;
+
+- (void) cancelRequest;
 
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page

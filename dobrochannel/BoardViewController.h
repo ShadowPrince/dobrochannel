@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ContentViewController.h"
 #import "ThreadViewController.h"
+#import "BoardSwitcherViewController.h"
 
 @interface BoardViewController : ContentViewController
+@property (nonatomic) NSString *board;
+@property NSUInteger page;
 
 @end

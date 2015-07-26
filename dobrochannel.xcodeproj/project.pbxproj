@@ -14,8 +14,11 @@
 		F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D941C1B5BD9C8000AA303 /* ContentViewController.m */; };
 		F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */; };
 		F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F37149E01B5BDB5A00582DE4 /* BoardAPI.m */; };
+		F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */; };
+		F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
 		F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
 		F39369361B5E86290068A85F /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369351B5E86290068A85F /* BoardViewController.m */; };
+		F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */; };
 		F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */; };
 		F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */; };
 		F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */; };
@@ -44,10 +47,16 @@
 		F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
 		F37149DF1B5BDB5A00582DE4 /* BoardAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardAPI.h; sourceTree = "<group>"; };
 		F37149E01B5BDB5A00582DE4 /* BoardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardAPI.m; sourceTree = "<group>"; };
+		F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentsTableDelegate.h; sourceTree = "<group>"; };
+		F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentsTableDelegate.m; sourceTree = "<group>"; };
+		F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardSwitcherViewController.h; sourceTree = "<group>"; };
+		F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardSwitcherViewController.m; sourceTree = "<group>"; };
 		F39369311B5E839F0068A85F /* ThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadViewController.h; sourceTree = "<group>"; };
 		F39369321B5E839F0068A85F /* ThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadViewController.m; sourceTree = "<group>"; };
 		F39369341B5E86290068A85F /* BoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardViewController.h; sourceTree = "<group>"; };
 		F39369351B5E86290068A85F /* BoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardViewController.m; sourceTree = "<group>"; };
+		F39CACB51B60FFEE003BEA68 /* BoardMarkupParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardMarkupParser.h; sourceTree = "<group>"; };
+		F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardMarkupParser.m; sourceTree = "<group>"; };
 		F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutStackView.h; sourceTree = "<group>"; };
 		F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutStackView.m; sourceTree = "<group>"; };
 		F3B937B11B5DAAD300721CD8 /* ThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadTableViewCell.h; sourceTree = "<group>"; };
@@ -107,6 +116,7 @@
 				F39CBEA41B5D70F50049DB45 /* Controllers */,
 				F33D94201B5BD9D1000AA303 /* Views */,
 				F33D94031B5BD8E7000AA303 /* Supporting Files */,
+				F33D941A1B5BD983000AA303 /* Assets */,
 			);
 			path = dobrochannel;
 			sourceTree = "<group>";
@@ -134,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				F33D940C1B5BD8E7000AA303 /* Main.storyboard */,
-				F33D941A1B5BD983000AA303 /* Assets */,
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
 			);
 			name = Views;
@@ -152,6 +161,8 @@
 				F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */,
 				F3C59D461B5ED4210053CA72 /* BoardImageDownloadDelegate.h */,
 				F3C59D471B5ED4210053CA72 /* BoardImageDownloadDelegate.m */,
+				F39CACB51B60FFEE003BEA68 /* BoardMarkupParser.h */,
+				F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -165,9 +176,11 @@
 				F39369321B5E839F0068A85F /* ThreadViewController.m */,
 				F39369341B5E86290068A85F /* BoardViewController.h */,
 				F39369351B5E86290068A85F /* BoardViewController.m */,
+				F3B937BB1B5DAB0100721CD8 /* TableCells */,
+				F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */,
+				F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */,
 				F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */,
 				F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */,
-				F3B937BB1B5DAB0100721CD8 /* TableCells */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -193,6 +206,8 @@
 				F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */,
 				F3B937B61B5DAAFA00721CD8 /* PostTableViewCell.h */,
 				F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */,
+				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
+				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -286,14 +301,17 @@
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,
+				F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */,
 				F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */,
 				F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */,
 				F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */,
 				F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */,
 				F33D94051B5BD8E7000AA303 /* main.m in Sources */,
 				F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */,
+				F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */,
 				F3C59D481B5ED4210053CA72 /* BoardImageDownloadDelegate.m in Sources */,
 				F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */,
+				F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */,
 				F3C59D441B5ECFBD0053CA72 /* AttachmentViewController.m in Sources */,
 				F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */,
 				F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */,
@@ -403,7 +421,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = dobrochannel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.shdwprince.dobrochannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -418,7 +436,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = dobrochannel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.shdwprince.dobrochannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";

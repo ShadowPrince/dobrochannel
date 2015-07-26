@@ -20,12 +20,13 @@
     // Configure the view for the selected state
 }
 
-- (void) populate:(NSManagedObject *)data {
+- (void) populate:(NSManagedObject *)data
+     markupParser:(BoardMarkupParser *)parser {
     [self populateForHeightCalculation:data];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [data valueForKey:@"date"];
-    self.messageTextView.text = [data valueForKey:@"message"];
+    self.messageTextView.attributedText = [parser parse:self.dynamicText];
 
     self.attachmentsControllers = [NSMutableArray new];
     for (NSManagedObject *attachment in [data valueForKey:@"attachments"]) {
@@ -38,8 +39,9 @@
 - (void) populateForHeightCalculation:(NSManagedObject *)object {
     self.dynamicStackView = self.attachmentsView;
     self.dynamicTextView = self.messageTextView;
+    self.dynamicText = [object valueForKey:@"message"];
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
-    self.dynamicTextViewCombinedOffsets = 16;
+    self.dynamicTextViewCombinedOffsets = 8;
 
     [super populateForHeightCalculation:object];
 }

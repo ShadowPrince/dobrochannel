@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A215h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A225f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
@@ -12,36 +12,36 @@
             <rect key="frame" x="0.0" y="0.0" width="693" height="172"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="693" height="171"/>
+                <rect key="frame" x="0.0" y="0.0" width="693" height="171.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yd-IG-Mvw">
-                        <rect key="frame" x="8" y="8" width="537" height="20"/>
+                        <rect key="frame" x="8" y="8" width="537" height="16"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="5j0-gp-s2q"/>
+                            <constraint firstAttribute="height" constant="16" id="5j0-gp-s2q"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-fh-1LI">
-                        <rect key="frame" x="553" y="8" width="104" height="20"/>
+                        <rect key="frame" x="553" y="8" width="104" height="16"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="104" id="aRR-iN-ShG"/>
-                            <constraint firstAttribute="height" constant="20" id="itJ-3X-bbW"/>
+                            <constraint firstAttribute="height" constant="16" id="itJ-3X-bbW"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLb-8Q-2Fn">
-                        <rect key="frame" x="8" y="0.0" width="677" height="35"/>
+                        <rect key="frame" x="8" y="0.0" width="677" height="24"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="WEB-Fu-lI3"/>
-                            <constraint firstAttribute="height" constant="35" id="p42-AY-TzQ"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="WEB-Fu-lI3"/>
+                            <constraint firstAttribute="height" constant="24" id="p42-AY-TzQ"/>
                         </constraints>
                         <state key="normal" title="&gt;"/>
                     </button>
@@ -61,8 +61,8 @@
                             <constraint firstAttribute="bottom" secondItem="VZn-0h-ljd" secondAttribute="bottom" id="Mwf-vW-XV8"/>
                         </constraints>
                     </scrollView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" bounces="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71V-CG-zwc">
-                        <rect key="frame" x="108" y="36" width="577" height="136"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71V-CG-zwc">
+                        <rect key="frame" x="108" y="24" width="577" height="147"/>
                         <animations/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -80,12 +80,12 @@
                     <constraint firstItem="0Yd-IG-Mvw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="RRX-e8-4EA"/>
                     <constraint firstAttribute="bottomMargin" secondItem="71V-CG-zwc" secondAttribute="bottom" constant="-8" id="Rnz-WH-mV4"/>
                     <constraint firstItem="xO9-fh-1LI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ZM3-fF-2Vu"/>
-                    <constraint firstItem="71V-CG-zwc" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" constant="1" id="bec-qi-44v"/>
+                    <constraint firstItem="71V-CG-zwc" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" id="bec-qi-44v"/>
                     <constraint firstAttribute="trailingMargin" secondItem="xO9-fh-1LI" secondAttribute="trailing" constant="28" id="c41-OM-FGl"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="f2o-Yy-p7y"/>
                     <constraint firstItem="Sl2-39-dBl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hE3-7I-3iw"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="k1F-F9-oQU"/>
-                    <constraint firstItem="Sl2-39-dBl" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" constant="8" id="kaM-Qz-fRa"/>
+                    <constraint firstItem="Sl2-39-dBl" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" id="kaM-Qz-fRa"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="va6-5P-2SZ"/>
                 </constraints>
             </tableViewCellContentView>

@@ -19,7 +19,8 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void) populate:(NSManagedObject *)data {
+- (void) populate:(NSManagedObject *)data
+     markupParser:(BoardMarkupParser *)parser {
     [self populateForHeightCalculation:data];
 
     self.identifier = [data valueForKey:@"identifier"];
@@ -27,7 +28,8 @@
     self.titleLabel.text = [data valueForKey:@"title"];
 
     NSManagedObject *op_post = [data valueForKey:@"op_post"];
-    self.messageTextView.text = [op_post valueForKey:@"message"];
+
+    self.messageTextView.attributedText = [parser parse:self.dynamicText];
 
     self.attachmentsControllers = [NSMutableArray new];
     for (NSManagedObject *attachment in [op_post valueForKey:@"attachments"]) {
@@ -40,8 +42,10 @@
 - (void) populateForHeightCalculation:(NSManagedObject *)object {
     self.dynamicStackView = self.attachmentsView;
     self.dynamicTextView = self.messageTextView;
+    self.dynamicText = [[object valueForKey:@"op_post"] valueForKey:@"message"];
+    
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
-    self.dynamicTextViewCombinedOffsets = 16;
+    self.dynamicTextViewCombinedOffsets = 8;
 
     [super populateForHeightCalculation:[object valueForKey:@"op_post"]];
 }

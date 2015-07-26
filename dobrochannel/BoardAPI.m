@@ -39,6 +39,42 @@
     return self;
 }
 
+
+- (NSDictionary *) boardsList {
+    NSArray *sortedNames = @[@"b",        @"u" ,        @"dt" ,
+        @"vg" ,        @"r" ,        @"cr" ,        @"lor",        @"mu" ,        @"oe" ,
+        @"s",
+                             @"w",        @"hr"];
+    NSMutableDictionary *boards = [@{@"b": @[@"Братство", @"Доска обо всем"],
+                                     @"u": @[@"Университет", @"Dum docemus, discimus"],
+                                     @"dt": @[@"Dates and datings", @"Знакомства, встречи, сходочки", ],
+                                     @"vg": @[@"Видеоигры", @"", ],
+                                     @"r": @[@"Просьбы", @"", ],
+                                     @"cr": @[@"Творчество", @"Доска для контента, созданного доброаноном", ],
+                                     @"lor": @[@"LOR", @"Доска о программном обеспечении, железе и прочей IT-утвари", ],
+                                     @"mu": @[@"Музыка", @"", ],
+                                     @"oe": @[@"Oekaki", @"Доска для набросков, мазни и коллективного рисования", ],
+                                     @"s": @[@"Li/s/p", @"(defboard li/s/p (:documentation \"Программирование\"))", ],
+                                     @"w": @[@"Обои", @"Красивые обои для рабочего стола", ],
+                                     @"hr": @[@"Высокое разрешение", @"Картинки в высоком разрешении", ],
+                                     } mutableCopy];
+
+    /*
+    NSArray *nodescription = @[[@"u/ /rf/ /dt/ /r/ /cr/ /lor/ /mu/ /oe/ /s/ /w/ /hr" componentsSeparatedByString:@"/ /"],
+             [@"a/ /ma/ /sw/ /hau/ /azu" componentsSeparatedByString:@"/ /"],
+             [@"tv/ /cp/ /gf/ /bo/ /di/ /vn/ /ve/ /wh/ /fur/ /to/ /bg/ /wn/ /slow/ /mad" componentsSeparatedByString:@"/ /"],
+             [@"d/ /news" componentsSeparatedByString:@"/ /"], ];
+
+
+    for (NSArray *array in nodescription) {
+        for (NSString *board in array)
+            boards[board] = @[board, @""];
+    }*/
+
+
+    return @{@"sorted_keys": sortedNames, @"data": boards};
+}
+
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page
               stateCallback: (BoardAPIProgressCallback) callback {
@@ -56,23 +92,34 @@
 - (NSURLSessionDataTask *) requestImage:(NSString *)path
         stateCallback:(BoardAPIProgressCallback)stateCallback
        finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
-
-    NSURL *url = [NSURL URLWithString:[@"http://dobrochan.com/" stringByAppendingString:path]];
+    NSString *fullUrl = [@"http://dobrochan.com/" stringByAppendingString:path];
+    NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *task = [self.imageLoadingSession
                                   dataTaskWithRequest:request
                                   completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                                       UIImage *image = [UIImage imageWithData:data];
-                                      dispatch_sync(dispatch_get_main_queue(), ^{
-                                          finishCallback(image);
-                                      });
+                                      if (image) {
+                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                              finishCallback(image);
+                                          });
+                                      }
                                   }];
 
     [self.progressCallbacks setObject:stateCallback forKey:task];
     [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
     [task resume];
     return task;
+}
+
+- (void) cancelRequest {
+    if (self.currentTask) {
+        [self.currentTask removeObserver:self forKeyPath:@"countOfBytesReceived"];
+        [self.currentTask cancel];
+
+        self.currentTask = nil;
+    }
 }
 
 #pragma mark thread helpers
@@ -110,11 +157,10 @@
 - (void) loadThreadsFrom:(NSString *) board
                     page:(NSNumber *) page
            stateCallback:(BoardAPIProgressCallback) block {
-    [self.currentTask removeObserver:self forKeyPath:@"countOfBytesReceived"];
-    [self.currentTask cancel];
+    [self cancelRequest];
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://dobrochan.com/%@/%@.json", board, page]];
-//    url = [NSURL URLWithString:@"http://192.168.12.177/1.json"];
+//    url = [NSURL URLWithString:@"http://localhost/broken.json"];
 
     BoardRequestParser *parser = [[BoardRequestParser alloc] initWithDelegate:self];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -126,8 +172,8 @@
 
     NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:url]];
     [self.progressCallbacks setObject:block forKey:task];
-    self.currentTask = task;
 
+    self.currentTask = task;
     [task resume];
     [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -135,8 +181,7 @@
 - (void) loadThread:(NSNumber *) threadId
                from:(NSString *) board
       stateCallback:(BoardAPIProgressCallback) block {
-    [self.currentTask removeObserver:self forKeyPath:@"countOfBytesReceived"];
-    [self.currentTask cancel];
+    [self cancelRequest];
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://dobrochan.com/%@/res/%@.json", board, threadId]];
 //    url = [NSURL URLWithString:@"http://192.168.12.177/3814061.json"];

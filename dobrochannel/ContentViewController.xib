@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentViewController">
@@ -27,8 +26,8 @@
                         <outlet property="delegate" destination="-1" id="zB2-Of-zj2"/>
                     </connections>
                 </tableView>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
-                    <rect key="frame" x="445" y="593" width="150" height="2"/>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
+                    <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                     <animations/>
                     <gestureRecognizers/>
                     <constraints>
@@ -40,12 +39,12 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="dzy-Ca-fsd" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="1:4" id="7Vj-Cx-YyN"/>
                 <constraint firstAttribute="bottom" secondItem="etf-Cz-pSu" secondAttribute="bottom" id="G1u-PY-dJx"/>
-                <constraint firstAttribute="bottom" secondItem="dzy-Ca-fsd" secondAttribute="bottom" constant="5" id="Gjb-oZ-nBv"/>
                 <constraint firstAttribute="trailing" secondItem="etf-Cz-pSu" secondAttribute="trailing" id="Jyr-fn-nDE"/>
-                <constraint firstAttribute="trailing" secondItem="dzy-Ca-fsd" secondAttribute="trailing" constant="5" id="NZV-ZJ-FRB"/>
+                <constraint firstAttribute="trailing" secondItem="dzy-Ca-fsd" secondAttribute="trailing" id="Nam-WV-DJa"/>
                 <constraint firstItem="etf-Cz-pSu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gSZ-EH-d9t"/>
+                <constraint firstItem="dzy-Ca-fsd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hEq-xz-GRa"/>
+                <constraint firstItem="dzy-Ca-fsd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="sca-hB-5bP"/>
                 <constraint firstItem="etf-Cz-pSu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xfo-9w-8Ph"/>
             </constraints>
             <connections>

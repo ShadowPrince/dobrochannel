@@ -11,6 +11,7 @@
 @interface ContentViewController ()
 @property BoardManagedObjectContext *context;
 @property NSMutableArray<NSManagedObject *> *threads;
+@property BoardMarkupParser *markupParser;
 
 // table loading
 @property NSMutableArray<UITableViewCell *> *preparedTableCells;
@@ -28,9 +29,16 @@
 - (instancetype) initWithCoder:(nonnull NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     self.api = [[BoardAPI alloc] init];
-    self.context = [[BoardManagedObjectContext alloc] init];
+    self.markupParser = [[BoardMarkupParser alloc] initWithAttributes:
+                         @{
+                           @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
+                            @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
+                            @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
+                            @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
+                                                            NSBackgroundColorAttributeName: [UIColor blackColor], },
+                            }];
 
-    progressCallback = ^void(NSUInteger completed, NSUInteger total) {
+    progressCallback = ^void(long long completed, long long total) {
         if (total == 0) {
             self.progressView.progress = 0.6f;
             [self.progressView setHidden:NO];
@@ -42,17 +50,27 @@
         }
     };
 
+    [self reset];
+
+    return self;
+}
+
+- (void) reset { // @TODO: find a not-4-am method name
+    [self.api cancelRequest];
+
+    self.preparedTableCells = [NSMutableArray new];
+    self.threads = [NSMutableArray new];
+    self.rowHeightCache = [NSMutableDictionary dictionary];
+    self.tableLoadedRows = 0;
+    [self.tableView reloadData];
+
+    self.context = [[BoardManagedObjectContext alloc] init];
+    self.api.delegate = self.context;
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newObjectInContext:)
                                                  name:NSManagedObjectContextDidSaveNotification
                                                object:self.context];
-
-    self.preparedTableCells = [NSMutableArray new];
-    self.threads = [NSMutableArray new];
-    self.tableLoadedRows = 0;
-    self.rowHeightCache = [NSMutableDictionary dictionary];
-
-    return self;
 }
 
 - (UIView *) superviewIn:(UIView *) view atPosition:(NSUInteger) pos {
@@ -94,32 +112,43 @@
 }
 
 - (IBAction)nextThreadGesture:(id)sender {
-    NSInteger row = [[self.tableView indexPathsForVisibleRows] firstObject].row + 2;
+    CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top + 1;
 
-    NSRange range = NSMakeRange(row, [self.threads count] - row - 1);
-    for (NSManagedObject *object in [self.threads subarrayWithRange:range]) {
-        if ([object.entity.name isEqualToString:@"Thread"])
-            break;
+    NSArray<NSIndexPath *> *forwardingCells =
+    [self.tableView indexPathsForRowsInRect:CGRectMake(0,
+                                                       top,
+                                                       self.tableView.contentSize.width,
+                                                       self.tableView.contentSize.height - top)];
 
-        row++;
+    NSRange range = NSMakeRange(1, [forwardingCells count] - 1);
+    for (NSIndexPath *path in [forwardingCells subarrayWithRange:range]) {
+        NSManagedObject *object = self.threads[path.row];
+
+        if ([object.entity.name isEqualToString:@"Thread"]) {
+            [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            return;
+        }
     }
 
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.tableView scrollToRowAtIndexPath:[forwardingCells lastObject] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (IBAction)previousThreadGesture:(id)sender {
-    NSInteger row = [[self.tableView indexPathsForVisibleRows] firstObject].row;
+    CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top - 1;
 
-    NSRange range = NSMakeRange(0, row);
-    for (int i = range.location + range.length ; i > 0; i--) {
-        NSManagedObject *object = self.threads[i];
-        if ([object.entity.name isEqualToString:@"Thread"])
+    NSArray<NSIndexPath *> *backCells = [self.tableView indexPathsForRowsInRect:CGRectMake(0,
+                                                                                           0,
+                                                                                           self.tableView.contentSize.width,
+                                                                                           top)];
+
+    for (int i = [backCells count] - 1; i >= 0; i--) {
+        NSIndexPath *index = backCells[i];
+        NSManagedObject *object = self.threads[index.row];
+        if ([object.entity.name isEqualToString:@"Thread"]) {
+            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
             break;
-
-        row--;
+        }
     }
-
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 
@@ -127,8 +156,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.api.delegate = self.context;
 
     [self.tableView registerNib:[UINib nibWithNibName:@"ThreadTableViewCell" bundle:[NSBundle mainBundle]]
          forCellReuseIdentifier:@"ThreadView"];
@@ -142,7 +169,6 @@
 - (void) viewDidLayoutSubviews {
     self.rowHeightCache = [NSMutableDictionary dictionary];
     [self.tableView reloadData];
-    //@TODO: is entire reload required?
 }
 
 - (void)didReceiveMemoryWarning {
@@ -165,7 +191,7 @@
         if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
             continue;
 
-//        if ([self.threads count] < 2)
+//        if ([self.threads count] < 1)
             [self.threads addObject:object];
     }
 
@@ -194,7 +220,7 @@
     BoardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@View", entry.entity.name]];
 
     [cell setupAttachmentOffsetFor:tableView.frame.size];
-    [cell populate:entry];
+    [cell populate:entry markupParser:self.markupParser];
     [self prepareCell:cell];
     return cell;
 }

@@ -12,10 +12,13 @@
 
 @end @implementation BoardTableViewCell
 
-- (void) populate:(NSDictionary *)data {
-
+- (void) populate:(NSManagedObject *)object markupParser:(BoardMarkupParser *)parser {
+    @throw [NSException exceptionWithName:@"Abstract method call" reason:@"populate:markupParser: is abstract" userInfo:nil];
 }
 
+- (void) setupAttachmentOffsetFor:(CGSize) parentSize {
+    @throw [NSException exceptionWithName:@"Abstract method call" reason:@"setupAttachmentOffsetFor: is abstract" userInfo:nil];
+}
 
 - (NSInteger) positionOfAttachmentView:(UIView *) view {
     for (int i = 0; i < [self.attachmentsControllers count]; i++) {
@@ -45,7 +48,6 @@
 
     NSArray *attachments = [object valueForKey:@"attachments"];
     self.attachmentsCount = [attachments count];
-    self.dynamicTextView.text = [object valueForKey:@"message"];
 
     if (self.attachmentsCount) {
         self.firstAttachment = [[AttachmentViewController alloc] initWithAttachment:attachments[0]];
@@ -57,14 +59,20 @@
         self.dynamicStackViewScrollWidthConstraint.constant = 0.f;
         self.dynamicStackView.viewWidth = 0.f;
     }
+
+    self.dynamicTextView.text = self.dynamicText;
 }
 
 
 - (CGFloat) calculatedHeight:(CGSize) parentSize {
-    // dynamic text view height
     CGFloat width = parentSize.width - self.dynamicTextViewCombinedOffsets - self.dynamicStackViewScrollWidthConstraint.constant;
-    CGSize size = [self.dynamicTextView sizeThatFits:CGSizeMake(width, FLT_MAX)];
-    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + size.height;
+
+    // dynamic text height
+    CGSize size = [self.dynamicText boundingRectWithSize:CGSizeMake(width - 18, MAXFLOAT)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:nil
+                                                 context:nil].size;
+    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 12 + size.height;
 
     // dynamic stack view height
     CGFloat attachmentExpandHeight = 0;
@@ -72,7 +80,6 @@
         attachmentExpandHeight = self.frame.size.height -
         self.dynamicStackView.frame.size.height +
         [self.firstAttachment calculatedHeight:CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT)];
-
     if (self.attachmentsCount > 1)
         attachmentExpandHeight += 20.f;
 

@@ -14,9 +14,29 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
 
-    [self.api requestThreadsFrom:@"b" page:@0 stateCallback:progressCallback];
+    if (!self.board) {
+        self.board = @"b";
+    }
 }
 
+- (IBAction)nextPageAction:(id)sender {
+    [self.api requestThreadsFrom:self.board page:[NSNumber numberWithInteger:++self.page] stateCallback:progressCallback];
+    [self updateNavigationItem];
+}
+
+- (void) setBoard:(NSString *)board {
+    _board = board;
+    self.page = 0;
+
+    [self reset];
+
+    [self.api requestThreadsFrom:self.board page:@0 stateCallback:progressCallback];
+    [self updateNavigationItem];
+}
+
+- (void) updateNavigationItem {
+    self.navigationItem.title = [NSString stringWithFormat:@"/%@/%lu", self.board, (unsigned long) self.page];
+}
 
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [super prepareCell:cell];
@@ -35,7 +55,13 @@
         ThreadViewController *controller = segue.destinationViewController;
 
         controller.identifier = sender;
-        controller.board = @"b";
+        controller.board = self.board;
+    }
+
+    if ([segue.identifier isEqualToString:@"2boardSwitcherController"]) {
+        BoardSwitcherViewController *controller = segue.destinationViewController;
+
+        controller.controller = self;
     }
 }
 

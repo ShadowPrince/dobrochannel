@@ -34,13 +34,14 @@
                              (int) size.width,
                              (int) size.height];
 
-    [[BoardAPI api] requestImage:[self.attachment valueForKey:@"thumb_src"]
-                   stateCallback:^(NSUInteger processed, NSUInteger total) {
+    if ([self.attachment valueForKey:@"thumb_src"])
+        [[BoardAPI api] requestImage:[self.attachment valueForKey:@"thumb_src"]
+                       stateCallback:^(long long processed, long long total) {
 
-                   } finishCallback:^(UIImage *i) {
-                       self.imageView.image = i;
-                       [self.loadingIndicator stopAnimating];
-                   }];
+                       } finishCallback:^(UIImage *i) {
+                           self.imageView.image = i;
+                           [self.loadingIndicator stopAnimating];
+                       }];
 }
 
 - (void) setImageTouchTarget:(id) target

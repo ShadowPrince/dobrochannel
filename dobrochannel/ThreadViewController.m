@@ -14,8 +14,6 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-
-    NSLog(@"request %@/%@", self.board, self.identifier);
     [self.api requestThread:self.identifier from:self.board stateCallback:progressCallback];
 }
 

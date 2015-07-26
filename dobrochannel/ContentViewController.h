@@ -10,10 +10,11 @@
 #import <CoreData/CoreData.h>
 
 #import "BoardAPI.h"
+#import "BoardManagedObjectContext.h"
+#import "BoardMarkupParser.h"
+
 #import "ThreadTableViewCell.h"
 #import "PostTableViewCell.h"
-#import "BoardManagedObjectContext.h"
-
 #import "ShowAttachmentsViewController.h"
 
 @interface ContentViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
@@ -21,6 +22,7 @@
 }
 @property BoardAPI *api;
 
+- (void) reset;
 - (void) prepareCell:(BoardTableViewCell *) cell;
 
 @end

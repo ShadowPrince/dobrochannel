@@ -33,9 +33,15 @@
     NSUInteger startingPoint = [buffer length];
     NSString *chunk = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [buffer appendString:chunk];
+    for (unsigned long i = startingPoint, pi = startingPoint; i < [buffer length]; i++) {
+        if (i > startingPoint + 1)
+            pi++;
 
-    for (int i = startingPoint; i < [buffer length]; i++) {
+        unichar prech = [buffer characterAtIndex:pi];
         unichar ch = [buffer characterAtIndex:i];
+
+        if (prech == '\\')
+            continue;
 
         if (ch == '"')
             quotes = !quotes;
