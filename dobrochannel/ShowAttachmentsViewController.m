@@ -9,110 +9,123 @@
 #import "ShowAttachmentsViewController.h"
 
 @interface ShowAttachmentsViewController ()
-@property NSData *imageData;
-@property NSMutableDictionary<NSNumber *, NSURLSessionTask *> *downloadingTasks;
-@property NSMutableDictionary<NSNumber *, UIImage *> *imagesLoaded;
+@property NSMutableArray *zoomingImages;
+@property NSInteger page, prev_page;
 //---
-@property (weak, nonatomic) IBOutlet UIImageView *currentImageView;
-@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @end @implementation ShowAttachmentsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.zoomingImages = [NSMutableArray new];
+    for (int i = 0; i < self.attachments.count; i++)
+        [self.zoomingImages addObject:[NSNull null]];
+
+    self.page = 0;
+    [self centerAtIndex:self.index];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.currentImageView.image = nil;
-    self.downloadingTasks = [NSMutableDictionary new];
-    self.imagesLoaded = [NSMutableDictionary new];
-
-    [self loadImageAtIndex];
+    [super viewWillAppear:animated];
+    [self setupContentSize];
+    [self loadCurrentPage];
 }
 
-- (void) viewDidDisappear:(BOOL)animated {
-    [self.downloadingTasks enumerateKeysAndObjectsUsingBlock:^(NSNumber * __nonnull key, NSURLSessionTask * __nonnull obj, BOOL * __nonnull stop) {
-        [obj cancel];
-    }];
+- (void) viewWillLayoutSubviews {
+    // during orientation change scrollview getting scroll action, so self.page's
+    // getting wrong number
+    self.prev_page = self.page;
+}
 
-    self.downloadingTasks = [NSMutableDictionary new];
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    [self setupContentSize];
+    int i = 0;
+    for (ZoomingImageController *c in self.zoomingImages) {
+        if (c != [NSNull null]) {
+            CGFloat baseOffset = i * [self pageWidth];
+            c.view.frame = CGRectMake(baseOffset,
+                                      0,
+                                      [self pageWidth],
+                                      [self pageHeight]);
+        }
+
+        i++;
+    }
+
+    [self centerAtIndex:self.prev_page];
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
-- (void) loadImageAt:(NSUInteger) pos {
-    [self.progressView setHidden:YES];
-
-    //@TODO: fix sources with [] symbols loading
-    NSManagedObject *attachment = [self.attachments objectAtIndex:pos];
-    if (!self.downloadingTasks[[NSNumber numberWithInteger:pos]]) {
-        NSString *thumb_src = [attachment valueForKey:@"thumb_src"];
-
-        [[BoardAPI api] requestImage:thumb_src
-                       stateCallback:^(long long processed, long long total) {}
-                      finishCallback:^(UIImage *image) {
-                           if (!self.imagesLoaded[[NSNumber numberWithInteger:pos]]) {
-                               self.imagesLoaded[[NSNumber numberWithInteger:pos]] = image;
-
-                               if (self.index == pos)
-                                   self.currentImageView.image = image;
-                           }
-                       }];
-
-
-        NSString *src = [attachment valueForKey:@"src"];
-        NSURLSessionTask *task = [[BoardAPI api] requestImage:src
-                                                stateCallback:^(long long processed, long long total) {
-                                                    if (self.index != pos)
-                                                        return;
-
-                                                    if (processed == total) {
-                                                        [self.progressView setHidden:YES];
-                                                    } else {
-                                                        self.progressView.progress = (CGFloat) processed / (CGFloat) total;
-                                                        [self.progressView setHidden:NO];
-                                                    }
-                                                } finishCallback:^(UIImage *image) {
-                                                    self.imagesLoaded[[NSNumber numberWithInteger:pos]] = image;
-
-                                                    if (self.index == pos)
-                                                        self.currentImageView.image = image;
-                                                }];
-        
-        self.downloadingTasks[[NSNumber numberWithInteger:pos]] = task;
-    } else {
-        self.currentImageView.image = self.imagesLoaded[[NSNumber numberWithInteger:pos]];
-    }
-}
-
-- (void) loadImageAtIndex {
-    if (self.index < 0) {
-        self.index = 0;
-    } else if (self.index >= [self.attachments count]) {
-        self.index = [self.attachments count] - 1;
-    } else {
-        [self loadImageAt:self.index];
-    }
-}
-
-#pragma mark zoom
-
-
-#pragma mark actions
-
 - (IBAction)swipeAway:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)swipeRight:(id)sender {
-    self.index--;
-    [self loadImageAtIndex];
+# pragma mark paging
+
+- (void) scrollViewDidScroll:(nonnull UIScrollView *)scrollView {
+    if (self.isViewLoaded)
+        [self loadCurrentPage];
 }
 
-- (IBAction)swipeLeft:(id)sender {
-    self.index++;
-    [self loadImageAtIndex];
+- (void) loadPage:(NSInteger) page at:(CGFloat) offset {
+    if (page < 0 || page > self.attachments.count - 1)
+        return;
+
+    if (self.zoomingImages[page] == [NSNull null]) {
+        ZoomingImageController *img = [[ZoomingImageController alloc] initWithAttachment:self.attachments[page]
+                                                                                   frame:CGRectMake(offset,
+                                                                                                    0,
+                                                                                                    [self pageWidth],
+                                                                                                    [self pageHeight])];
+
+        [self.scrollView addSubview:img.view];
+        self.zoomingImages[page] = img;
+    }
+}
+
+- (void) loadCurrentPage {
+    self.page = (NSInteger) floor(self.scrollView.contentOffset.x / [self pageWidth]);
+    CGFloat baseOffset = self.page * [self pageWidth];
+
+    [self loadPage:self.page - 1 at:baseOffset - [self pageWidth]];
+    [self loadPage:self.page at:baseOffset];
+    [self loadPage:self.page + 1 at:baseOffset + [self pageWidth]];
+
+    if (self.page >= 0 && self.page < self.attachments.count) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.zoomingImages[self.page] didCenter];
+        }];
+    }
+}
+
+//
+
+- (void) setupContentSize {
+    self.scrollView.contentSize = CGSizeMake([self pageWidth] * self.attachments.count,
+                                             [self pageHeight]);
+}
+
+- (void) centerAtIndex:(NSInteger) index {
+    self.scrollView.contentOffset = CGPointMake(index * [self pageWidth],
+                                                0);
+    self.page = index;
+}
+
+//
+
+- (CGFloat) pageWidth {
+    CGFloat imageWidth = self.view.frame.size.width;
+    return imageWidth;
+}
+
+- (CGFloat) pageHeight {
+    return self.view.frame.size.height;
 }
 
 @end

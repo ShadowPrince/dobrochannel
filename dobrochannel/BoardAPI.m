@@ -44,7 +44,7 @@
     NSArray *sortedNames = @[@"b",        @"u" ,        @"dt" ,
         @"vg" ,        @"r" ,        @"cr" ,        @"lor",        @"mu" ,        @"oe" ,
         @"s",
-                             @"w",        @"hr"];
+                             @"w",        @"hr", @"mad"];
     NSMutableDictionary *boards = [@{@"b": @[@"Братство", @"Доска обо всем"],
                                      @"u": @[@"Университет", @"Dum docemus, discimus"],
                                      @"dt": @[@"Dates and datings", @"Знакомства, встречи, сходочки", ],
@@ -57,22 +57,14 @@
                                      @"s": @[@"Li/s/p", @"(defboard li/s/p (:documentation \"Программирование\"))", ],
                                      @"w": @[@"Обои", @"Красивые обои для рабочего стола", ],
                                      @"hr": @[@"Высокое разрешение", @"Картинки в высоком разрешении", ],
+                                     @"mad": @[@"Безумие", @"Экспериментальная доска", ],
+
                                      } mutableCopy];
-
-    /*
-    NSArray *nodescription = @[[@"u/ /rf/ /dt/ /r/ /cr/ /lor/ /mu/ /oe/ /s/ /w/ /hr" componentsSeparatedByString:@"/ /"],
-             [@"a/ /ma/ /sw/ /hau/ /azu" componentsSeparatedByString:@"/ /"],
-             [@"tv/ /cp/ /gf/ /bo/ /di/ /vn/ /ve/ /wh/ /fur/ /to/ /bg/ /wn/ /slow/ /mad" componentsSeparatedByString:@"/ /"],
-             [@"d/ /news" componentsSeparatedByString:@"/ /"], ];
-
-
-    for (NSArray *array in nodescription) {
-        for (NSString *board in array)
-            boards[board] = @[board, @""];
-    }*/
-
-
     return @{@"sorted_keys": sortedNames, @"data": boards};
+}
+
+- (NSArray<NSString *> *) ratingsList {
+    return @[@"sfw", @"rated", @"r-15", @"r-18", @"r-18g"];
 }
 
 - (void) requestThreadsFrom:(NSString *) board
@@ -113,12 +105,30 @@
     return task;
 }
 
+- (void) cancelRequest:(NSURLSessionTask *)task {
+    [task removeObserver:self forKeyPath:@"countOfBytesReceived"];
+    [self.progressCallbacks removeObjectForKey:task];
+    [task cancel];
+}
+
 - (void) cancelRequest {
     if (self.currentTask) {
         [self.currentTask removeObserver:self forKeyPath:@"countOfBytesReceived"];
         [self.currentTask cancel];
+        [self.progressCallbacks removeObjectForKey:self.currentTask];
 
         self.currentTask = nil;
+    }
+}
+
+- (BOOL) isRequesting {
+    if (self.currentTask) {
+        return
+        self.currentTask.state == NSURLSessionTaskStateRunning
+        ||
+        self.currentTask.state == NSURLSessionTaskStateCanceling;
+    } else {
+        return NO;
     }
 }
 

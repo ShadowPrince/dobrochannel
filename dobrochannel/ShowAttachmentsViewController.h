@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AttachmentViewController.h"
+#import <CoreData/CoreData.h>
+
+#import "ZoomingImageController.h"
+#import "BoardAPI.h"
+#import "UserDefaults.h"
 
 @interface ShowAttachmentsViewController : UIViewController <UIScrollViewDelegate>
 @property NSMutableArray<NSManagedObject *> *attachments;

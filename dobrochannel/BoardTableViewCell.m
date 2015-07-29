@@ -20,45 +20,38 @@
     @throw [NSException exceptionWithName:@"Abstract method call" reason:@"setupAttachmentOffsetFor: is abstract" userInfo:nil];
 }
 
-- (NSInteger) positionOfAttachmentView:(UIView *) view {
-    for (int i = 0; i < [self.attachmentsControllers count]; i++) {
-        AttachmentViewController *controller = self.attachmentsControllers[i];
+- (void) awakeFromNib {
+    self.dynamicTableView.delegate = self.dynamicTableDelegate;
+    self.dynamicTableView.dataSource = self.dynamicTableDelegate;
+    [self.dynamicTableView registerNib:[UINib nibWithNibName:@"AttachmentTableViewCell" bundle:nil]
+                forCellReuseIdentifier:@"Cell"];
 
-        if (controller.view == view)
-            return i;
-    }
-
-    return -1;
+    [super awakeFromNib];
 }
 
 # pragma mark action handling
 
 - (void) setAttachmentTouchTarget:(id) target
                            action:(SEL) action {
-    for (AttachmentViewController *controller in self.attachmentsControllers) {
-        [controller setImageTouchTarget:target action:action];
-    }
+    self.dynamicTableDelegate.target = target;
+    self.dynamicTableDelegate.action = action;
 }
 
 # pragma mark height calculation
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object {
-    [self.dynamicStackView removeAllControllers];
-    self.dynamicStackView.translatesAutoresizingMaskIntoConstraints = NO;
-
     NSArray *attachments = [object valueForKey:@"attachments"];
     self.attachmentsCount = [attachments count];
 
     if (self.attachmentsCount) {
-        self.firstAttachment = [[AttachmentViewController alloc] initWithAttachment:attachments[0]];
-
         self.dynamicStackViewScrollWidthConstraint.constant = self.dynamicLeftOffset;
-        self.dynamicStackView.viewWidth = self.dynamicLeftOffset;
     } else {
-        self.firstAttachment = nil;
         self.dynamicStackViewScrollWidthConstraint.constant = 0.f;
-        self.dynamicStackView.viewWidth = 0.f;
     }
+
+    self.dynamicTableDelegate.objects = attachments;
+    self.dynamicTableDelegate.parentSize = CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT);
+    [self.dynamicTableView reloadData];
 
     self.dynamicTextView.text = self.dynamicText;
 }
@@ -75,14 +68,10 @@
     CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 12 + size.height;
 
     // dynamic stack view height
-    CGFloat attachmentExpandHeight = 0;
-    if (self.attachmentsCount)
-        attachmentExpandHeight = self.frame.size.height -
-        self.dynamicStackView.frame.size.height +
-        [self.firstAttachment calculatedHeight:CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT)];
-    if (self.attachmentsCount > 1)
-        attachmentExpandHeight += 20.f;
-
+    CGFloat attachmentExpandHeight = self.frame.size.height -
+    self.dynamicTableView.frame.size.height +
+    [self.dynamicTableDelegate calculatedWidth];
+    
     return MAX(messageExpandHeight, attachmentExpandHeight);
 }
 

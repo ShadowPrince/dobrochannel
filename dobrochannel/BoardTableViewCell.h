@@ -11,24 +11,21 @@
 
 #import "BoardMarkupParser.h"
 
-#import "AttachmentViewController.h"
-#import "AutoLayoutStackView.h"
+#import "AttachmentsTableDelegate.h"
 
 @interface BoardTableViewCell : UITableViewCell
-@property NSMutableArray<AttachmentViewController *> *attachmentsControllers;
-@property AttachmentViewController *firstAttachment;
 @property NSUInteger attachmentsCount;
 
 @property (weak) NSString *dynamicText;
 @property (weak) UITextView *dynamicTextView;
-@property (weak) AutoLayoutStackView *dynamicStackView;
+@property (weak) UITableView *dynamicTableView;
+@property AttachmentsTableDelegate *dynamicTableDelegate;
 @property (weak) NSLayoutConstraint *dynamicStackViewScrollWidthConstraint;
 @property (assign) CGFloat dynamicTextViewCombinedOffsets;
 @property (assign) CGFloat dynamicLeftOffset;
 
 - (void) setAttachmentTouchTarget:(id) target
                            action:(SEL) action;
-- (NSInteger) positionOfAttachmentView:(UIView *) view;
 
 - (void) populate:(NSManagedObject *) object
      markupParser:(BoardMarkupParser *) parser;

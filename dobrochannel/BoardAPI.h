@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 
 #import "BoardRequestParser.h"
-#import "BoardImageDownloadDelegate.h"
 
 typedef void (^BoardAPIProgressCallback) (long long, long long);
 typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
@@ -28,8 +27,11 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 + (instancetype) api;
 
 - (NSDictionary<NSString *, NSArray<NSString *>*> *) boardsList;
+- (NSArray<NSString *> *) ratingsList;
 
+- (void) cancelRequest:(NSURLSessionTask *) task;
 - (void) cancelRequest;
+- (BOOL) isRequesting;
 
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page

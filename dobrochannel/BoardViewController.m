@@ -24,6 +24,13 @@
     [self updateNavigationItem];
 }
 
+- (void) didScrollToBottom {
+    [self.api requestThreadsFrom:self.board page:[NSNumber numberWithInteger:++self.page] stateCallback:progressCallback];
+    [self updateNavigationItem];
+
+    [super didScrollToBottom];
+}
+
 - (void) setBoard:(NSString *)board {
     _board = board;
     self.page = 0;

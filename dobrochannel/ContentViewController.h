@@ -24,5 +24,6 @@
 
 - (void) reset;
 - (void) prepareCell:(BoardTableViewCell *) cell;
+- (void) didScrollToBottom;
 
 @end

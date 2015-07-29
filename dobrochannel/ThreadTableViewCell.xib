@@ -45,58 +45,48 @@
                         </constraints>
                         <state key="normal" title="&gt;"/>
                     </button>
-                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sl2-39-dBl">
-                        <rect key="frame" x="8" y="43" width="100" height="129"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZn-0h-ljd" customClass="AutoLayoutStackView">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="129"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="100" id="4vE-ZA-XBc"/>
-                            <constraint firstItem="VZn-0h-ljd" firstAttribute="top" secondItem="Sl2-39-dBl" secondAttribute="top" id="ATY-Lz-rIe"/>
-                            <constraint firstAttribute="bottom" secondItem="VZn-0h-ljd" secondAttribute="bottom" id="Mwf-vW-XV8"/>
-                        </constraints>
-                    </scrollView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71V-CG-zwc">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71V-CG-zwc">
                         <rect key="frame" x="108" y="24" width="577" height="147"/>
                         <animations/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="16" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="E8F-hp-ipo">
+                        <rect key="frame" x="8" y="32" width="92" height="139.5"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="92" id="7T0-hu-xDl"/>
+                        </constraints>
+                    </tableView>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="71V-CG-zwc" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="0t6-qj-gx9"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="VZn-0h-ljd" secondAttribute="leading" id="3Wh-xm-ULD"/>
-                    <constraint firstItem="71V-CG-zwc" firstAttribute="leading" secondItem="Sl2-39-dBl" secondAttribute="trailing" id="AsZ-N6-Tee"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Sl2-39-dBl" secondAttribute="bottom" constant="-8" id="Fym-2a-Z8V"/>
+                    <constraint firstItem="E8F-hp-ipo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="AUS-qs-UWa"/>
                     <constraint firstItem="xO9-fh-1LI" firstAttribute="leading" secondItem="0Yd-IG-Mvw" secondAttribute="trailing" constant="8" id="GuT-0w-zBs"/>
                     <constraint firstItem="xO9-fh-1LI" firstAttribute="baseline" secondItem="0Yd-IG-Mvw" secondAttribute="baseline" id="MwJ-o2-Vcl"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="E8F-hp-ipo" secondAttribute="bottom" constant="-8" id="NuQ-dn-Z0S"/>
                     <constraint firstItem="0Yd-IG-Mvw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="RRX-e8-4EA"/>
                     <constraint firstAttribute="bottomMargin" secondItem="71V-CG-zwc" secondAttribute="bottom" constant="-8" id="Rnz-WH-mV4"/>
+                    <constraint firstItem="E8F-hp-ipo" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" id="Tu9-fc-jw0"/>
+                    <constraint firstItem="71V-CG-zwc" firstAttribute="leading" secondItem="E8F-hp-ipo" secondAttribute="trailing" id="XIc-em-nuW"/>
                     <constraint firstItem="xO9-fh-1LI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ZM3-fF-2Vu"/>
                     <constraint firstItem="71V-CG-zwc" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" id="bec-qi-44v"/>
                     <constraint firstAttribute="trailingMargin" secondItem="xO9-fh-1LI" secondAttribute="trailing" constant="28" id="c41-OM-FGl"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="f2o-Yy-p7y"/>
-                    <constraint firstItem="Sl2-39-dBl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="hE3-7I-3iw"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="k1F-F9-oQU"/>
-                    <constraint firstItem="Sl2-39-dBl" firstAttribute="top" secondItem="oLb-8Q-2Fn" secondAttribute="bottom" id="kaM-Qz-fRa"/>
                     <constraint firstItem="oLb-8Q-2Fn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="va6-5P-2SZ"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
-                <outlet property="attachmentsView" destination="VZn-0h-ljd" id="PHE-ov-3T1"/>
+                <outlet property="attachmentsView" destination="E8F-hp-ipo" id="cAs-Jm-9gy"/>
                 <outlet property="goToThreadButton" destination="oLb-8Q-2Fn" id="Zre-S1-XzM"/>
                 <outlet property="idLabel" destination="xO9-fh-1LI" id="4k5-pq-6so"/>
                 <outlet property="messageTextView" destination="71V-CG-zwc" id="ipc-M4-XWY"/>
-                <outlet property="scrollView" destination="Sl2-39-dBl" id="AC4-ZN-xu9"/>
-                <outlet property="scrollViewWidthConstraint" destination="4vE-ZA-XBc" id="FuM-oE-uF8"/>
+                <outlet property="scrollViewWidthConstraint" destination="7T0-hu-xDl" id="MWX-xR-qFE"/>
                 <outlet property="titleLabel" destination="0Yd-IG-Mvw" id="v1s-Gy-6Kp"/>
             </connections>
             <point key="canvasLocation" x="601.5" y="476"/>

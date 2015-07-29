@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
 
-@interface AttachmentsTableDelegate : NSObject
+#import "UserDefaults.h"
+#import "BoardAPI.h"
+
+@interface AttachmentsTableDelegate : NSObject <UITableViewDataSource, UITableViewDelegate>
+@property NSArray *objects;
+@property CGSize parentSize;
+@property id target;
+@property SEL action;
+
+- (CGFloat) calculatedWidth;
 
 @end

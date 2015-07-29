@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BoardMarkupParser.h"
 
-#import "AutoLayoutStackView.h"
-#import "AttachmentViewController.h"
 #import "BoardTableViewCell.h"
 
 @interface ThreadTableViewCell : BoardTableViewCell

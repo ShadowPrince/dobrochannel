@@ -15,6 +15,9 @@
 		F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */; };
 		F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F37149E01B5BDB5A00582DE4 /* BoardAPI.m */; };
 		F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */; };
+		F37CA02A1B68E55400A885C7 /* ZoomingImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37CA0281B68E55400A885C7 /* ZoomingImageController.m */; };
+		F37CA02B1B68E55400A885C7 /* ZoomingImageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */; };
+		F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F38CAC481B68496E00A2EF98 /* UserDefaults.m */; };
 		F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
 		F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
 		F39369361B5E86290068A85F /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369351B5E86290068A85F /* BoardViewController.m */; };
@@ -27,10 +30,8 @@
 		F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937BE1B5E55D700721CD8 /* BoardTableViewCell.m */; };
 		F3B937C51B5E64F500721CD8 /* Board.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C31B5E64F500721CD8 /* Board.xcdatamodeld */; };
 		F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */; };
+		F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BD076F1B683D79000946B5 /* SettingsViewController.m */; };
 		F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */; };
-		F3C59D441B5ECFBD0053CA72 /* AttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D421B5ECFBD0053CA72 /* AttachmentViewController.m */; };
-		F3C59D451B5ECFBD0053CA72 /* AttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C59D431B5ECFBD0053CA72 /* AttachmentViewController.xib */; };
-		F3C59D481B5ED4210053CA72 /* BoardImageDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D471B5ED4210053CA72 /* BoardImageDownloadDelegate.m */; };
 		F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,11 @@
 		F37149E01B5BDB5A00582DE4 /* BoardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardAPI.m; sourceTree = "<group>"; };
 		F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentsTableDelegate.h; sourceTree = "<group>"; };
 		F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentsTableDelegate.m; sourceTree = "<group>"; };
+		F37CA0271B68E55400A885C7 /* ZoomingImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomingImageController.h; sourceTree = "<group>"; };
+		F37CA0281B68E55400A885C7 /* ZoomingImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomingImageController.m; sourceTree = "<group>"; };
+		F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZoomingImageController.xib; sourceTree = "<group>"; };
+		F38CAC471B68496E00A2EF98 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
+		F38CAC481B68496E00A2EF98 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardSwitcherViewController.h; sourceTree = "<group>"; };
 		F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardSwitcherViewController.m; sourceTree = "<group>"; };
 		F39369311B5E839F0068A85F /* ThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadViewController.h; sourceTree = "<group>"; };
@@ -70,13 +76,10 @@
 		F3B937C41B5E64F500721CD8 /* Board.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Board.xcdatamodel; sourceTree = "<group>"; };
 		F3B937C61B5E6A7100721CD8 /* BoardManagedObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardManagedObjectContext.h; sourceTree = "<group>"; };
 		F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardManagedObjectContext.m; sourceTree = "<group>"; };
+		F3BD076E1B683D79000946B5 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		F3BD076F1B683D79000946B5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		F3C59D3E1B5E9CFC0053CA72 /* BoardRequestParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardRequestParser.h; sourceTree = "<group>"; };
 		F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardRequestParser.m; sourceTree = "<group>"; };
-		F3C59D411B5ECFBD0053CA72 /* AttachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentViewController.h; sourceTree = "<group>"; };
-		F3C59D421B5ECFBD0053CA72 /* AttachmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentViewController.m; sourceTree = "<group>"; };
-		F3C59D431B5ECFBD0053CA72 /* AttachmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentViewController.xib; sourceTree = "<group>"; };
-		F3C59D461B5ED4210053CA72 /* BoardImageDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardImageDownloadDelegate.h; sourceTree = "<group>"; };
-		F3C59D471B5ED4210053CA72 /* BoardImageDownloadDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardImageDownloadDelegate.m; sourceTree = "<group>"; };
 		F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAttachmentsViewController.h; sourceTree = "<group>"; };
 		F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAttachmentsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +148,7 @@
 			children = (
 				F33D940C1B5BD8E7000AA303 /* Main.storyboard */,
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
+				F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -159,8 +163,6 @@
 				F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */,
 				F3C59D3E1B5E9CFC0053CA72 /* BoardRequestParser.h */,
 				F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */,
-				F3C59D461B5ED4210053CA72 /* BoardImageDownloadDelegate.h */,
-				F3C59D471B5ED4210053CA72 /* BoardImageDownloadDelegate.m */,
 				F39CACB51B60FFEE003BEA68 /* BoardMarkupParser.h */,
 				F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */,
 			);
@@ -170,17 +172,21 @@
 		F39CBEA41B5D70F50049DB45 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F3B937BB1B5DAB0100721CD8 /* TableCells */,
 				F33D941B1B5BD9C8000AA303 /* ContentViewController.h */,
 				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
 				F39369311B5E839F0068A85F /* ThreadViewController.h */,
 				F39369321B5E839F0068A85F /* ThreadViewController.m */,
 				F39369341B5E86290068A85F /* BoardViewController.h */,
 				F39369351B5E86290068A85F /* BoardViewController.m */,
-				F3B937BB1B5DAB0100721CD8 /* TableCells */,
 				F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */,
 				F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */,
 				F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */,
 				F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */,
+				F37CA0271B68E55400A885C7 /* ZoomingImageController.h */,
+				F37CA0281B68E55400A885C7 /* ZoomingImageController.m */,
+				F3BD076E1B683D79000946B5 /* SettingsViewController.h */,
+				F3BD076F1B683D79000946B5 /* SettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +196,8 @@
 			children = (
 				F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */,
 				F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */,
+				F38CAC471B68496E00A2EF98 /* UserDefaults.h */,
+				F38CAC481B68496E00A2EF98 /* UserDefaults.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -198,8 +206,6 @@
 			isa = PBXGroup;
 			children = (
 				F3B937BC1B5DAB0A00721CD8 /* Views */,
-				F3C59D411B5ECFBD0053CA72 /* AttachmentViewController.h */,
-				F3C59D421B5ECFBD0053CA72 /* AttachmentViewController.m */,
 				F3B937BD1B5E55D700721CD8 /* BoardTableViewCell.h */,
 				F3B937BE1B5E55D700721CD8 /* BoardTableViewCell.m */,
 				F3B937B11B5DAAD300721CD8 /* ThreadTableViewCell.h */,
@@ -215,7 +221,6 @@
 		F3B937BC1B5DAB0A00721CD8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3C59D431B5ECFBD0053CA72 /* AttachmentViewController.xib */,
 				F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */,
 				F3B937B81B5DAAFA00721CD8 /* PostTableViewCell.xib */,
 			);
@@ -283,9 +288,9 @@
 				F33D94101B5BD8E7000AA303 /* Assets.xcassets in Resources */,
 				F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */,
 				F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */,
+				F37CA02B1B68E55400A885C7 /* ZoomingImageController.xib in Resources */,
 				F3B937BA1B5DAAFA00721CD8 /* PostTableViewCell.xib in Resources */,
 				F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */,
-				F3C59D451B5ECFBD0053CA72 /* AttachmentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +302,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3B937C51B5E64F500721CD8 /* Board.xcdatamodeld in Sources */,
+				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
+				F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */,
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,
 				F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */,
@@ -307,12 +314,11 @@
 				F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */,
 				F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */,
 				F33D94051B5BD8E7000AA303 /* main.m in Sources */,
+				F37CA02A1B68E55400A885C7 /* ZoomingImageController.m in Sources */,
 				F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */,
 				F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */,
-				F3C59D481B5ED4210053CA72 /* BoardImageDownloadDelegate.m in Sources */,
 				F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */,
 				F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */,
-				F3C59D441B5ECFBD0053CA72 /* AttachmentViewController.m in Sources */,
 				F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */,
 				F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */,
 			);

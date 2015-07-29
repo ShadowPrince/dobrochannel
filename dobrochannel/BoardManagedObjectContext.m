@@ -52,9 +52,13 @@
     [object setValue:post[@"date"] forKey:@"date"];
     [object setValue:post[@"op"] forKey:@"is_op"];
 
+    if ([post[@"display_id"] isEqualToNumber:[NSNumber numberWithInt:68234]])
+        NSLog(@"FUCK YOU\n\n\n");
     NSMutableArray *postAttachments = [NSMutableArray new];
     for (NSDictionary *attachData in post[@"files"]) {
         NSManagedObject *attachment;
+        NSInteger rating_int = -1;
+
         if ([attachData[@"type"] isEqualToString:@"image"]) {
             attachment = [NSEntityDescription insertNewObjectForEntityForName:@"Image"
                                                        inManagedObjectContext:self];
@@ -73,9 +77,16 @@
                           forKey:@"size"];
             [attachment setValue:[NSValue valueWithCGSize:thumb_size]
                           forKey:@"thumb_size"];
+
+            NSArray *ratingsList = [[BoardAPI api] ratingsList];
+
+            if ([ratingsList containsObject:attachData[@"rating"]])
+                rating_int = [ratingsList indexOfObject:attachData[@"rating"]];
+            [attachment setValue:[NSNumber numberWithInt:rating_int]
+                          forKey:@"rating"];
         }
 
-        if (attachment) {
+        if (attachment && rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
             [attachment setValue:attachData[@"src"] forKey:@"src"];
             [attachment setValue:object forKey:@"post"];
 

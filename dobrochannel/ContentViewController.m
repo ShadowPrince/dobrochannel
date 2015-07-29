@@ -73,6 +73,10 @@
                                                object:self.context];
 }
 
+- (void) didScrollToBottom {
+
+}
+
 - (UIView *) superviewIn:(UIView *) view atPosition:(NSUInteger) pos {
     for (; pos != 0; pos--)
         view = view.superview;
@@ -82,33 +86,27 @@
 
 # pragma mark actions
 
+- (void) prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender {
+    [super prepareForSegue:segue sender:sender];
+
+    if ([segue.identifier isEqualToString:@"2showAttachmentsController"]) {
+        ShowAttachmentsViewController *controller = segue.destinationViewController;
+        controller.attachments = sender[0];
+        controller.index = ((NSNumber *) sender[1]).integerValue;
+    }
+}
+
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
     [self performSegueWithIdentifier:@"2threadController" sender:cell.identifier];
 }
 
-- (IBAction)attachmentTouch:(UIView *)sender {
-    BoardTableViewCell *cell = (BoardTableViewCell *) [self superviewIn:sender atPosition:5];
-    UIView *imageView = [self superviewIn:sender atPosition:1];
-
-    [self performSegueWithIdentifier:@"2showAttachmentsController" sender:@[cell.attachmentsControllers,
-                                                                            [NSNumber numberWithInteger:[cell positionOfAttachmentView:imageView]]]];
-}
-
-- (void) prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender {
-    [super prepareForSegue:segue sender:sender];
-
-    if ([segue.identifier isEqualToString:@"2showAttachmentsController"]) {
-        ShowAttachmentsViewController *controller = segue.destinationViewController;
-
-        NSMutableArray<NSManagedObject *> *attachments = [NSMutableArray new];
-        for (AttachmentViewController *attachmentController in sender[0])
-            [attachments addObject:attachmentController.attachment];
-
-        controller.attachments = attachments;
-        controller.index = ((NSNumber *) sender[1]).integerValue;
-    }
+- (IBAction)attachmentTouch:(NSArray *)sender {
+    NSNumber *index = [sender lastObject];
+    NSArray *attachments = [sender subarrayWithRange:NSMakeRange(0, [sender count] - 1)];
+    [self performSegueWithIdentifier:@"2showAttachmentsController" sender:@[attachments,
+                                                                            index]];
 }
 
 - (IBAction)nextThreadGesture:(id)sender {
@@ -222,6 +220,11 @@
     [cell setupAttachmentOffsetFor:tableView.frame.size];
     [cell populate:entry markupParser:self.markupParser];
     [self prepareCell:cell];
+
+    if (![self.api isRequesting] && indexPath.row == [self.threads count] - 1) {
+        [self didScrollToBottom];
+    }
+
     return cell;
 }
 
