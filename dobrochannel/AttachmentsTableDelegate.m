@@ -49,13 +49,24 @@
                            self.parentSize.width,
                            [self attachmentHeight:attachment]);
 
-    CGSize size = ((NSValue *) [attachment valueForKey:@"size"]).CGSizeValue;
+    //@TODO: move view code somewhere
+
+    NSString *type = [attachment valueForKey:@"type"];
     NSNumber *weight = [attachment valueForKey:@"weight"];
 
-    sl.text = [NSString stringWithFormat:@"%@, %dx%d",
-                             [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
-                             (int) size.width,
-                             (int) size.height];
+    if ([type isEqualToString:@"image"]) {
+        CGSize size = ((NSValue *) [attachment valueForKey:@"size"]).CGSizeValue;
+
+        sl.text = [NSString stringWithFormat:@"%@, %dx%d",
+                   [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
+                   (int) size.width,
+                   (int) size.height];
+    } else {
+        sl.text = [NSString stringWithFormat:@"%@, %@",
+                   [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
+                   type];
+    }
+
     iv.image = nil;
     aiv.hidden = NO;
     if ([UserDefaults contentReaderLoadThumbnails])
@@ -63,7 +74,9 @@
 
     NSString *src = [attachment valueForKey:@"thumb_src"];
 
-    if ([UserDefaults contentReaderLoadFull] && weight.integerValue <= [UserDefaults contentReaderLoadFullMaxSize] * 1024) {
+    BOOL weight_lesser_limit = weight.integerValue <= [UserDefaults contentReaderLoadFullMaxSize] * 1024;
+    BOOL is_image = [type isEqualToString:@"image"];
+    if (is_image && weight_lesser_limit && [UserDefaults contentReaderLoadFull]) {
         src = [attachment valueForKey:@"src"];
     }
 
@@ -91,7 +104,7 @@
 
 - (CGFloat) calculatedWidth {
     CGFloat max_height = 0.f;
-    CGFloat margin = [self.objects count] > 1 ? 15.f : 0.f;
+    CGFloat margin = [self.objects count] > 1 ? 15.f : 2.f; // 2.f is spacing in tableView:heightForRowAtIndexPath:
 
     for (NSManagedObject *attachment in self.objects) {
         CGFloat height = [self attachmentHeight:attachment];

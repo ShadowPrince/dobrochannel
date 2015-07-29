@@ -52,39 +52,39 @@
     [object setValue:post[@"date"] forKey:@"date"];
     [object setValue:post[@"op"] forKey:@"is_op"];
 
-    if ([post[@"display_id"] isEqualToNumber:[NSNumber numberWithInt:68234]])
-        NSLog(@"FUCK YOU\n\n\n");
     NSMutableArray *postAttachments = [NSMutableArray new];
     for (NSDictionary *attachData in post[@"files"]) {
         NSManagedObject *attachment;
         NSInteger rating_int = -1;
 
+        attachment = [NSEntityDescription insertNewObjectForEntityForName:@"Attachment"
+                                                   inManagedObjectContext:self];
+
+        [attachment setValue:attachData[@"type"] forKey:@"type"];
+        [attachment setValue:attachData[@"size"] forKey:@"weight"];
+        [attachment setValue:attachData[@"thumb"] forKey:@"thumb_src"];
+
+
+        CGSize thumb_size = CGSizeMake(((NSNumber *) attachData[@"thumb_width"]).integerValue,
+                                       ((NSNumber *) attachData[@"thumb_height"]).integerValue);
+
+        [attachment setValue:[NSValue valueWithCGSize:thumb_size]
+                      forKey:@"thumb_size"];
+
         if ([attachData[@"type"] isEqualToString:@"image"]) {
-            attachment = [NSEntityDescription insertNewObjectForEntityForName:@"Image"
-                                                       inManagedObjectContext:self];
-
-            [attachment setValue:attachData[@"size"] forKey:@"weight"];
-            [attachment setValue:attachData[@"thumb"] forKey:@"thumb_src"];
-
-
-            CGSize thumb_size = CGSizeMake(((NSNumber *) attachData[@"thumb_width"]).integerValue,
-                                           ((NSNumber *) attachData[@"thumb_height"]).integerValue);
-
             CGSize meta_size = CGSizeMake(((NSNumber *) attachData[@"metadata"][@"width"]).integerValue,
-                                           ((NSNumber *) attachData[@"metadata"][@"height"]).integerValue);
+                                          ((NSNumber *) attachData[@"metadata"][@"height"]).integerValue);
 
             [attachment setValue:[NSValue valueWithCGSize:meta_size]
                           forKey:@"size"];
-            [attachment setValue:[NSValue valueWithCGSize:thumb_size]
-                          forKey:@"thumb_size"];
-
-            NSArray *ratingsList = [[BoardAPI api] ratingsList];
-
-            if ([ratingsList containsObject:attachData[@"rating"]])
-                rating_int = [ratingsList indexOfObject:attachData[@"rating"]];
-            [attachment setValue:[NSNumber numberWithInt:rating_int]
-                          forKey:@"rating"];
         }
+
+        NSArray *ratingsList = [[BoardAPI api] ratingsList];
+
+        if ([ratingsList containsObject:attachData[@"rating"]])
+            rating_int = [ratingsList indexOfObject:attachData[@"rating"]];
+        [attachment setValue:[NSNumber numberWithInt:rating_int]
+                      forKey:@"rating"];
 
         if (attachment && rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
             [attachment setValue:attachData[@"src"] forKey:@"src"];

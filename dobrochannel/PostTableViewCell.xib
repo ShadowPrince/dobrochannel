@@ -36,15 +36,15 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-5k-38I">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-5k-38I">
                         <rect key="frame" x="98" y="21" width="341" height="154"/>
                         <animations/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5CI-Zp-LTe">
-                        <rect key="frame" x="8" y="29" width="82" height="146.5"/>
+                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5CI-Zp-LTe">
+                        <rect key="frame" x="16" y="21" width="82" height="154.5"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -57,6 +57,7 @@
                     <constraint firstItem="e6t-5k-38I" firstAttribute="top" secondItem="hBP-TK-h5d" secondAttribute="bottom" id="4Vj-00-WsI"/>
                     <constraint firstItem="5CI-Zp-LTe" firstAttribute="top" secondItem="4dk-OT-448" secondAttribute="bottom" id="4l2-YB-79B"/>
                     <constraint firstItem="5CI-Zp-LTe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="7ym-sN-Fz5"/>
+                    <constraint firstItem="5CI-Zp-LTe" firstAttribute="leading" secondItem="4dk-OT-448" secondAttribute="leading" id="CCo-Tp-1r2"/>
                     <constraint firstItem="4dk-OT-448" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="FUE-ka-V5L"/>
                     <constraint firstAttribute="bottomMargin" secondItem="5CI-Zp-LTe" secondAttribute="bottom" constant="-8" id="MI3-C4-P2N"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="RzR-rT-xEd"/>
@@ -68,6 +69,11 @@
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="baseline" secondItem="4dk-OT-448" secondAttribute="baseline" id="rAa-j8-qx8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="e6t-5k-38I" secondAttribute="trailing" constant="-8" id="uJU-is-OlD"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="7ym-sN-Fz5"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>

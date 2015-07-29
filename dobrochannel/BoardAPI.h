@@ -28,6 +28,7 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 
 - (NSDictionary<NSString *, NSArray<NSString *>*> *) boardsList;
 - (NSArray<NSString *> *) ratingsList;
+- (NSURL *) urlFor:(NSString *) relative;
 
 - (void) cancelRequest:(NSURLSessionTask *) task;
 - (void) cancelRequest;
@@ -36,11 +37,9 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page
               stateCallback: (BoardAPIProgressCallback) callback;
-
 - (void) requestThread:(NSNumber *) threadId
                   from:(NSString *) board
          stateCallback: (BoardAPIProgressCallback) callback;
-
 - (NSURLSessionDataTask *) requestImage:(NSString *) path
         stateCallback: (BoardAPIProgressCallback) stateCallback
        finishCallback: (BoardImageDownloadFinishCallback) finishCallback;

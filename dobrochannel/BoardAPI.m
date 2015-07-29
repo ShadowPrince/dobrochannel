@@ -67,6 +67,13 @@
     return @[@"sfw", @"rated", @"r-15", @"r-18", @"r-18g"];
 }
 
+- (NSURL *) urlFor:(NSString *)relative {
+    NSString *fullUrl = [@"http://dobrochan.com/" stringByAppendingString:relative];
+    NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+    return url;
+}
+
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page
               stateCallback: (BoardAPIProgressCallback) callback {
@@ -84,9 +91,7 @@
 - (NSURLSessionDataTask *) requestImage:(NSString *)path
         stateCallback:(BoardAPIProgressCallback)stateCallback
        finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
-    NSString *fullUrl = [@"http://dobrochan.com/" stringByAppendingString:path];
-    NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+    NSURL *url = [self urlFor:path];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *task = [self.imageLoadingSession
                                   dataTaskWithRequest:request
@@ -169,8 +174,7 @@
            stateCallback:(BoardAPIProgressCallback) block {
     [self cancelRequest];
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://dobrochan.com/%@/%@.json", board, page]];
-//    url = [NSURL URLWithString:@"http://localhost/broken.json"];
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/%@.json", board, page]];
 
     BoardRequestParser *parser = [[BoardRequestParser alloc] initWithDelegate:self];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -193,7 +197,7 @@
       stateCallback:(BoardAPIProgressCallback) block {
     [self cancelRequest];
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://dobrochan.com/%@/res/%@.json", board, threadId]];
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.json", board, threadId]];
 //    url = [NSURL URLWithString:@"http://192.168.12.177/3814061.json"];
 
     BoardRequestParser *parser = [[BoardRequestParser alloc] initWithDelegate:self];

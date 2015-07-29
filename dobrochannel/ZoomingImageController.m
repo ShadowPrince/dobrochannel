@@ -28,7 +28,7 @@
     self = [super init];
     self.view.frame = frame;
     self.attachment = attach;
-    self.infoView.alpha = 0.f;
+    self.infoView.alpha = [[self.attachment valueForKey:@"type"] isEqualToString:@"image"] ? 0.f : 1.0f;
     return self;
 }
 
@@ -50,7 +50,7 @@
     self.filenameLabel.text = full_src;
 
     [self request:thumb_src completeWith:^{
-        if ([UserDefaults attachmentsViewerLoadFull] && self.isCentered) {
+        if ([UserDefaults attachmentsViewerLoadFull] && [self shouldLoadFullImage]) {
             self.didLoadedSource = YES;
             [self request:full_src completeWith:nil];
         }
@@ -68,12 +68,16 @@
     if (![UserDefaults attachmentsViewerLoadFull])
         return;
 
-    if (!self.didLoadedSource && !self.task) {
+    if ([self shouldLoadFullImage]) {
         NSString *full_src = [self.attachment valueForKey:@"src"];
         [self request:full_src completeWith:^{
             self.didLoadedSource = YES;
         }];
     }
+}
+
+- (BOOL) shouldLoadFullImage {
+    return !self.didLoadedSource && !self.task && self.isCentered && [[self.attachment valueForKey:@"type"] isEqualToString:@"image"];
 }
 
 # pragma mark actions
@@ -85,10 +89,16 @@
 }
 
 - (IBAction)longPressAction:(id)sender {
-    if (!self.task) {
-        self.progressView.hidden = NO;
-        self.progressView.progress = 0.f;
-        [self request:[self.attachment valueForKey:@"src"] completeWith:nil];
+    NSString *type = [self.attachment valueForKey:@"type"];
+
+    if ([type isEqualToString:@"image"]) {
+        if (!self.task) {
+            self.progressView.hidden = NO;
+            self.progressView.progress = 0.f;
+            [self request:[self.attachment valueForKey:@"src"] completeWith:nil];
+        }
+    } else {
+        [[UIApplication sharedApplication] openURL:[[BoardAPI api] urlFor:[attachment valueForKey:@"src"]]];
     }
 }
 
