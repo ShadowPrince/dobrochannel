@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *attachmentsView;
 @end @implementation ThreadTableViewCell
+@synthesize thread;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -31,20 +32,25 @@
 }
 
 - (void) populate:(NSManagedObject *)data
+      attachments:(NSArray *)attachments
      markupParser:(BoardMarkupParser *)parser {
-    [self populateForHeightCalculation:data];
+    [self populateForHeightCalculation:data
+                           attachments:attachments];
 
-    self.identifier = [data valueForKey:@"identifier"];
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.titleLabel.text = [data valueForKey:@"title"];
 
     self.messageTextView.attributedText = [parser parse:self.dynamicText];
+
+    self.thread = data;
 }
 
-- (void) populateForHeightCalculation:(NSManagedObject *)object {
+- (void) populateForHeightCalculation:(NSManagedObject *)object
+                          attachments:(NSArray *)attachments {
     self.dynamicText = [[object valueForKey:@"op_post"] valueForKey:@"message"];
 
-    [super populateForHeightCalculation:[object valueForKey:@"op_post"]];
+    [super populateForHeightCalculation:[object valueForKey:@"op_post"]
+                            attachments:attachments];
 }
 
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize {
@@ -54,6 +60,13 @@
 - (void) setThreadHeaderTouchTarget:(id) target
                              action:(SEL) action {
     [self.goToThreadButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void) setBoardlinkTouchTarget:(id) target
+                          action:(SEL) action {
+    self.textViewDelegate = [[MessageTextViewDelegate alloc] initWithTarget:target action:action];
+    self.textViewDelegate.contextObject = self.thread;
+    self.dynamicTextView.delegate = self.textViewDelegate;
 }
 
 

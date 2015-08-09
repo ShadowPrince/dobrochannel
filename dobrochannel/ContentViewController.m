@@ -7,15 +7,17 @@
 //
 
 #import "ContentViewController.h"
+#import "PostViewController.h"
 
 @interface ContentViewController ()
-@property BoardManagedObjectContext *context;
 @property NSMutableArray<NSManagedObject *> *threads;
 @property BoardMarkupParser *markupParser;
+@property NSMutableArray<PostViewController *> *postPopups;
 
 // table loading
 @property NSMutableArray<UITableViewCell *> *preparedTableCells;
 @property NSInteger tableLoadedRows;
+@property BOOL viewChangedSize;
 @property PostTableViewCell *cachedPostCell;
 @property ThreadTableViewCell *cachedThreadView;
 @property NSMutableDictionary<NSIndexPath *, NSNumber *> *rowHeightCache;
@@ -24,18 +26,29 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @end @implementation ContentViewController
 @synthesize api, context;
-@synthesize cachedPostCell, cachedThreadView, threads, tableLoadedRows, rowHeightCache;
+@synthesize board;
+@synthesize cachedPostCell, cachedThreadView, threads, tableLoadedRows, rowHeightCache, viewChangedSize;
 
 - (instancetype) initWithCoder:(nonnull NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     self.api = [[BoardAPI alloc] init];
+
+    UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
+
     self.markupParser = [[BoardMarkupParser alloc] initWithAttributes:
                          @{
                            @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
+                            @BoardMarkupParserTagBold: @{},
                             @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
+                            @BoardMarkupParserTagItalic: @{ },
                             @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
                             @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
                                                             NSBackgroundColorAttributeName: [UIColor blackColor], },
+                            @BoardMarkupParserWeblink: @{},
+                            @BoardMarkupParserBoardlink: @{},
+                            @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
+
+
                             }];
 
     progressCallback = ^void(long long completed, long long total) {
@@ -50,31 +63,59 @@
         }
     };
 
-    [self reset];
-
+    [self resetReuseProperties];
     return self;
 }
 
-- (void) reset { // @TODO: find a not-4-am method name
+- (void) resetReuseProperties { // @TODO: find a not-4-am method name
     [self.api cancelRequest];
 
+    self.viewChangedSize = YES;
     self.preparedTableCells = [NSMutableArray new];
     self.threads = [NSMutableArray new];
     self.rowHeightCache = [NSMutableDictionary dictionary];
     self.tableLoadedRows = 0;
     [self.tableView reloadData];
 
-    self.context = [[BoardManagedObjectContext alloc] init];
+    self.context = [self createContext];
+    self.context.delegate = self;
     self.api.delegate = self.context;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(newObjectInContext:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:self.context];
+    for (PostViewController *popup in self.postPopups) {
+        [popup.view removeFromSuperview];
+    }
+
+    self.postPopups = [NSMutableArray new];
+}
+
+- (void) reset {
+    NSLog(@"cleared");
+    [self.context clearPersistentStorage];
+    [self resetReuseProperties];
+}
+
+- (NSManagedObjectContext *) createContext {
+    return [[BoardManagedObjectContext alloc] init];
+}
+
+- (void) startedRequest {
+    self.progressView.progress = 0.f;
+    self.progressView.hidden = NO;
 }
 
 - (void) didScrollToBottom {
 
+}
+
+- (void) scrollTo:(NSManagedObject *) object animated:(BOOL) animated {
+    [self scrollToObjectAt:[self.threads indexOfObject:object] animated:animated];
+}
+
+
+- (void) scrollToObjectAt:(NSUInteger) pos animated:(BOOL) animated {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:pos inSection:0]
+                          atScrollPosition:UITableViewScrollPositionTop
+                                  animated:animated];
 }
 
 - (UIView *) superviewIn:(UIView *) view atPosition:(NSUInteger) pos {
@@ -99,7 +140,7 @@
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    [self performSegueWithIdentifier:@"2threadController" sender:cell.identifier];
+    [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
 }
 
 - (IBAction)attachmentTouch:(NSArray *)sender {
@@ -107,6 +148,70 @@
     NSArray *attachments = [sender subarrayWithRange:NSMakeRange(0, [sender count] - 1)];
     [self performSegueWithIdentifier:@"2showAttachmentsController" sender:@[attachments,
                                                                             index]];
+}
+
+- (IBAction)popPopup:(id)sender {
+    PostViewController *c = self.postPopups.lastObject;
+    [c.view removeFromSuperview];
+    [c.api cancelRequest];
+
+    [self.postPopups removeLastObject];
+}
+
+- (IBAction)popAllPopups:(id)sender {
+    while (self.postPopups.count)
+        [self popPopup:nil];
+}
+
+- (IBAction) boardlinkTouch:(NSString *)identifier
+                    context:(NSManagedObject *) contextObject {
+    if ([contextObject.entity.name isEqualToString:@"Thread"]) {
+        [self performSegueWithIdentifier:@"2threadController" sender:[NSNumber numberWithInteger:identifier.integerValue]];
+    } else {
+        PostViewController *pv = [[PostViewController alloc] init];
+        pv.supercontroller = self;
+
+        NSNumber *idNumber = [NSNumber numberWithInteger:identifier.integerValue];
+        pv.targetObject = [self.context postObjectForDisplayId:idNumber];
+        pv.board = self.board;
+        pv.identifier = idNumber;
+
+        CGFloat width = self.view.frame.size.width / 1.5;
+        CGFloat max_x_offset = self.view.frame.size.width - width;
+        CGFloat max_y_offset = self.view.frame.size.height - 100.f;
+        CGFloat initial_x_offset = 10.f;
+        CGFloat initial_y_offset = self.view.frame.size.height / 2 - 50.f;
+
+        CGFloat x_offset = initial_x_offset + 30.f * self.postPopups.count,
+        y_offset = initial_y_offset + 30.f * self.postPopups.count;
+
+        BOOL right_direction = YES;
+        while (x_offset > max_x_offset) {
+            x_offset -= max_x_offset;
+            right_direction = !right_direction;
+        }
+
+        while (y_offset > max_y_offset) {
+            y_offset -= max_y_offset;
+        }
+
+        if (y_offset < initial_y_offset)
+            y_offset = initial_y_offset;
+
+        if (!right_direction) {
+            x_offset = max_x_offset - x_offset;
+        }
+
+        pv.maxHeight = self.view.frame.size.height - y_offset;
+        pv.view.frame = CGRectMake(x_offset, y_offset, width, 30.f);
+        
+        [self.view addSubview:pv.view];
+        [self.postPopups addObject:pv];
+    }
+}
+
+- (BOOL) gestureRecognizerShouldBegin:(nonnull UIGestureRecognizer *)gestureRecognizer {
+    return self.postPopups.count != 0;
 }
 
 - (IBAction)nextThreadGesture:(id)sender {
@@ -123,7 +228,7 @@
         NSManagedObject *object = self.threads[path.row];
 
         if ([object.entity.name isEqualToString:@"Thread"]) {
-            [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self scrollToObjectAt:path.row animated:YES];
             return;
         }
     }
@@ -143,12 +248,11 @@
         NSIndexPath *index = backCells[i];
         NSManagedObject *object = self.threads[index.row];
         if ([object.entity.name isEqualToString:@"Thread"]) {
-            [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self scrollToObjectAt:index.row animated:YES];
             break;
         }
     }
 }
-
 
 # pragma mark view
 
@@ -165,8 +269,15 @@
 }
 
 - (void) viewDidLayoutSubviews {
-    self.rowHeightCache = [NSMutableDictionary dictionary];
-    [self.tableView reloadData];
+    if (viewChangedSize) {
+        self.rowHeightCache = [NSMutableDictionary dictionary];
+        [self.tableView reloadData];
+        self.viewChangedSize = NO;
+    }
+}
+
+- (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
+    self.viewChangedSize = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -181,23 +292,15 @@
 
 # pragma mark context
 
-- (void) newObjectInContext:(NSNotification *) not {
-    for (NSManagedObject *object in not.userInfo[@"inserted"]) {
-        if (![object.entity.name isEqualToString:@"Post"] && ![object.entity.name isEqualToString:@"Thread"])
-            continue;
-
-        if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
-            continue;
-
-//        if ([self.threads count] < 1)
-            [self.threads addObject:object];
-    }
-
+- (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
+    [self insetObject:object];
     [self insertNewRows];
- }
+}
 
 - (void) insertNewRows {
     NSMutableArray<NSIndexPath *> *indexes = [NSMutableArray array];
+    NSInteger oldLoadedRows = self.tableLoadedRows;
+
     for (int i = self.tableLoadedRows; i < [self.threads count] ; i++) {
         [indexes addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     }
@@ -205,20 +308,54 @@
     self.tableLoadedRows = [self.threads count];
     [self.tableView insertRowsAtIndexPaths:indexes
                           withRowAnimation:UITableViewRowAnimationNone];
+
+    for (int i = oldLoadedRows; i < [self.threads count]; i++) {
+        [self didInsertObject:self.threads[i]];
+    }
+}
+
+- (void) insetObject:(NSManagedObject *) object {
+    if ([self shouldInsertObject:object]) {
+        [self.threads addObject:object];
+    }
+}
+
+- (void) didInsertObject:(NSManagedObject *) object {
+
+}
+
+- (BOOL) shouldInsertObject:(NSManagedObject *) object {
+    if (![object.entity.name isEqualToString:@"Post"] && ![object.entity.name isEqualToString:@"Thread"])
+        return NO;
+
+    if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
+        return NO;
+
+    return YES;
 }
 
 # pragma mark table
 
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [cell setAttachmentTouchTarget:self action:@selector(attachmentTouch:)];
+    [cell setBoardlinkTouchTarget:self action:@selector(boardlinkTouch:context:)];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSManagedObject *entry = self.threads[indexPath.row];
     BoardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@View", entry.entity.name]];
 
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Attachment"];
+    if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
+        request.predicate = [NSPredicate predicateWithFormat:@"post == %@", [entry valueForKey:@"op_post"]];
+    } else {
+        request.predicate = [NSPredicate predicateWithFormat:@"post == %@", entry];
+    }
+
     [cell setupAttachmentOffsetFor:tableView.frame.size];
-    [cell populate:entry markupParser:self.markupParser];
+    [cell populate:entry
+       attachments:[self.context executeFetchRequest:request error:nil]
+      markupParser:self.markupParser];
     [self prepareCell:cell];
 
     if (![self.api isRequesting] && indexPath.row == [self.threads count] - 1) {
@@ -232,27 +369,74 @@
     return self.tableLoadedRows;
 }
 
-- (CGFloat) tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (self.rowHeightCache[indexPath]) {
         return self.rowHeightCache[indexPath].floatValue;
     } else {
         NSManagedObject *entry = self.threads[indexPath.row];
         CGFloat height = 0.f;
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Attachment"];
 
         BoardTableViewCell *cell;
         if ([entry.entity.name isEqual:@"Thread"]) {
             cell = self.cachedThreadView;
+            request.predicate = [NSPredicate predicateWithFormat:@"post == %@", [entry valueForKey:@"op_post"]];
         } else {
             cell = self.cachedPostCell;
+            request.predicate = [NSPredicate predicateWithFormat:@"post == %@", entry];
         }
 
-        [cell setupAttachmentOffsetFor:tableView.frame.size];
-        [cell populateForHeightCalculation:entry];
-        height = [cell calculatedHeight:tableView.frame.size];
+        [cell setupAttachmentOffsetFor:self.tableView.frame.size];
+        [cell populateForHeightCalculation:entry
+                               attachments:[self.context executeFetchRequest:request error:nil]];
+        height = [cell calculatedHeight:self.tableView.frame.size];
         self.rowHeightCache[indexPath] = [NSNumber numberWithFloat:height];
 
         return height;
     }
+}
+
+- (void) scrollViewDidScroll:(nonnull UIScrollView *)scrollView {
+    [self popAllPopups:nil];
+}
+
+# pragma mark state restoration
+
+- (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+
+    // push all of the cached data into table view
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Thread"];
+    NSArray *threadsResponse = [self.context executeFetchRequest:request error:nil];
+    threadsResponse = [threadsResponse sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [[obj2 valueForKey:@"date"] compare:[obj1 valueForKey:@"date"]];
+    }];
+    for (NSManagedObject *thread in threadsResponse) {
+        [self insetObject:thread];
+        [self didInsertObject:thread];
+
+        request = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
+        request.predicate = [NSPredicate predicateWithFormat:@"thread == %@", thread];
+        NSArray *postsResponse = [[self.context executeFetchRequest:request error:nil] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [[obj1 valueForKey:@"date"] compare:[obj2 valueForKey:@"date"]];
+        }];
+
+        for (NSManagedObject *post in postsResponse) {
+            [self insetObject:post];
+            [self didInsertObject:post];
+        }
+    }
+
+    // actual insert will happen in viewDidLayoutSubviews
+    self.tableLoadedRows = [self.threads count];
+}
+
+- (NSString *) modelIdentifierForElementAtIndexPath:(nonnull NSIndexPath *)idx inView:(nonnull UIView *)view {
+    return [NSString stringWithFormat:@"%llu", (unsigned long long) idx.row];
+}
+
+- (NSIndexPath *) indexPathForElementWithModelIdentifier:(nonnull NSString *)identifier inView:(nonnull UIView *)view {
+    return [NSIndexPath indexPathForRow:identifier.integerValue inSection:0];
 }
 
 @end

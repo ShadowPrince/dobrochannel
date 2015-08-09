@@ -19,10 +19,11 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 @protocol BoardDelegate <NSObject>
 - (void) didReceivedThread:(NSDictionary *) thread;
 - (void) didReceivedPost:(NSDictionary *) post;
+- (void) didFinishedReceiving;
 @end
 
 @interface BoardAPI : NSObject <BoardRequestParserDelegate>
-@property (nonatomic) id<BoardDelegate> delegate;
+@property (weak, nonatomic) id<BoardDelegate> delegate;
 
 + (instancetype) api;
 
@@ -40,6 +41,15 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 - (void) requestThread:(NSNumber *) threadId
                   from:(NSString *) board
          stateCallback: (BoardAPIProgressCallback) callback;
+- (void) requestNewPostsFrom:(NSNumber *) thread
+                          at:(NSString *) board
+                       after:(NSNumber *) postId
+               stateCallback: (BoardAPIProgressCallback) callback;
+- (void) requestPost:(NSNumber *) postId
+                from:(NSNumber *) threadId
+                  at:(NSString *) board
+       stateCallback: (BoardAPIProgressCallback) callback;
+
 - (NSURLSessionDataTask *) requestImage:(NSString *) path
         stateCallback: (BoardAPIProgressCallback) stateCallback
        finishCallback: (BoardImageDownloadFinishCallback) finishCallback;

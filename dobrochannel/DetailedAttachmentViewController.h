@@ -11,7 +11,7 @@
 #import "UserDefaults.h"
 #import "BoardAPI.h"
 
-@interface ZoomingImageController : UIViewController <UIScrollViewDelegate>
+@interface DetailedAttachmentViewController : UIViewController <UIScrollViewDelegate>
 @property (nonatomic) UIImage *image;
 
 - (instancetype) initWithAttachment:(NSManagedObject *) attachment frame:(CGRect) frame;

@@ -17,13 +17,34 @@
 #import "PostTableViewCell.h"
 #import "ShowAttachmentsViewController.h"
 
-@interface ContentViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface ContentViewController : UIViewController <UITableViewDataSource,
+UITableViewDelegate,
+UIGestureRecognizerDelegate,
+UIDataSourceModelAssociation,
+BoardManagedObjectContextDelegate> {
     BoardAPIProgressCallback progressCallback;
 }
 @property BoardAPI *api;
+@property BoardManagedObjectContext *context;
+@property NSString *board;
 
+- (void) startedRequest;
 - (void) reset;
-- (void) prepareCell:(BoardTableViewCell *) cell;
-- (void) didScrollToBottom;
+- (BoardManagedObjectContext *) createContext;
 
+- (void) scrollTo:(NSManagedObject *) object animated:(BOOL) animated;
+- (void) scrollToObjectAt:(NSUInteger) pos animated:(BOOL) animated;
+
+- (void) prepareCell:(BoardTableViewCell *) cell;
+
+- (void) didScrollToBottom;
+- (void) didInsertObject:(NSManagedObject *) object;
+- (BOOL) shouldInsertObject:(NSManagedObject *) object;
+
+- (void) insetObject:(NSManagedObject *) object;
+- (void) insertNewRows;
+
+- (IBAction)attachmentTouch:(NSArray *)sender;
+- (IBAction) boardlinkTouch:(NSString *)identifier
+                    context:(NSManagedObject *) contextObject;
 @end

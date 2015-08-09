@@ -11,6 +11,17 @@
 #import "BoardAPI.h"
 #import "UserDefaults.h"
 
-@interface BoardManagedObjectContext : NSManagedObjectContext <BoardDelegate>
+@protocol BoardManagedObjectContextDelegate <NSObject>
 
+- (void) context:(NSManagedObjectContext *) context didInsertedObject:(NSManagedObject *) object;
+
+@end
+
+@interface BoardManagedObjectContext : NSManagedObjectContext <BoardDelegate>
+@property (weak) id<BoardManagedObjectContextDelegate> delegate;
+
+- (instancetype) initWithPersistentPath:(NSString *) filePath;
+
+- (NSManagedObject *) postObjectForDisplayId:(NSNumber *) _id;
+- (void) clearPersistentStorage;
 @end

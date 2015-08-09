@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F31451771B72730E00CAAA59 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F31451761B72730E00CAAA59 /* Launch Screen.storyboard */; };
 		F33D94051B5BD8E7000AA303 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
 		F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94071B5BD8E7000AA303 /* AppDelegate.m */; };
 		F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F33D940C1B5BD8E7000AA303 /* Main.storyboard */; };
@@ -15,8 +16,8 @@
 		F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */; };
 		F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F37149E01B5BDB5A00582DE4 /* BoardAPI.m */; };
 		F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */; };
-		F37CA02A1B68E55400A885C7 /* ZoomingImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37CA0281B68E55400A885C7 /* ZoomingImageController.m */; };
-		F37CA02B1B68E55400A885C7 /* ZoomingImageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */; };
+		F37CA02A1B68E55400A885C7 /* DetailedAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */; };
+		F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */; };
 		F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F38CAC481B68496E00A2EF98 /* UserDefaults.m */; };
 		F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
 		F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
@@ -32,10 +33,15 @@
 		F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */; };
 		F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BD076F1B683D79000946B5 /* SettingsViewController.m */; };
 		F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */; };
+		F3DC6FED1B6A46FD0063857A /* MessageTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */; };
+		F3DC6FF11B6B93E60063857A /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEF1B6B93E60063857A /* PostViewController.m */; };
+		F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DC6FF01B6B93E60063857A /* PostViewController.xib */; };
+		F3DC6FF41B6BD2070063857A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3DC6FF31B6BD2070063857A /* QuartzCore.framework */; };
 		F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F31451761B72730E00CAAA59 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F33D94001B5BD8E7000AA303 /* Dobrochannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dobrochannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33D94041B5BD8E7000AA303 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F33D94061B5BD8E7000AA303 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -50,9 +56,9 @@
 		F37149E01B5BDB5A00582DE4 /* BoardAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardAPI.m; sourceTree = "<group>"; };
 		F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentsTableDelegate.h; sourceTree = "<group>"; };
 		F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentsTableDelegate.m; sourceTree = "<group>"; };
-		F37CA0271B68E55400A885C7 /* ZoomingImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomingImageController.h; sourceTree = "<group>"; };
-		F37CA0281B68E55400A885C7 /* ZoomingImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomingImageController.m; sourceTree = "<group>"; };
-		F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZoomingImageController.xib; sourceTree = "<group>"; };
+		F37CA0271B68E55400A885C7 /* DetailedAttachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedAttachmentViewController.h; sourceTree = "<group>"; };
+		F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedAttachmentViewController.m; sourceTree = "<group>"; };
+		F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedAttachmentViewController.xib; sourceTree = "<group>"; };
 		F38CAC471B68496E00A2EF98 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
 		F38CAC481B68496E00A2EF98 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardSwitcherViewController.h; sourceTree = "<group>"; };
@@ -80,6 +86,12 @@
 		F3BD076F1B683D79000946B5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		F3C59D3E1B5E9CFC0053CA72 /* BoardRequestParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardRequestParser.h; sourceTree = "<group>"; };
 		F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardRequestParser.m; sourceTree = "<group>"; };
+		F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextViewDelegate.h; sourceTree = "<group>"; };
+		F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextViewDelegate.m; sourceTree = "<group>"; };
+		F3DC6FEE1B6B93E60063857A /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		F3DC6FEF1B6B93E60063857A /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		F3DC6FF01B6B93E60063857A /* PostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostViewController.xib; sourceTree = "<group>"; };
+		F3DC6FF31B6BD2070063857A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAttachmentsViewController.h; sourceTree = "<group>"; };
 		F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAttachmentsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3DC6FF41B6BD2070063857A /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +111,7 @@
 		F33D93F71B5BD8E7000AA303 = {
 			isa = PBXGroup;
 			children = (
+				F3DC6FF31B6BD2070063857A /* QuartzCore.framework */,
 				F33D94021B5BD8E7000AA303 /* dobrochannel */,
 				F33D94011B5BD8E7000AA303 /* Products */,
 			);
@@ -146,9 +160,11 @@
 		F33D94201B5BD9D1000AA303 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3DC6FF01B6B93E60063857A /* PostViewController.xib */,
 				F33D940C1B5BD8E7000AA303 /* Main.storyboard */,
+				F31451761B72730E00CAAA59 /* Launch Screen.storyboard */,
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
-				F37CA0291B68E55400A885C7 /* ZoomingImageController.xib */,
+				F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -175,16 +191,18 @@
 				F3B937BB1B5DAB0100721CD8 /* TableCells */,
 				F33D941B1B5BD9C8000AA303 /* ContentViewController.h */,
 				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
-				F39369311B5E839F0068A85F /* ThreadViewController.h */,
-				F39369321B5E839F0068A85F /* ThreadViewController.m */,
 				F39369341B5E86290068A85F /* BoardViewController.h */,
 				F39369351B5E86290068A85F /* BoardViewController.m */,
+				F39369311B5E839F0068A85F /* ThreadViewController.h */,
+				F39369321B5E839F0068A85F /* ThreadViewController.m */,
+				F3DC6FEE1B6B93E60063857A /* PostViewController.h */,
+				F3DC6FEF1B6B93E60063857A /* PostViewController.m */,
 				F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */,
 				F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */,
 				F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */,
 				F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */,
-				F37CA0271B68E55400A885C7 /* ZoomingImageController.h */,
-				F37CA0281B68E55400A885C7 /* ZoomingImageController.m */,
+				F37CA0271B68E55400A885C7 /* DetailedAttachmentViewController.h */,
+				F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */,
 				F3BD076E1B683D79000946B5 /* SettingsViewController.h */,
 				F3BD076F1B683D79000946B5 /* SettingsViewController.m */,
 			);
@@ -196,6 +214,10 @@
 			children = (
 				F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */,
 				F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */,
+				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
+				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
+				F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */,
+				F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */,
 				F38CAC471B68496E00A2EF98 /* UserDefaults.h */,
 				F38CAC481B68496E00A2EF98 /* UserDefaults.m */,
 			);
@@ -212,8 +234,6 @@
 				F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */,
 				F3B937B61B5DAAFA00721CD8 /* PostTableViewCell.h */,
 				F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */,
-				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
-				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -287,10 +307,12 @@
 			files = (
 				F33D94101B5BD8E7000AA303 /* Assets.xcassets in Resources */,
 				F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */,
+				F31451771B72730E00CAAA59 /* Launch Screen.storyboard in Resources */,
 				F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */,
-				F37CA02B1B68E55400A885C7 /* ZoomingImageController.xib in Resources */,
+				F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */,
 				F3B937BA1B5DAAFA00721CD8 /* PostTableViewCell.xib in Resources */,
 				F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */,
+				F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,12 +331,14 @@
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,
 				F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */,
+				F3DC6FF11B6B93E60063857A /* PostViewController.m in Sources */,
+				F3DC6FED1B6A46FD0063857A /* MessageTextViewDelegate.m in Sources */,
 				F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */,
 				F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */,
 				F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */,
 				F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */,
 				F33D94051B5BD8E7000AA303 /* main.m in Sources */,
-				F37CA02A1B68E55400A885C7 /* ZoomingImageController.m in Sources */,
+				F37CA02A1B68E55400A885C7 /* DetailedAttachmentViewController.m in Sources */,
 				F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */,
 				F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */,
 				F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */,
@@ -427,7 +451,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = dobrochannel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.shdwprince.dobrochannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,7 +466,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = dobrochannel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.shdwprince.dobrochannel;
 				PRODUCT_NAME = "$(TARGET_NAME)";

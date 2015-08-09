@@ -1,4 +1,4 @@
-//
+    //
 //  PostTableViewCell.h
 //  dobrochannel
 //
@@ -16,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+
+@property NSManagedObject *post;
 
 @end

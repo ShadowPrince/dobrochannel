@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A234d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostViewController">
+            <connections>
+                <outlet property="loadingIndicator" destination="XNF-Ix-13n" id="QN6-Ac-vjQ"/>
+                <outlet property="tableView" destination="ekY-EB-2fq" id="z9O-hv-5IO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ekY-EB-2fq">
+                    <rect key="frame" x="3" y="3" width="594" height="594"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="yzZ-8h-52X"/>
+                        <outlet property="delegate" destination="-1" id="ScO-9j-bcV"/>
+                    </connections>
+                </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XNF-Ix-13n">
+                    <rect key="frame" x="290" y="290" width="20" height="20"/>
+                    <animations/>
+                </activityIndicatorView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.90980392156862744" green="0.9137254901960784" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="XNF-Ix-13n" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="2wd-Xz-gfz"/>
+                <constraint firstAttribute="trailing" secondItem="ekY-EB-2fq" secondAttribute="trailing" constant="3" id="CJi-kr-6up"/>
+                <constraint firstItem="ekY-EB-2fq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="3" id="Fld-hs-zgc"/>
+                <constraint firstAttribute="bottom" secondItem="ekY-EB-2fq" secondAttribute="bottom" constant="3" id="LSJ-dV-S3D"/>
+                <constraint firstItem="XNF-Ix-13n" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PQU-eP-qLy"/>
+                <constraint firstItem="ekY-EB-2fq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="3" id="Pia-4m-kER"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

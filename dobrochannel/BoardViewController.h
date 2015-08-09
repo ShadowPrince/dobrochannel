@@ -12,7 +12,6 @@
 #import "BoardSwitcherViewController.h"
 
 @interface BoardViewController : ContentViewController
-@property (nonatomic) NSString *board;
 @property NSUInteger page;
 
 @end

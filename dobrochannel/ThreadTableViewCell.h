@@ -12,7 +12,7 @@
 #import "BoardTableViewCell.h"
 
 @interface ThreadTableViewCell : BoardTableViewCell
-@property NSNumber *identifier;
+@property NSManagedObject *thread;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;

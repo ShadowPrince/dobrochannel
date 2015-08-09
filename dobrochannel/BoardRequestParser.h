@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+#define BoardRequestParserBoardForm 0
+#define BoardRequestParserPostsForm 1
+#define BoardRequestParserPostForm 2
+
 @protocol BoardRequestParserDelegate <NSObject>
 
 - (void) didParsedThread:(NSDictionary *) thread;
 - (void) didParsedPost:(NSDictionary *) post;
+- (void) didFinishedParsing;
 
 @end
 
 @interface BoardRequestParser : NSObject <NSURLSessionDataDelegate>
-@property (assign) int64_t received, total;
-
 - (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate;
+- (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate
+                             form:(int) _sf;
+
 @end

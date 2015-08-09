@@ -10,7 +10,6 @@
 #import "ContentViewController.h"
 
 @interface ThreadViewController : ContentViewController
-@property (nonatomic) NSString *board;
 @property (nonatomic) NSNumber *identifier;
 
 @end

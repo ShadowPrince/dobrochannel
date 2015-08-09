@@ -10,13 +10,18 @@
 
 @interface BoardRequestParser () {
     NSMutableString *buffer;
+    NSInteger parsingForm;
     NSUInteger f_brackets, brackets, threadStart, postStart;
     BOOL quotes;
+
+    NSInteger f_brackets_post_start, f_brackets_post_end, brackets_post_start, brackets_post_end;
+    Byte bracketsMask;
 }
-@property id<BoardRequestParserDelegate> delegate;
+@property (weak) id<BoardRequestParserDelegate> delegate;
 @end @implementation BoardRequestParser
 
-- (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate {
+- (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate
+                             form:(int)_sf {
     self = [super init];
     self.delegate = delegate;
 
@@ -26,7 +31,39 @@
     threadStart = postStart = 0;
     quotes = NO;
 
+    parsingForm = _sf;
+    switch (_sf) {
+        case BoardRequestParserBoardForm:
+            f_brackets_post_start = 5;
+            f_brackets_post_end = 4;
+            brackets_post_start = 2;
+            brackets_post_end = 2;
+            break;
+        case BoardRequestParserPostsForm:
+            f_brackets_post_start = 2;
+            f_brackets_post_end = 1;
+            brackets_post_start = 1;
+            brackets_post_end = 1;
+            break;
+        case BoardRequestParserPostForm:
+            f_brackets_post_start = 1;
+            f_brackets_post_end = 0;
+            brackets_post_start = 0;
+            brackets_post_end = 0;
+            break;
+        default:
+            break;
+    }
+
     return self;
+}
+
+- (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>)delegate {
+    return [self initWithDelegate:delegate form:BoardRequestParserBoardForm];
+}
+
+- (void) URLSession:(nonnull NSURLSession *)session task:(nonnull NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
+    [self.delegate didFinishedParsing];
 }
 
 - (void) URLSession:(nonnull NSURLSession *)session dataTask:(nonnull NSURLSessionDataTask *)dataTask didReceiveData:(nonnull NSData *)data {
@@ -80,17 +117,17 @@
             if (!thread) {
                 NSLog(@"%@", e);
                 NSLog(@"%@", threadJson);
-            } else {
+            } else if (parsingForm == BoardRequestParserBoardForm) {
                 [self.delegate didParsedThread:thread];
             }
         }
 
-        if (ch == '{' && f_brackets == 5 && brackets == 2) {
+        if (ch == '{' && f_brackets == f_brackets_post_start && brackets == brackets_post_start) {
             // post start
             postStart = i;
         }
 
-        if (ch == '}' && f_brackets == 4 && brackets == 2) {
+        if (ch == '}' && f_brackets == f_brackets_post_end && brackets == brackets_post_end) {
             // post end
             NSString *postJson = [[buffer substringWithRange:NSMakeRange(postStart, i - postStart)] stringByAppendingString:@"}"];
             NSError *e;

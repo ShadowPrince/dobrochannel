@@ -6,13 +6,30 @@
 //  Copyright © 2015 Vasiliy Horbachenko. All rights reserved.
 //
 
+#define STATUS_LABEL_FONT_SIZE 7.f
 #import "AttachmentsTableDelegate.h"
 
-@implementation AttachmentsTableDelegate
+@interface AttachmentsTableDelegate ()
+@property NSMutableDictionary<NSIndexPath *, NSURLSessionTask *> *tasks;
+@end @implementation AttachmentsTableDelegate
+@synthesize tasks;
+
+- (void) setObjects:(NSArray *)objects {
+    if (_objects == objects)
+        return;
+
+    _objects = objects;
+
+    [self.tasks enumerateKeysAndObjectsUsingBlock:^(NSIndexPath * key, NSURLSessionTask * obj, BOOL * __nonnull stop) {
+        [[BoardAPI api] cancelRequest:obj];
+    }];
+
+    self.tasks = [NSMutableDictionary new];
+}
 
 - (UITableViewCell *) tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cellx"];
-    CGFloat statusLabelFontSize = 7.f;
+    CGFloat statusLabelFontSize = STATUS_LABEL_FONT_SIZE;
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
 
@@ -67,29 +84,29 @@
                    type];
     }
 
-    iv.image = nil;
-    aiv.hidden = NO;
-    if ([UserDefaults contentReaderLoadThumbnails])
-        [aiv startAnimating];
-
     NSString *src = [attachment valueForKey:@"thumb_src"];
-
     BOOL weight_lesser_limit = weight.integerValue <= [UserDefaults contentReaderLoadFullMaxSize] * 1024;
     BOOL is_image = [type isEqualToString:@"image"];
     if (is_image && weight_lesser_limit && [UserDefaults contentReaderLoadFull]) {
         src = [attachment valueForKey:@"src"];
     }
 
-    if ([UserDefaults contentReaderLoadThumbnails])
-        [[BoardAPI api] requestImage:src
-                       stateCallback:^(long long processed, long long total) {
+    iv.image = nil;
 
-                       } finishCallback:^(UIImage *i) {
-                           iv.image = i;
-                           [aiv stopAnimating];
-                           aiv.hidden = YES;
-                       }];
+    if ([UserDefaults contentReaderLoadThumbnails]) {
+        aiv.hidden = NO;
+        if ([UserDefaults contentReaderLoadThumbnails])
+            [aiv startAnimating];
 
+        self.tasks[indexPath] = [[BoardAPI api] requestImage:src
+                                               stateCallback:^(long long processed, long long total) {
+
+                                               } finishCallback:^(UIImage *i) {
+                                                   iv.image = i;
+                                                   [aiv stopAnimating];
+                                                   aiv.hidden = YES;
+                                               }];
+    }
 
     return cell;
 }
@@ -104,7 +121,7 @@
 
 - (CGFloat) calculatedWidth {
     CGFloat max_height = 0.f;
-    CGFloat margin = [self.objects count] > 1 ? 15.f : 2.f; // 2.f is spacing in tableView:heightForRowAtIndexPath:
+    CGFloat margin = [self.objects count] > 1 ? 15.f : 3.f;
 
     for (NSManagedObject *attachment in self.objects) {
         CGFloat height = [self attachmentHeight:attachment];
@@ -119,7 +136,7 @@
     CGSize size = ((NSValue *) [attachment valueForKey:@"thumb_size"]).CGSizeValue;
     CGFloat ratio = self.parentSize.width / size.width;
 
-    return size.height * ratio;
+    return size.height * ratio + [[UIFont systemFontOfSize:STATUS_LABEL_FONT_SIZE] lineHeight] + 1.f;
 }
 
 - (void) tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

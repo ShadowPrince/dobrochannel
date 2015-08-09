@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-#import "ZoomingImageController.h"
+#import "DetailedAttachmentViewController.h"
 #import "BoardAPI.h"
 #import "UserDefaults.h"
 

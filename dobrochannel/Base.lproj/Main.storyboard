@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A225f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
@@ -9,12 +9,14 @@
         <!--Navigation Controller-->
         <scene sceneID="Ek6-88-s05">
             <objects>
-                <navigationController storyboardIdentifier="rootNavigationController" id="4jH-qu-oqn" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="rootNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4jH-qu-oqn" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MNn-2H-vuu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="FVX-uq-BJB" kind="relationship" relationship="rootViewController" id="6kc-Uq-hRX"/>
@@ -51,11 +53,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="101"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q27-PI-yq0">
-                                            <rect key="frame" x="0.0" y="0.0" width="77" height="37"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q27-PI-yq0">
+                                            <rect key="frame" x="0.0" y="0.0" width="104" height="37"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -99,7 +101,6 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wx-Mv-MCv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="down" id="osq-jx-ABg">
-                    <pressTypeMask key="allowedPressTypes"/>
                     <connections>
                         <action selector="hideControllerGesture:" destination="7Ud-oc-fUj" id="cVG-uc-Ewt"/>
                     </connections>
@@ -107,10 +108,18 @@
             </objects>
             <point key="canvasLocation" x="-575" y="-904"/>
         </scene>
-        <!--Thread View Controller-->
+        <!--Loading...-->
         <scene sceneID="yye-u6-x0N">
             <objects>
-                <viewController id="wFm-ko-4Gw" customClass="ThreadViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="threadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wFm-ko-4Gw" customClass="ThreadViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Loading..." id="YBF-l1-4sR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="07K-EQ-dMt">
+                            <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="refreshAction:" destination="wFm-ko-4Gw" id="Rk2-N1-wiB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <segue destination="nrm-Cf-pbv" kind="showDetail" identifier="2showAttachmentsController" id="51b-nn-hlE"/>
@@ -123,7 +132,7 @@
         <!--Settings-->
         <scene sceneID="J4y-t1-7oy">
             <objects>
-                <viewController title="Settings" automaticallyAdjustsScrollViewInsets="NO" id="Kud-4n-lUk" customClass="SettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsController" title="Settings" automaticallyAdjustsScrollViewInsets="NO" id="Kud-4n-lUk" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vlu-6O-RaV"/>
                         <viewControllerLayoutGuide type="bottom" id="JOS-Xe-KZB"/>
@@ -253,7 +262,7 @@
                                             <constraint firstAttribute="width" constant="61" id="qSI-7E-BXr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-Z8-5ql">
@@ -332,7 +341,7 @@
         <!--Show Attachments View Controller-->
         <scene sceneID="Mps-uY-cDX">
             <objects>
-                <viewController id="nrm-Cf-pbv" customClass="ShowAttachmentsViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="nrm-Cf-pbv" customClass="ShowAttachmentsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="upt-Aq-RQt"/>
                         <viewControllerLayoutGuide type="bottom" id="pmX-sw-Dsm"/>
@@ -341,7 +350,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="282" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4Z-me-KWf">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4Z-me-KWf">
                                 <rect key="frame" x="0.0" y="0.0" width="282" height="480"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -356,10 +365,11 @@
                         <constraints>
                             <constraint firstItem="x4Z-me-KWf" firstAttribute="height" secondItem="vxi-IR-aAN" secondAttribute="height" id="MFa-Gb-UrG"/>
                             <constraint firstItem="x4Z-me-KWf" firstAttribute="width" secondItem="vxi-IR-aAN" secondAttribute="width" id="Qg2-32-ikC"/>
+                            <constraint firstItem="x4Z-me-KWf" firstAttribute="leading" secondItem="vxi-IR-aAN" secondAttribute="leadingMargin" constant="-16" id="Rws-bZ-wQg"/>
+                            <constraint firstItem="x4Z-me-KWf" firstAttribute="top" secondItem="vxi-IR-aAN" secondAttribute="topMargin" id="k7e-SC-n7y"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="bcG-KB-8Bh" appends="YES" id="3aF-Yj-nMU"/>
-                            <outletCollection property="gestureRecognizers" destination="tRu-MZ-9xv" appends="YES" id="lm0-mF-age"/>
                         </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -370,15 +380,8 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vg5-u8-G1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="down" id="bcG-KB-8Bh">
-                    <pressTypeMask key="allowedPressTypes"/>
                     <connections>
                         <action selector="swipeAway:" destination="nrm-Cf-pbv" id="eE9-Df-GVN"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="tRu-MZ-9xv">
-                    <pressTypeMask key="allowedPressTypes"/>
-                    <connections>
-                        <action selector="swipeAway:" destination="nrm-Cf-pbv" id="1fn-b0-8aG"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -387,10 +390,11 @@
         <!--Dobrochannel-->
         <scene sceneID="PpP-sL-Le1">
             <objects>
-                <viewController id="FVX-uq-BJB" customClass="BoardViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainContentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FVX-uq-BJB" customClass="BoardViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Dobrochannel" id="XRq-mz-8hQ">
                         <barButtonItem key="leftBarButtonItem" image="Menu" id="63t-ER-487">
+                            <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="7Ud-oc-fUj" kind="popoverPresentation" identifier="2boardSwitcherController" popoverAnchorBarButtonItem="63t-ER-487" id="BJT-ke-RZT">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -398,6 +402,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Settings" id="iLn-qA-p20">
+                            <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="nextPageAction:" destination="FVX-uq-BJB" id="USf-yM-sEM"/>
                                 <segue destination="Kud-4n-lUk" kind="show" id="aa1-5q-M6H"/>

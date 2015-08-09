@@ -9,10 +9,11 @@
 #import "BoardTableViewCell.h"
 
 @interface BoardTableViewCell ()
-
 @end @implementation BoardTableViewCell
 
-- (void) populate:(NSManagedObject *)object markupParser:(BoardMarkupParser *)parser {
+- (void) populate:(NSManagedObject *)object
+      attachments:(NSArray *)attachments
+     markupParser:(BoardMarkupParser *)parser {
     @throw [NSException exceptionWithName:@"Abstract method call" reason:@"populate:markupParser: is abstract" userInfo:nil];
 }
 
@@ -26,6 +27,9 @@
     [self.dynamicTableView registerNib:[UINib nibWithNibName:@"AttachmentTableViewCell" bundle:nil]
                 forCellReuseIdentifier:@"Cell"];
 
+    //@TODO: figure out why this isn't working in XIB
+    self.dynamicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [super awakeFromNib];
 }
 
@@ -37,10 +41,14 @@
     self.dynamicTableDelegate.action = action;
 }
 
+- (void) setBoardlinkTouchTarget:(id) target
+                          action:(SEL) action {
+}
+
 # pragma mark height calculation
 
-- (void) populateForHeightCalculation:(NSManagedObject *)object {
-    NSArray *attachments = [object valueForKey:@"attachments"];
+- (void) populateForHeightCalculation:(NSManagedObject *)object
+                          attachments:(NSArray *) attachments {
     self.attachmentsCount = [attachments count];
 
     if (self.attachmentsCount) {
@@ -65,7 +73,7 @@
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:nil
                                                  context:nil].size;
-    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 12 + size.height;
+    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 20 + size.height;
 
     // dynamic stack view height
     CGFloat attachmentExpandHeight = self.frame.size.height -

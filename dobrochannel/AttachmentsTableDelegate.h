@@ -14,9 +14,9 @@
 #import "BoardAPI.h"
 
 @interface AttachmentsTableDelegate : NSObject <UITableViewDataSource, UITableViewDelegate>
-@property NSArray *objects;
+@property (nonatomic) NSArray *objects;
 @property CGSize parentSize;
-@property id target;
+@property (weak) id target;
 @property SEL action;
 
 - (CGFloat) calculatedWidth;

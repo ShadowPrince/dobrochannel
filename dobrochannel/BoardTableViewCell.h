@@ -11,10 +11,12 @@
 
 #import "BoardMarkupParser.h"
 
+#import "MessageTextViewDelegate.h"
 #import "AttachmentsTableDelegate.h"
 
 @interface BoardTableViewCell : UITableViewCell
 @property NSUInteger attachmentsCount;
+@property MessageTextViewDelegate *textViewDelegate;
 
 @property (weak) NSString *dynamicText;
 @property (weak) UITextView *dynamicTextView;
@@ -26,10 +28,14 @@
 
 - (void) setAttachmentTouchTarget:(id) target
                            action:(SEL) action;
+- (void) setBoardlinkTouchTarget:(id) target
+                          action:(SEL) action;
 
 - (void) populate:(NSManagedObject *) object
+      attachments:(NSArray *) attachments
      markupParser:(BoardMarkupParser *) parser;
-- (void) populateForHeightCalculation:(NSManagedObject *) object;
+- (void) populateForHeightCalculation:(NSManagedObject *)object
+                          attachments:(NSArray *) attachments;
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize;
 - (CGFloat) calculatedHeight:(CGSize) parentSize;
 

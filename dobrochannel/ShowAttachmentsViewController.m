@@ -43,8 +43,8 @@
 
     [self setupContentSize];
     int i = 0;
-    for (ZoomingImageController *c in self.zoomingImages) {
-        if (c != [NSNull null]) {
+    for (DetailedAttachmentViewController *c in self.zoomingImages) {
+        if ((id) c != [NSNull null]) {
             CGFloat baseOffset = i * [self pageWidth];
             c.view.frame = CGRectMake(baseOffset,
                                       0,
@@ -78,11 +78,12 @@
         return;
 
     if (self.zoomingImages[page] == [NSNull null]) {
-        ZoomingImageController *img = [[ZoomingImageController alloc] initWithAttachment:self.attachments[page]
-                                                                                   frame:CGRectMake(offset,
-                                                                                                    0,
-                                                                                                    [self pageWidth],
-                                                                                                    [self pageHeight])];
+        DetailedAttachmentViewController *img = [[DetailedAttachmentViewController alloc]
+                                                 initWithAttachment:self.attachments[page]
+                                                 frame:CGRectMake(offset,
+                                                                  0,
+                                                                  [self pageWidth],
+                                                                  [self pageHeight])];
 
         [self.scrollView addSubview:img.view];
         self.zoomingImages[page] = img;

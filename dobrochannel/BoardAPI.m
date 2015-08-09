@@ -39,6 +39,7 @@
     return self;
 }
 
+# pragma mark info and helper methods
 
 - (NSDictionary *) boardsList {
     NSArray *sortedNames = @[@"b",        @"u" ,        @"dt" ,
@@ -69,28 +70,59 @@
 
 - (NSURL *) urlFor:(NSString *)relative {
     NSString *fullUrl = [@"http://dobrochan.com/" stringByAppendingString:relative];
+
     NSURL *url = [NSURL URLWithString:[fullUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     return url;
 }
 
+# pragma mark making requests
+
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page
               stateCallback: (BoardAPIProgressCallback) callback {
-    [self loadThreadsFrom:board
-                     page:page
-            stateCallback:callback];
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/%@.json", board, page]];
+    [self requestURL:url
+            delegate:[[BoardRequestParser alloc] initWithDelegate:self]
+    progressCallback:callback];
 }
 
 - (void) requestThread:(NSNumber *) threadId
                   from:(NSString *) board
          stateCallback: (BoardAPIProgressCallback) callback {
-    [self loadThread:threadId from:board stateCallback:callback];
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.json", board, threadId]];
+
+    [self requestURL:url
+            delegate:[[BoardRequestParser alloc] initWithDelegate:self]
+    progressCallback:callback];
+}
+
+- (void) requestNewPostsFrom:(NSNumber *)thread
+                          at:(NSString *)board
+                       after:(NSNumber *)postId
+               stateCallback:(BoardAPIProgressCallback)callback {
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"api/thread/new/%@/%@.json?last_post=%@", board, thread, postId]];
+
+    NSLog(@"%@", url);
+    [self requestURL:url
+            delegate:[[BoardRequestParser alloc] initWithDelegate:self form:BoardRequestParserPostsForm]
+    progressCallback:callback];
+}
+
+- (void) requestPost:(NSNumber *)postId
+                from:(NSNumber *)threadId
+                  at:(NSString *)board
+       stateCallback:(BoardAPIProgressCallback)callback {
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"api/post/ref/%@/%@/%@.json", board, threadId, postId]];
+
+    [self requestURL:url
+            delegate:[[BoardRequestParser alloc] initWithDelegate:self form:BoardRequestParserPostForm]
+    progressCallback:callback];
 }
 
 - (NSURLSessionDataTask *) requestImage:(NSString *)path
-        stateCallback:(BoardAPIProgressCallback)stateCallback
-       finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
+                          stateCallback:(BoardAPIProgressCallback)stateCallback
+                         finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
     NSURL *url = [self urlFor:path];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *task = [self.imageLoadingSession
@@ -110,10 +142,14 @@
     return task;
 }
 
+# pragma mark request managing
+
 - (void) cancelRequest:(NSURLSessionTask *)task {
-    [task removeObserver:self forKeyPath:@"countOfBytesReceived"];
-    [self.progressCallbacks removeObjectForKey:task];
-    [task cancel];
+    if (task) {
+        [task removeObserver:self forKeyPath:@"countOfBytesReceived"];
+        [self.progressCallbacks removeObjectForKey:task];
+        [task cancel];
+    }
 }
 
 - (void) cancelRequest {
@@ -151,6 +187,12 @@
     });
 }
 
+- (void) didFinishedParsing {
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.delegate didFinishedReceiving];
+    });
+}
+
 #pragma mark private helper methods
 
 - (void) observeValueForKeyPath:(NSString *)keyPath
@@ -160,59 +202,34 @@
     if ([keyPath isEqualToString:@"countOfBytesReceived"]) {
         BoardAPIProgressCallback cb = [self.progressCallbacks objectForKey:object];
         NSURLSessionTask *task = (NSURLSessionTask *) object;
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            cb(task.countOfBytesReceived, task.countOfBytesExpectedToReceive);
-        });
+
+        if (cb)
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                cb(task.countOfBytesReceived, task.countOfBytesExpectedToReceive);
+            });
     }
 }
 
-#pragma mark abstract methods
-
-- (void) loadThreadsFrom:(NSString *) board
-                    page:(NSNumber *) page
-           stateCallback:(BoardAPIProgressCallback) block {
-    [self cancelRequest];
-
-    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/%@.json", board, page]];
-
-    BoardRequestParser *parser = [[BoardRequestParser alloc] initWithDelegate:self];
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:config
-                                                          delegate:parser
-                                                     delegateQueue:nil];
-
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:[NSURLRequest requestWithURL:url]];
-    [self.progressCallbacks setObject:block forKey:task];
-
-    self.currentTask = task;
-    [task resume];
-    [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void) loadThread:(NSNumber *) threadId
-               from:(NSString *) board
-      stateCallback:(BoardAPIProgressCallback) block {
-    [self cancelRequest];
-
-    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.json", board, threadId]];
-//    url = [NSURL URLWithString:@"http://192.168.12.177/3814061.json"];
-
-    BoardRequestParser *parser = [[BoardRequestParser alloc] initWithDelegate:self];
+- (NSURLSessionTask *) requestURL:(NSURL *) url
+                         delegate:(id<NSURLSessionDataDelegate>) ddelegate
+                 progressCallback:(BoardAPIProgressCallback) callback {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
-                                                          delegate:parser
+                                                          delegate:ddelegate
                                                      delegateQueue:nil];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:NSTimeIntervalSince1970];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:NSTimeIntervalSince1970];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request];
 
     self.currentTask = task;
-    [self.progressCallbacks setObject:block forKey:task];
+    if (callback) {
+        [self.progressCallbacks setObject:callback forKey:task];
+    }
 
-    [task resume];
     [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
+    [task resume];
+
+    return task;
 }
 
 

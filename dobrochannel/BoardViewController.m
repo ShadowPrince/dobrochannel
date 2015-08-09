@@ -11,12 +11,28 @@
 @interface BoardViewController ()
 @end @implementation BoardViewController
 
-- (void) viewDidLoad {
-    [super viewDidLoad];
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     if (!self.board) {
         self.board = @"b";
     }
+}
+
+- (void) encodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:self.page forKey:@"page"];
+    [coder encodeObject:self.board forKey:@"board"];
+}
+
+- (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+
+    [super setBoard:[coder decodeObjectForKey:@"board"]];
+    self.page = [coder decodeIntegerForKey:@"page"];
+
+    [self updateNavigationItem];
+    progressCallback(1, 1);
 }
 
 - (IBAction)nextPageAction:(id)sender {
@@ -32,7 +48,7 @@
 }
 
 - (void) setBoard:(NSString *)board {
-    _board = board;
+    [super setBoard:board];
     self.page = 0;
 
     [self reset];
@@ -49,8 +65,9 @@
     [super prepareCell:cell];
     
     if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
+        // NSSelectorFromString used for supressing compiler warning
         [((ThreadTableViewCell *) cell).goToThreadButton addTarget:self
-                                                            action:@selector(threadHeaderTouch:)
+                                                            action:NSSelectorFromString(@"threadHeaderTouch:")
                                                   forControlEvents:UIControlEventTouchUpInside];
     }
 }
