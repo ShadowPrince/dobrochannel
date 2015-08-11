@@ -19,4 +19,8 @@
 
 @property NSManagedObject *post;
 
+
+- (void) setHeaderTouchTarget:(id) target
+                       action:(SEL) action;
+
 @end

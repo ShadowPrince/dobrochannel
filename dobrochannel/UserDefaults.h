@@ -10,6 +10,8 @@
 
 @interface UserDefaults : NSObject
 
++ (void) setupDefaultValues;
+
 + (BOOL) attachmentsViewerLoadFull;
 + (BOOL) contentReaderLoadThumbnails;
 
@@ -18,5 +20,7 @@
 
 + (BOOL) showUnrated;
 + (NSInteger) maxRating;
+
++ (NSString *) postPassword;
 
 @end

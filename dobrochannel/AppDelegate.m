@@ -16,6 +16,8 @@
 
 
 - (BOOL)application:(nonnull UIApplication *)application willFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions {
+    [UserDefaults setupDefaultValues];
+
     return YES;
 }
 

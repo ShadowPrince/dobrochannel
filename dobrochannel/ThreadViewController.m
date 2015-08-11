@@ -8,6 +8,8 @@
 
 #import "ThreadViewController.h"
 
+// @TODO: nested thread view controllers memleak
+
 @interface ThreadViewController ()
 @property NSManagedObject *lastPost;
 @property BOOL scrollToNew;
@@ -18,6 +20,7 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+
     self.loadThread = YES;
 }
 
@@ -30,6 +33,24 @@
         self.loadThread = NO;
     }
 }
+
+#pragma mark segues
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"2newPost"] && ![sender isKindOfClass:[NSManagedObject class]]) {
+        NewPostViewController *controller = segue.destinationViewController;
+        controller.board = self.board;
+        controller.thread_identifier = self.identifier;
+    } else {
+        [super prepareForSegue:segue sender:sender];
+    }
+}
+
+- (IBAction) unwindFromNewPost:(UIStoryboardSegue *)sender {
+    [self refreshAction:nil];
+}
+
+# pragma mark context
 
 - (NSManagedObjectContext *) createContext {
     return [[BoardManagedObjectContext alloc] initWithPersistentPath:@"thread.data"];
@@ -48,9 +69,7 @@
     }
 }
 
-- (BOOL) shouldInsertObject:(NSManagedObject *)object {
-    return self.lastPost ? [object.entity.name isEqualToString:@"Post"] : [super shouldInsertObject:object];
-}
+# pragma mark actions
 
 - (IBAction)refreshAction:(id)sender {
     if (![self.api isRequesting]) {
@@ -62,6 +81,8 @@
                         stateCallback:progressCallback];
     }
 }
+
+# pragma mark state restoration
 
 - (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
@@ -77,6 +98,11 @@
 
     [aCoder encodeObject:self.identifier forKey:@"identifier"];
     [aCoder encodeObject:self.board forKey:@"board"];
+}
+
+- (void) dealloc {
+    [self.api cancelRequest];
+    NSLog(@"dealloc");
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ContentViewController.h"
+#import "NewPostViewController.h"
 
 @interface ThreadViewController : ContentViewController
 @property (nonatomic) NSNumber *identifier;

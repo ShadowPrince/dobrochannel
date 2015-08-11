@@ -28,6 +28,7 @@
         self.context = self.supercontroller.context;
         [self insetObject:self.targetObject];
         [self insertNewRows];
+        [self shouldLayoutContent];
     } else {
         [self.api requestPost:self.identifier
                          from:self.threadIdentifier

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.20" systemVersion="15A225f" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8175.2" systemVersion="15A243d" minimumToolsVersion="Xcode 7.0">
     <entity name="Attachment" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="size" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="src" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,12 +24,13 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="display_identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="posts_count" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="op_post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Attachment" positionX="162" positionY="-135" width="128" height="165"/>
+        <element name="Attachment" positionX="162" positionY="-135" width="128" height="180"/>
         <element name="Post" positionX="-9" positionY="-142" width="128" height="148"/>
-        <element name="Thread" positionX="-326" positionY="-225" width="128" height="118"/>
+        <element name="Thread" positionX="-326" positionY="-225" width="128" height="135"/>
     </elements>
 </model>

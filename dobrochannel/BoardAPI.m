@@ -102,8 +102,6 @@
                        after:(NSNumber *)postId
                stateCallback:(BoardAPIProgressCallback)callback {
     NSURL *url = [self urlFor:[NSString stringWithFormat:@"api/thread/new/%@/%@.json?last_post=%@", board, thread, postId]];
-
-    NSLog(@"%@", url);
     [self requestURL:url
             delegate:[[BoardRequestParser alloc] initWithDelegate:self form:BoardRequestParserPostsForm]
     progressCallback:callback];
@@ -124,42 +122,129 @@
                           stateCallback:(BoardAPIProgressCallback)stateCallback
                          finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
     NSURL *url = [self urlFor:path];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *task = [self.imageLoadingSession
-                                  dataTaskWithRequest:request
-                                  completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-                                      UIImage *image = [UIImage imageWithData:data];
-                                      if (image) {
-                                          dispatch_sync(dispatch_get_main_queue(), ^{
-                                              finishCallback(image);
-                                          });
-                                      }
-                                  }];
 
-    [self.progressCallbacks setObject:stateCallback forKey:task];
-    [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
-    [task resume];
-    return task;
+    return [self requestURL:url
+           progressCallback:stateCallback
+             finishCallback:^(NSData *data) {
+                 UIImage *image = [UIImage imageWithData:data];
+                 if (image) {
+                     dispatch_sync(dispatch_get_main_queue(), ^{
+                         finishCallback(image);
+                     });
+                 }
+             }];
+}
+
+- (NSURLSessionTask *) requestCaptchaAt:(NSString *) board
+                         finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
+    return [self requestImage:[NSString stringWithFormat:@"captcha/%@/%d.png", board, (int) [[NSDate date] timeIntervalSince1970]]
+                stateCallback:nil
+               finishCallback:finishCallback];
+}
+
+- (void) requestSessionInfoWithFinishCallback:(BoardSessionFinishCallback)finishCallback {
+    NSURL *url = [self urlFor:@"api/user.json"];
+
+    self.currentTask = [self requestURL:url
+                       progressCallback:nil
+                         finishCallback:^(NSData *data) {
+                             id json = [NSJSONSerialization JSONObjectWithData:data
+                                                                       options:0
+                                                                         error:nil];
+                             dispatch_sync(dispatch_get_main_queue(), ^{
+                                 finishCallback([json valueForKey:@"tokens"]);
+                                 [self cancelRequest];
+                             });
+                         }];
+}
+
+- (void) postInto:(NSNumber *)threadId
+               at:(NSString *)board
+             data:(NSDictionary *)_postData
+   finishCallback:(BoardPostFinishCallback)callback {
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/post/new.json", board]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+
+    // chop files out
+    NSArray<NSDictionary *> *files = _postData[@"files"];
+    NSMutableDictionary *postData = [_postData mutableCopy];
+    [postData removeObjectForKey:@"files"];
+
+    NSMutableDictionary *data = [NSMutableDictionary new];
+    [data setValuesForKeysWithDictionary:@{@"task": @"post",
+                                           @"scroll_to": @"",
+                                           @"goto": @"thread",
+                                           @"post_files_count": [NSString stringWithFormat:@"%d", files.count + 1],
+                                           @"new_post": @"Отправить",
+                                           @"subject": @"",
+                                           @"name": @"Экспериментатор",
+                                           @"thread_id": threadId.stringValue,
+                                           }];
+    [data setValuesForKeysWithDictionary:postData];
+
+    // setup files ratings
+    for (int i = 0; i < files.count; i++)
+        data[[NSString stringWithFormat:@"file_%d_rating", i+1]] = [files[i][@"rating"] uppercaseString];
+
+    // boundary and headers
+    NSString *myboundary = @"------WebKitFormBoundaryf8AVk0gFLWQNUVjP";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",myboundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+
+    NSMutableData *HTTPBody = [NSMutableData new];
+
+    // fill HTTPBody with data
+    [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
+        [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[obj dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+
+    // fill HTTPBody with files
+    for (int i = 0; i < files.count; i++) {
+        NSData *fileData = UIImageJPEGRepresentation(files[i][@"image"], 0.8f);
+
+        [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file_%d\"; filename=\"%d.jpg\"\r\n", i+1, i]dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:fileData];
+    }
+
+    // close boundary
+    [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    request.HTTPBody = HTTPBody;
+
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[[NSOperationQueue alloc] init]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               NSLog(@"%@", response);
+                               NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                               NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, threadId]];
+                               if (![[response URL] isEqual:successUrl]) {
+                                   NSArray *errors = [BoardPostResponseParser parseErrorsFromResponseData:data];
+                                   callback(errors);
+                               } else {
+                                   callback(nil);
+                               }
+                           }];
 }
 
 # pragma mark request managing
 
 - (void) cancelRequest:(NSURLSessionTask *)task {
     if (task) {
-        [task removeObserver:self forKeyPath:@"countOfBytesReceived"];
-        [self.progressCallbacks removeObjectForKey:task];
+        if (self.progressCallbacks[task]) {
+            [task removeObserver:self forKeyPath:@"countOfBytesReceived"];
+            [self.progressCallbacks removeObjectForKey:task];
+        }
         [task cancel];
     }
 }
 
 - (void) cancelRequest {
-    if (self.currentTask) {
-        [self.currentTask removeObserver:self forKeyPath:@"countOfBytesReceived"];
-        [self.currentTask cancel];
-        [self.progressCallbacks removeObjectForKey:self.currentTask];
-
-        self.currentTask = nil;
-    }
+    [self cancelRequest:self.currentTask];
+    self.currentTask = nil;
 }
 
 - (BOOL) isRequesting {
@@ -182,7 +267,7 @@
 }
 
 - (void) didParsedPost:(NSDictionary *)post {
-    dispatch_sync(dispatch_get_main_queue(), ^{
+dispatch_sync(dispatch_get_main_queue(), ^{
         [self.delegate didReceivedPost:post];
     });
 }
@@ -210,9 +295,29 @@
     }
 }
 
+- (NSURLSessionDataTask *) requestURL:(NSURL *) url
+                 progressCallback:(BoardAPIProgressCallback) stateCallback
+                   finishCallback:(BoardAPIFinishCallback) finishCallback {
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionDataTask *task = [self.imageLoadingSession
+                                  dataTaskWithRequest:request
+                                  completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+                                      finishCallback(data);
+                                  }];
+
+    if (stateCallback) {
+        [self.progressCallbacks setObject:stateCallback forKey:task];
+        [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
+    }
+
+    [task resume];
+    return task;
+}
+
 - (NSURLSessionTask *) requestURL:(NSURL *) url
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
+    NSLog(@"%@", url);
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                           delegate:ddelegate
                                                      delegateQueue:nil];
@@ -224,11 +329,10 @@
     self.currentTask = task;
     if (callback) {
         [self.progressCallbacks setObject:callback forKey:task];
+        [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
     }
 
-    [task addObserver:self forKeyPath:@"countOfBytesReceived" options:NSKeyValueObservingOptionNew context:nil];
     [task resume];
-
     return task;
 }
 

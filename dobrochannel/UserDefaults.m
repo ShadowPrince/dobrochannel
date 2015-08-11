@@ -10,6 +10,25 @@
 
 @implementation UserDefaults
 
++ (void) setupDefaultValues {
+    NSString *pwd = [[[NSProcessInfo processInfo] globallyUniqueString] substringToIndex:8];
+
+    NSDictionary *defaultValues = @{@"initial_setup": @YES,
+                                    @"av_load_full": @YES,
+                                    @"cr_load_full": @NO,
+                                    @"cr_load_full_max_size": @333,
+                                    @"cr_load_thumbs": @YES,
+                                    @"cr_show_no_rating": @NO,
+                                    @"post_password": pwd,
+                                    };
+
+    [defaultValues enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (![[NSUserDefaults standardUserDefaults] valueForKey:key]) {
+            [[NSUserDefaults standardUserDefaults] setValue:obj forKey:key];
+        }
+    }];
+}
+
 + (BOOL) attachmentsViewerLoadFull {
     NSNumber *value = [[NSUserDefaults standardUserDefaults] valueForKey:@"av_load_full"];
 
@@ -45,6 +64,10 @@
     NSNumber *value = [[NSUserDefaults standardUserDefaults] valueForKey:@"max_rating"];
 
     return value.integerValue;
+}
+
++ (NSString *) postPassword {
+    return (NSString *) [[NSUserDefaults standardUserDefaults] valueForKey:@"post_password"];
 }
 
 @end

@@ -17,11 +17,16 @@
 
 @end
 
-@interface BoardManagedObjectContext : NSManagedObjectContext <BoardDelegate>
+@interface BoardManagedObjectContext : NSManagedObjectContext <BoardDelegate, NSCoding>
 @property (weak) id<BoardManagedObjectContextDelegate> delegate;
 
 - (instancetype) initWithPersistentPath:(NSString *) filePath;
 
 - (NSManagedObject *) postObjectForDisplayId:(NSNumber *) _id;
 - (void) clearPersistentStorage;
+
+- (NSArray *) requestAttachmentsFor:(NSManagedObject *) post;
+- (NSArray *) requestThreads;
+- (NSArray *) requestPostsFrom:(NSManagedObject *) thread;
+
 @end

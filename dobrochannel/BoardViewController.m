@@ -19,21 +19,7 @@
     }
 }
 
-- (void) encodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
-    [super encodeRestorableStateWithCoder:coder];
-    [coder encodeInteger:self.page forKey:@"page"];
-    [coder encodeObject:self.board forKey:@"board"];
-}
-
-- (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
-    [super decodeRestorableStateWithCoder:coder];
-
-    [super setBoard:[coder decodeObjectForKey:@"board"]];
-    self.page = [coder decodeIntegerForKey:@"page"];
-
-    [self updateNavigationItem];
-    progressCallback(1, 1);
-}
+#pragma mark actions
 
 - (IBAction)nextPageAction:(id)sender {
     [self.api requestThreadsFrom:self.board page:[NSNumber numberWithInteger:++self.page] stateCallback:progressCallback];
@@ -46,6 +32,8 @@
 
     [super didScrollToBottom];
 }
+
+#pragma mark helper
 
 - (void) setBoard:(NSString *)board {
     [super setBoard:board];
@@ -72,21 +60,40 @@
     }
 }
 
+#pragma mark segues
+
 - (void) prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender {
     [super prepareForSegue:segue sender:sender];
 
-    if ([segue.identifier isEqualToString:@"2threadController"]) {
-        ThreadViewController *controller = segue.destinationViewController;
-
-        controller.identifier = sender;
-        controller.board = self.board;
-    }
 
     if ([segue.identifier isEqualToString:@"2boardSwitcherController"]) {
         BoardSwitcherViewController *controller = segue.destinationViewController;
 
         controller.controller = self;
     }
+}
+
+- (IBAction) unwindFromNewPost:(UIStoryboardSegue *)sender {
+    self.page = 0;
+    self.board = self.board;
+}
+
+#pragma mark state restoration
+
+- (void) encodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:self.page forKey:@"page"];
+    [coder encodeObject:self.board forKey:@"board"];
+}
+
+- (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+
+    [super setBoard:[coder decodeObjectForKey:@"board"]];
+    self.page = [coder decodeIntegerForKey:@"page"];
+
+    [self updateNavigationItem];
+    progressCallback(1, 1);
 }
 
 @end

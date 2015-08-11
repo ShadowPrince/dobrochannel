@@ -12,6 +12,7 @@
 #import "BoardAPI.h"
 #import "BoardManagedObjectContext.h"
 #import "BoardMarkupParser.h"
+#import "BoardPostResponseParser.h"
 
 #import "ThreadTableViewCell.h"
 #import "PostTableViewCell.h"
@@ -24,6 +25,7 @@ UIDataSourceModelAssociation,
 BoardManagedObjectContextDelegate> {
     BoardAPIProgressCallback progressCallback;
 }
+
 @property BoardAPI *api;
 @property BoardManagedObjectContext *context;
 @property NSString *board;
@@ -47,4 +49,7 @@ BoardManagedObjectContextDelegate> {
 - (IBAction)attachmentTouch:(NSArray *)sender;
 - (IBAction) boardlinkTouch:(NSString *)identifier
                     context:(NSManagedObject *) contextObject;
+
+- (void) shouldLayoutContent;
+
 @end

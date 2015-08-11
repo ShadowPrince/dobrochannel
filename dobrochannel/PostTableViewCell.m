@@ -11,6 +11,7 @@
 @interface PostTableViewCell ()
 //---
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UITableView *attachmentsView;
 @end @implementation PostTableViewCell
 @synthesize post;
@@ -57,6 +58,11 @@
     self.textViewDelegate = [[MessageTextViewDelegate alloc] initWithTarget:target action:action];
     self.textViewDelegate.contextObject = self.post;
     self.dynamicTextView.delegate = self.textViewDelegate;
+}
+
+- (void) setHeaderTouchTarget:(id) target
+                       action:(SEL) action {
+    [self.headerButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

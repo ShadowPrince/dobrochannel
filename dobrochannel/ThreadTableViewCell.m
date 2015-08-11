@@ -40,6 +40,10 @@
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.titleLabel.text = [data valueForKey:@"title"];
 
+    NSNumber *postsCount = [data valueForKey:@"posts_count"];
+    self.statusLabel.text = [NSString stringWithFormat:@"%@ post%@", postsCount, [postsCount isEqualToNumber:@1] ? @"" : @"s"];
+    self.dateLabel.text = [[data valueForKey:@"op_post"] valueForKey:@"date"];
+
     self.messageTextView.attributedText = [parser parse:self.dynamicText];
 
     self.thread = data;

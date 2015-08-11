@@ -8,6 +8,8 @@
 
 #import "ContentViewController.h"
 #import "PostViewController.h"
+#import "ThreadViewController.h"
+#import "NewPostViewController.h"
 
 @interface ContentViewController ()
 @property NSMutableArray<NSManagedObject *> *threads;
@@ -18,6 +20,7 @@
 @property NSMutableArray<UITableViewCell *> *preparedTableCells;
 @property NSInteger tableLoadedRows;
 @property BOOL viewChangedSize;
+@property NSIndexPath *viewChangedSizeScrollTo;
 @property PostTableViewCell *cachedPostCell;
 @property ThreadTableViewCell *cachedThreadView;
 @property NSMutableDictionary<NSIndexPath *, NSNumber *> *rowHeightCache;
@@ -51,26 +54,14 @@
 
                             }];
 
-    progressCallback = ^void(long long completed, long long total) {
-        if (total == 0) {
-            self.progressView.progress = 0.6f;
-            [self.progressView setHidden:NO];
-        } else if (completed == total) {
-            [self.progressView setHidden:YES];
-        } else {
-            self.progressView.progress = (CGFloat) completed / (CGFloat) total;
-            [self.progressView setHidden:NO];
-        }
-    };
-
     [self resetReuseProperties];
     return self;
 }
 
-- (void) resetReuseProperties { // @TODO: find a not-4-am method name
+- (void) resetReuseProperties {
     [self.api cancelRequest];
 
-    self.viewChangedSize = YES;
+    self.viewChangedSize = NO;
     self.preparedTableCells = [NSMutableArray new];
     self.threads = [NSMutableArray new];
     self.rowHeightCache = [NSMutableDictionary dictionary];
@@ -89,7 +80,6 @@
 }
 
 - (void) reset {
-    NSLog(@"cleared");
     [self.context clearPersistentStorage];
     [self resetReuseProperties];
 }
@@ -135,12 +125,35 @@
         controller.attachments = sender[0];
         controller.index = ((NSNumber *) sender[1]).integerValue;
     }
+
+    if ([segue.identifier isEqualToString:@"2threadController"]) {
+        ThreadViewController *controller = segue.destinationViewController;
+
+        controller.identifier = sender;
+        controller.board = self.board;
+    }
+
+    if ([segue.identifier isEqualToString:@"2newPost"]) {
+        NewPostViewController *controller = segue.destinationViewController;
+        NSManagedObject *post = (NSManagedObject *) sender;
+
+        controller.board = self.board;
+        controller.thread_identifier = [[post valueForKey:@"thread"] valueForKey:@"display_identifier"];
+        controller.inReplyToIdentifier = [post valueForKey:@"display_identifier"];
+        controller.inReplyToMessage = [self.markupParser parse:[post valueForKey:@"message"]];
+    }
 }
 
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
     [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
+}
+
+- (IBAction)postHeaderTouch:(UIButton *)sender {
+    PostTableViewCell *cell = (PostTableViewCell *) [self superviewIn:sender atPosition:2];
+
+    [self performSegueWithIdentifier:@"2newPost" sender:cell.post];
 }
 
 - (IBAction)attachmentTouch:(NSArray *)sender {
@@ -165,6 +178,7 @@
 
 - (IBAction) boardlinkTouch:(NSString *)identifier
                     context:(NSManagedObject *) contextObject {
+    // @TODO: figure it out right way
     if ([contextObject.entity.name isEqualToString:@"Thread"]) {
         [self performSegueWithIdentifier:@"2threadController" sender:[NSNumber numberWithInteger:identifier.integerValue]];
     } else {
@@ -172,6 +186,9 @@
         pv.supercontroller = self;
 
         NSNumber *idNumber = [NSNumber numberWithInteger:identifier.integerValue];
+        if ([idNumber isEqualToNumber:@0])
+            return;
+        
         pv.targetObject = [self.context postObjectForDisplayId:idNumber];
         pv.board = self.board;
         pv.identifier = idNumber;
@@ -259,13 +276,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[UINib nibWithNibName:@"ThreadTableViewCell" bundle:[NSBundle mainBundle]]
+    [self.tableView registerNib:[UINib nibWithNibName:@"ThreadTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"ThreadView"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"PostTableViewCell" bundle:[NSBundle mainBundle]]
+    [self.tableView registerNib:[UINib nibWithNibName:@"PostTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"PostView"];
 
     self.cachedPostCell = [self.tableView dequeueReusableCellWithIdentifier:@"PostView"];
     self.cachedThreadView = [self.tableView dequeueReusableCellWithIdentifier:@"ThreadView"];
+
+    UIProgressView *pv = self.progressView;
+    progressCallback = ^void(long long completed, long long total) {
+        if (total == 0) {
+            pv.progress = 0.6f;
+            [pv setHidden:NO];
+        } else if (completed == total) {
+            [pv setHidden:YES];
+        } else {
+            pv.progress = (CGFloat) completed / (CGFloat) total;
+            [pv setHidden:NO];
+        }
+    };
+
 }
 
 - (void) viewDidLayoutSubviews {
@@ -273,11 +304,15 @@
         self.rowHeightCache = [NSMutableDictionary dictionary];
         [self.tableView reloadData];
         self.viewChangedSize = NO;
+
+        if (self.viewChangedSizeScrollTo)
+            [self.tableView scrollToRowAtIndexPath:self.viewChangedSizeScrollTo atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
     self.viewChangedSize = YES;
+    self.viewChangedSizeScrollTo = [[self.tableView indexPathsForVisibleRows] firstObject];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -288,6 +323,10 @@
 - (void) loadView {
     UINib *nib = [UINib nibWithNibName: @"ContentViewController" bundle:[NSBundle bundleForClass:[self class]]];
     self.view = [[nib instantiateWithOwner:self options:nil] objectAtIndex:0];
+}
+
+- (void) shouldLayoutContent {
+    self.viewChangedSize = YES;
 }
 
 # pragma mark context
@@ -339,22 +378,27 @@
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [cell setAttachmentTouchTarget:self action:@selector(attachmentTouch:)];
     [cell setBoardlinkTouchTarget:self action:@selector(boardlinkTouch:context:)];
+
+    if ([cell isKindOfClass:[PostTableViewCell class]]) {
+        // NSSelectorFromString used for supressing compiler warning
+        [((PostTableViewCell *) cell) setHeaderTouchTarget:self
+                                                    action:NSSelectorFromString(@"postHeaderTouch:")];
+    }
+
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    [self popAllPopups:nil];
+    // pop all popups on scroll
+    // scrollViewDidScroll not used, 'cause it's being fired when modal view controller is dismissed
+    // also cellForRowAtIndexPath scroll comes with a little threshhold
+
     NSManagedObject *entry = self.threads[indexPath.row];
     BoardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@View", entry.entity.name]];
 
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Attachment"];
-    if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
-        request.predicate = [NSPredicate predicateWithFormat:@"post == %@", [entry valueForKey:@"op_post"]];
-    } else {
-        request.predicate = [NSPredicate predicateWithFormat:@"post == %@", entry];
-    }
-
     [cell setupAttachmentOffsetFor:tableView.frame.size];
     [cell populate:entry
-       attachments:[self.context executeFetchRequest:request error:nil]
+       attachments:[self.context requestAttachmentsFor:entry]
       markupParser:self.markupParser];
     [self prepareCell:cell];
 
@@ -375,20 +419,17 @@
     } else {
         NSManagedObject *entry = self.threads[indexPath.row];
         CGFloat height = 0.f;
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Attachment"];
 
         BoardTableViewCell *cell;
         if ([entry.entity.name isEqual:@"Thread"]) {
             cell = self.cachedThreadView;
-            request.predicate = [NSPredicate predicateWithFormat:@"post == %@", [entry valueForKey:@"op_post"]];
         } else {
             cell = self.cachedPostCell;
-            request.predicate = [NSPredicate predicateWithFormat:@"post == %@", entry];
         }
 
         [cell setupAttachmentOffsetFor:self.tableView.frame.size];
         [cell populateForHeightCalculation:entry
-                               attachments:[self.context executeFetchRequest:request error:nil]];
+                               attachments:[self.context requestAttachmentsFor:entry]];
         height = [cell calculatedHeight:self.tableView.frame.size];
         self.rowHeightCache[indexPath] = [NSNumber numberWithFloat:height];
 
@@ -396,32 +437,20 @@
     }
 }
 
-- (void) scrollViewDidScroll:(nonnull UIScrollView *)scrollView {
-    [self popAllPopups:nil];
-}
-
 # pragma mark state restoration
 
 - (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
+    self.context = [coder decodeObjectForKey:@"context"];
+    self.context.delegate = self;
+    self.api.delegate = self.context;
 
     // push all of the cached data into table view
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Thread"];
-    NSArray *threadsResponse = [self.context executeFetchRequest:request error:nil];
-    threadsResponse = [threadsResponse sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [[obj2 valueForKey:@"date"] compare:[obj1 valueForKey:@"date"]];
-    }];
-    for (NSManagedObject *thread in threadsResponse) {
+    for (NSManagedObject *thread in [self.context requestThreads]) {
         [self insetObject:thread];
         [self didInsertObject:thread];
 
-        request = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
-        request.predicate = [NSPredicate predicateWithFormat:@"thread == %@", thread];
-        NSArray *postsResponse = [[self.context executeFetchRequest:request error:nil] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [[obj1 valueForKey:@"date"] compare:[obj2 valueForKey:@"date"]];
-        }];
-
-        for (NSManagedObject *post in postsResponse) {
+        for (NSManagedObject *post in [self.context requestPostsFrom:thread]) {
             [self insetObject:post];
             [self didInsertObject:post];
         }
@@ -429,6 +458,15 @@
 
     // actual insert will happen in viewDidLayoutSubviews
     self.tableLoadedRows = [self.threads count];
+    self.viewChangedSize = YES;
+    self.viewChangedSizeScrollTo = [coder decodeObjectForKey:@"first_visible_row"];
+}
+
+- (void) encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+
+    [coder encodeObject:self.context forKey:@"context"];
+    [coder encodeObject:[[self.tableView indexPathsForVisibleRows] firstObject] forKey:@"first_visible_row"];
 }
 
 - (NSString *) modelIdentifierForElementAtIndexPath:(nonnull NSIndexPath *)idx inView:(nonnull UIView *)view {

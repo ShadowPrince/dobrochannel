@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *sizesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *filenameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
 @end @implementation DetailedAttachmentViewController
 @synthesize image, attachment;
@@ -73,6 +74,12 @@
                                 [attachment valueForKey:@"type"]];
     }
     self.filenameLabel.text = full_src;
+    NSNumber *rating = [self.attachment valueForKey:@"rating"];
+    if ([rating isEqualToNumber:@-1]) {
+        self.ratingLabel.text = @"unrated";
+    } else {
+        self.ratingLabel.text = [[BoardAPI api] ratingsList][[rating integerValue]];
+    }
 
     [self request:thumb_src completeWith:^{
         if ([UserDefaults attachmentsViewerLoadFull] && [self shouldLoadFullImage]) {

@@ -35,6 +35,7 @@
 
         UIImageView *iv = [[UIImageView alloc] init];
         iv.tag = 111;
+        iv.contentMode = UIViewContentModeScaleAspectFit;
         [cell addSubview:iv];
 
         UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -85,6 +86,7 @@
     }
 
     NSString *src = [attachment valueForKey:@"thumb_src"];
+    int rating_int = [[attachment valueForKey:@"rating"] integerValue];
     BOOL weight_lesser_limit = weight.integerValue <= [UserDefaults contentReaderLoadFullMaxSize] * 1024;
     BOOL is_image = [type isEqualToString:@"image"];
     if (is_image && weight_lesser_limit && [UserDefaults contentReaderLoadFull]) {
@@ -93,19 +95,26 @@
 
     iv.image = nil;
 
+
     if ([UserDefaults contentReaderLoadThumbnails]) {
-        aiv.hidden = NO;
-        if ([UserDefaults contentReaderLoadThumbnails])
+        if (rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
+            aiv.hidden = NO;
             [aiv startAnimating];
 
-        self.tasks[indexPath] = [[BoardAPI api] requestImage:src
-                                               stateCallback:^(long long processed, long long total) {
+            self.tasks[indexPath] = [[BoardAPI api] requestImage:src
+                                                   stateCallback:^(long long processed, long long total) {
 
-                                               } finishCallback:^(UIImage *i) {
-                                                   iv.image = i;
-                                                   [aiv stopAnimating];
-                                                   aiv.hidden = YES;
-                                               }];
+                                                   } finishCallback:^(UIImage *i) {
+                                                       iv.image = i;
+                                                       [aiv stopAnimating];
+                                                       aiv.hidden = YES;
+                                                   }];
+        } else {
+            cell.userInteractionEnabled = NO;
+            iv.image = [UIImage imageNamed:@"rated"];
+        }
+    } else {
+        iv.image = [UIImage imageNamed:@"attachment"];
     }
 
     return cell;
