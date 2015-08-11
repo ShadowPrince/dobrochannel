@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A234d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -46,13 +46,20 @@
                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                     </textView>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5CI-Zp-LTe">
-                        <rect key="frame" x="16" y="21" width="82" height="154.5"/>
+                        <rect key="frame" x="16" y="21" width="82" height="155"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="82" id="G9G-DN-ogp"/>
                         </constraints>
                     </tableView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl6-Nh-hQ5">
+                        <rect key="frame" x="0.0" y="0.0" width="439" height="20"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="qZn-7z-aau"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <animations/>
                 <constraints>
@@ -61,15 +68,18 @@
                     <constraint firstItem="5CI-Zp-LTe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="7ym-sN-Fz5"/>
                     <constraint firstItem="5CI-Zp-LTe" firstAttribute="leading" secondItem="4dk-OT-448" secondAttribute="leading" id="CCo-Tp-1r2"/>
                     <constraint firstItem="4dk-OT-448" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="FUE-ka-V5L"/>
+                    <constraint firstItem="Bl6-Nh-hQ5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Krn-WV-ZlS"/>
                     <constraint firstAttribute="bottomMargin" secondItem="5CI-Zp-LTe" secondAttribute="bottom" constant="-8" id="MI3-C4-P2N"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="RzR-rT-xEd"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="leading" secondItem="4dk-OT-448" secondAttribute="trailing" constant="8" id="Szn-aF-bU1"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="VZN-Ae-XXE"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Bl6-Nh-hQ5" secondAttribute="trailing" constant="-8" id="cpX-Ut-Wqs"/>
                     <constraint firstAttribute="bottomMargin" secondItem="e6t-5k-38I" secondAttribute="bottom" constant="-8" id="hmd-mP-ADB"/>
                     <constraint firstItem="4dk-OT-448" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="kSh-1L-Err"/>
                     <constraint firstItem="e6t-5k-38I" firstAttribute="leading" secondItem="5CI-Zp-LTe" secondAttribute="trailing" id="lIZ-TU-ctK"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="baseline" secondItem="4dk-OT-448" secondAttribute="baseline" id="rAa-j8-qx8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="e6t-5k-38I" secondAttribute="trailing" constant="-8" id="uJU-is-OlD"/>
+                    <constraint firstItem="Bl6-Nh-hQ5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ufA-5n-0Cl"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -81,6 +91,7 @@
             <connections>
                 <outlet property="attachmentsView" destination="5CI-Zp-LTe" id="Tau-4J-kgd"/>
                 <outlet property="dateLabel" destination="4dk-OT-448" id="e4h-Sg-W8m"/>
+                <outlet property="headerButton" destination="Bl6-Nh-hQ5" id="9o3-72-V1y"/>
                 <outlet property="idLabel" destination="hBP-TK-h5d" id="55e-Ik-cKb"/>
                 <outlet property="messageTextView" destination="e6t-5k-38I" id="oor-18-WaP"/>
                 <outlet property="scrollViewWidthConstraint" destination="G9G-DN-ogp" id="Wux-Ic-lif"/>
