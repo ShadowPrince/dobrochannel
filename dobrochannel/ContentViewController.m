@@ -147,12 +147,7 @@
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    ThreadViewController *controller = [[ThreadViewController alloc] init];
-    controller.identifier = [cell.thread valueForKey:@"display_identifier"];
-    controller.board = self.board;
-
-    [self.navigationController pushViewController:controller animated:YES];
-    //[self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
+    [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
 }
 
 - (IBAction)postHeaderTouch:(UIButton *)sender {
@@ -185,7 +180,11 @@
                     context:(NSManagedObject *) contextObject {
     // @TODO: figure it out right way
     if ([contextObject.entity.name isEqualToString:@"Thread"]) {
-        [self performSegueWithIdentifier:@"2threadController" sender:[NSNumber numberWithInteger:identifier.integerValue]];
+        ThreadViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"threadViewController"];
+        controller.identifier = [NSNumber numberWithInteger:identifier.integerValue];
+        controller.board = self.board;
+
+        [self.navigationController pushViewController:controller animated:YES];
     } else {
         PostViewController *pv = [[PostViewController alloc] init];
         pv.supercontroller = self;
