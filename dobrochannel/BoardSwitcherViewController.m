@@ -51,7 +51,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
 
     NSString *key = self.boardsList[indexPath.section][indexPath.row];
-    NSArray<NSString *> *board = self.boardsData[key];
+    NSArray *board = self.boardsData[key];
 
     UILabel *l = (UILabel *) [cell viewWithTag:100];
     l.text = [NSString stringWithFormat:@"/%@/", key];

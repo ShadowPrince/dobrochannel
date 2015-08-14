@@ -12,7 +12,7 @@
 @property NSOperationQueue *oqueue;
 @property NSURLSessionDataTask *currentTask;
 @property NSURLSession *imageLoadingSession;
-@property NSMutableDictionary<NSURLSessionTask *, BoardAPIProgressCallback> *progressCallbacks;
+@property NSMutableDictionary *progressCallbacks;
 
 @end @implementation BoardAPI
 @synthesize delegate, currentTask;
@@ -88,7 +88,7 @@
     return @{@"sorted_keys": sortedNames, @"data": boards};
 }
 
-- (NSArray<NSString *> *) ratingsList {
+- (NSArray *) ratingsList {
     return @[@"sfw", @"rated", @"r-15", @"r-18", @"r-18g"];
 }
 
@@ -191,7 +191,7 @@
     request.HTTPMethod = @"POST";
 
     // chop files out
-    NSArray<NSDictionary *> *files = _postData[@"files"];
+    NSArray *files = _postData[@"files"];
     NSMutableDictionary *postData = [_postData mutableCopy];
     [postData removeObjectForKey:@"files"];
 
@@ -215,7 +215,7 @@
     NSMutableData *HTTPBody = [NSMutableData new];
 
     // fill HTTPBody with data
-    [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
+    [data enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * stop) {
         [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:[obj dataUsingEncoding:NSUTF8StringEncoding]];
@@ -244,7 +244,7 @@
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                           completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError) {
 //                               NSLog(@"%@", response);
 //                               NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, threadId]];

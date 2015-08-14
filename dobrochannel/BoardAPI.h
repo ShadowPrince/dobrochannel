@@ -32,8 +32,8 @@ typedef void (^BoardSessionFinishCallback) (NSArray *);
 
 + (instancetype) api;
 
-- (NSDictionary<NSString *, NSArray<NSString *>*> *) boardsList;
-- (NSArray<NSString *> *) ratingsList;
+- (NSDictionary *) boardsList;
+- (NSArray *) ratingsList;
 - (NSURL *) urlFor:(NSString *) relative;
 
 - (void) cancelRequest:(NSURLSessionTask *) task;

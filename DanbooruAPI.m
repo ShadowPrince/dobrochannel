@@ -10,7 +10,7 @@
 
 @interface DanbooruAPI ()
 @property (weak) NSObject<DanbooruAPIDelegate> *delegate;
-@property NSMutableDictionary<NSURLSessionDownloadTask *, NSDictionary *> *imageDownloadTasks;
+@property NSMutableDictionary *imageDownloadTasks;
 
 @property (readonly) NSString *host;
 
@@ -31,7 +31,7 @@
 
 - (void) observeValueForKeyPath:(NSString *)keyPath
                        ofObject:(id)object
-                         change:(NSDictionary<NSString *,id> *)change
+                         change:(NSDictionary *)change
                         context:(void *)context {
     if ([keyPath isEqualToString:@"countOfBytesReceived"]) {
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -72,7 +72,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request
-                                                 completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                 completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                                                      if (data) {
                                                          UIImage *image = [[UIImage alloc] initWithData:data];
                                                          cb(image);
@@ -162,7 +162,7 @@
 - (id) requestSync:(NSString *) urlString
             params:(NSDictionary *) params {
     NSMutableString *paramsString = [NSMutableString new];
-    [params enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
+    [params enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * stop) {
         [paramsString appendString:[NSString stringWithFormat:@"%@=%@&",
                                     key,
                                     [obj stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
@@ -184,7 +184,7 @@
 }
 
 - (void) dealloc {
-    [self.imageDownloadTasks enumerateKeysAndObjectsUsingBlock:^(NSURLSessionDownloadTask *key, NSDictionary *obj, BOOL * _Nonnull stop) {
+    [self.imageDownloadTasks enumerateKeysAndObjectsUsingBlock:^(NSURLSessionDownloadTask *key, NSDictionary *obj, BOOL * stop) {
         [key removeObserver:self forKeyPath:@"countOfBytesReceived"];
         [key cancel];
     }];

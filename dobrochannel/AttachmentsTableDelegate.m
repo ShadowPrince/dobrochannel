@@ -10,7 +10,7 @@
 #import "AttachmentsTableDelegate.h"
 
 @interface AttachmentsTableDelegate ()
-@property NSMutableDictionary<NSIndexPath *, NSURLSessionTask *> *tasks;
+@property NSMutableDictionary *tasks;
 @end @implementation AttachmentsTableDelegate
 @synthesize tasks;
 

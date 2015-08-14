@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F31451771B72730E00CAAA59 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F31451761B72730E00CAAA59 /* Launch Screen.storyboard */; };
+		F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32657EA1B7E99600013078E /* Launch Screen.xib */; };
 		F33D94051B5BD8E7000AA303 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
 		F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94071B5BD8E7000AA303 /* AppDelegate.m */; };
 		F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F33D940C1B5BD8E7000AA303 /* Main.storyboard */; };
@@ -50,7 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F31451761B72730E00CAAA59 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		F32657EA1B7E99600013078E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		F33D94001B5BD8E7000AA303 /* Dobrochannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dobrochannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33D94041B5BD8E7000AA303 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F33D94061B5BD8E7000AA303 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -186,9 +186,9 @@
 			children = (
 				F3DC6FF01B6B93E60063857A /* PostViewController.xib */,
 				F33D940C1B5BD8E7000AA303 /* Main.storyboard */,
-				F31451761B72730E00CAAA59 /* Launch Screen.storyboard */,
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
 				F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */,
+				F32657EA1B7E99600013078E /* Launch Screen.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -362,11 +362,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */,
-				F31451771B72730E00CAAA59 /* Launch Screen.storyboard in Resources */,
 				F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */,
 				F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */,
 				F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */,
 				F3B063D11B7B3FD0003BA83E /* ImageCollectionViewCell.xib in Resources */,
+				F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */,
 				F3B937BA1B5DAAFA00721CD8 /* PostTableViewCell.xib in Resources */,
 				F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */,
 				F3B063C01B7A9764003BA83E /* Assets.xcassets in Resources */,

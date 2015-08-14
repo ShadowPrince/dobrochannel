@@ -12,7 +12,7 @@
 @property NSDictionary *ongoingThreadData;
 @property NSManagedObject *ongoingThread;
 
-@property NSMutableDictionary<NSNumber *, NSManagedObjectID *> *postIds;
+@property NSMutableDictionary *postIds;
 @property NSString *persistentPath;
 @end @implementation BoardManagedObjectContext
 @synthesize ongoingThread, ongoingThreadData;
@@ -177,14 +177,14 @@
 
 - (NSArray *) requestThreads {
     NSArray *result = [self requestEntity:@"Thread" using:nil];
-    return [result sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    return [result sortedArrayUsingComparator:^NSComparisonResult(id  obj1, id  obj2) {
         return [[obj2 valueForKey:@"date"] compare:[obj1 valueForKey:@"date"]];
     }];
 }
 
 - (NSArray *) requestPostsFrom:(NSManagedObject *)thread {
     NSArray *result = [self requestEntity:@"Post" using:[NSPredicate predicateWithFormat:@"thread == %@", thread]];
-    return [result sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    return [result sortedArrayUsingComparator:^NSComparisonResult(id  obj1, id  obj2) {
         return [[obj1 valueForKey:@"date"] compare:[obj2 valueForKey:@"date"]];
     }];
 }
@@ -194,7 +194,7 @@
         entry = [entry valueForKey:@"op_post"];
 
     NSArray *result = [self requestEntity:@"Attachment" using:[NSPredicate predicateWithFormat:@"post == %@", entry]];
-    return [result sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    return [result sortedArrayUsingComparator:^NSComparisonResult(id  obj1, id  obj2) {
         return [[obj1 valueForKey:@"identifier"] compare:[obj2 valueForKey:@"identifier"]];
     }];
 }
@@ -235,15 +235,15 @@
     self = [self initWithPersistentPath:persistentPath];
 
     NSMutableDictionary *postURIs = [aDecoder decodeObjectForKey:@"postURIs"];
-    [postURIs enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [postURIs enumerateKeysAndObjectsUsingBlock:^(id  key, id  obj, BOOL * stop) {
         self.postIds[key] = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:obj];
     }];
     return self;
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
-    NSMutableDictionary<NSNumber *, NSURL *> *postIdsURLs = [NSMutableDictionary new];
-    [self.postIds enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSManagedObjectID * _Nonnull obj, BOOL * _Nonnull stop) {
+    NSMutableDictionary *postIdsURLs = [NSMutableDictionary new];
+    [self.postIds enumerateKeysAndObjectsUsingBlock:^(NSNumber * key, NSManagedObjectID * obj, BOOL * stop) {
         postIdsURLs[key] = [obj URIRepresentation];
     }];
     [aCoder encodeObject:postIdsURLs forKey:@"postURIs"];

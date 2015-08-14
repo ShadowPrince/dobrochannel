@@ -142,7 +142,7 @@
     [self presentViewController:c animated:YES completion:nil];
 }
 
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.attachedImages addObject:info];
     [self.attachedRatings addObject:[[[BoardAPI api] ratingsList] firstObject]];
 
@@ -193,10 +193,10 @@
     c.popoverPresentationController.sourceRect = collectionView.frame;
     c.popoverPresentationController.sourceView = self.view;
 
-    [[[BoardAPI api] ratingsList] enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[[BoardAPI api] ratingsList] enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL * stop) {
         [c addAction:[UIAlertAction actionWithTitle:obj
                                               style:UIAlertActionStyleDefault
-                                            handler:^(UIAlertAction * _Nonnull action) {
+                                            handler:^(UIAlertAction * action) {
                                                 self.attachedRatings[indexPath.row] = [[BoardAPI api] ratingsList][idx];
                                                 [self.attachmentsCollectionView reloadData];
                                             }]];

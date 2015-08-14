@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--New post-->
@@ -454,24 +452,12 @@ Post popup viewer:
             <objects>
                 <viewController storyboardIdentifier="threadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wFm-ko-4Gw" customClass="ThreadViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Loading..." id="YBF-l1-4sR">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="07K-EQ-dMt">
-                                <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="refreshAction:" destination="wFm-ko-4Gw" id="Rk2-N1-wiB"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="compose" id="hgT-WA-EP0">
-                                <connections>
-                                    <segue destination="cug-9B-jI0" kind="show" identifier="2newPost" id="vuL-90-Xhk"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem id="nTT-OD-vQx">
-                                <connections>
-                                    <segue destination="wFm-ko-4Gw" kind="show" identifier="2threadController" id="1eI-zA-bUy"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="07K-EQ-dMt">
+                            <color key="tintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="refreshAction:" destination="wFm-ko-4Gw" id="Rk2-N1-wiB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
@@ -663,7 +649,7 @@ Post popup viewer:
                                             <segue destination="DIG-13-cdB" kind="show" id="vVI-hl-oiR"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Gr-H4C">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Max rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Gr-H4C">
                                         <rect key="frame" x="16" y="46" width="85.5" height="21"/>
                                         <animations/>
                                         <constraints>
@@ -846,8 +832,6 @@ Post popup viewer:
         <image name="horo" width="1020" height="1182"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Qu-39-GgE"/>
-        <segue reference="W0K-MR-xhK"/>
-        <segue reference="Nn8-IG-aUq"/>
+        <segue reference="51b-nn-hlE"/>
     </inferredMetricsTieBreakers>
 </document>

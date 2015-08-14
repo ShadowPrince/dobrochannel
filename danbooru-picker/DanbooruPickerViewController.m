@@ -19,10 +19,10 @@
 @property NSInteger requestedImages;
 @property NSInteger attachedImages;
 
-@property NSMutableArray<NSDictionary *> *imageInfos;
-@property NSMutableDictionary<NSIndexPath *, NSURLSessionDataTask *> *thumbnailTasks;
-@property NSMutableDictionary<NSDictionary *, NSValue *> *imageDownloadingProgress;
-@property NSArray<NSDictionary *> *searchTags;
+@property NSMutableArray *imageInfos;
+@property NSMutableDictionary *thumbnailTasks;
+@property NSMutableDictionary *imageDownloadingProgress;
+@property NSArray *searchTags;
 @property NSURLSessionTask *searchTask;
 //--
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *tagsSearchDisplay;

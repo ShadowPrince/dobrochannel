@@ -16,7 +16,7 @@
                                                                             error:nil];
 
     NSString *contents = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSArray<NSTextCheckingResult *> *results = [expr matchesInString:contents options:0 range:NSMakeRange(0, contents.length)];
+    NSArray *results = [expr matchesInString:contents options:0 range:NSMakeRange(0, contents.length)];
 
     NSMutableArray *returnResult = [NSMutableArray new];
     for (NSTextCheckingResult *result in results) {

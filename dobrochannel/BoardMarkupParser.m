@@ -43,12 +43,12 @@
 }
 
 - (NSMutableAttributedString *) parseAttributedString:(NSMutableAttributedString *) str {
-    NSDictionary<NSString *, id> *baseAttributes;
+    NSDictionary *baseAttributes;
     if (str.length)
         baseAttributes = [str attributesAtIndex:0 effectiveRange:nil];
 
     NSCharacterSet *spacingSet = [NSCharacterSet characterSetWithCharactersInString:@"\n\r ,"];
-    NSArray<NSString *> *linkProtocols = @[@"http://", @"https://", @"ftp://", ];
+    NSArray *linkProtocols = @[@"http://", @"https://", @"ftp://", ];
 
     int tagLength[] = {
         2, // bold

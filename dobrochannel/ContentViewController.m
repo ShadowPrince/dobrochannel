@@ -12,18 +12,18 @@
 #import "NewPostViewController.h"
 
 @interface ContentViewController ()
-@property NSMutableArray<NSManagedObject *> *threads;
+@property NSMutableArray *threads;
 @property BoardMarkupParser *markupParser;
-@property NSMutableArray<PostViewController *> *postPopups;
+@property NSMutableArray *postPopups;
 
 // table loading
-@property NSMutableArray<UITableViewCell *> *preparedTableCells;
+@property NSMutableArray *preparedTableCells;
 @property NSInteger tableLoadedRows;
 @property BOOL viewChangedSize;
 @property NSIndexPath *viewChangedSizeScrollTo;
 @property PostTableViewCell *cachedPostCell;
 @property ThreadTableViewCell *cachedThreadView;
-@property NSMutableDictionary<NSIndexPath *, NSNumber *> *rowHeightCache;
+@property NSMutableDictionary *rowHeightCache;
 //---
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
@@ -147,7 +147,12 @@
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
+    ThreadViewController *controller = [[ThreadViewController alloc] init];
+    controller.identifier = [cell.thread valueForKey:@"display_identifier"];
+    controller.board = self.board;
+
+    [self.navigationController pushViewController:controller animated:YES];
+    //[self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
 }
 
 - (IBAction)postHeaderTouch:(UIButton *)sender {
@@ -234,7 +239,7 @@
 - (IBAction)nextThreadGesture:(id)sender {
     CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top + 1;
 
-    NSArray<NSIndexPath *> *forwardingCells =
+    NSArray *forwardingCells =
     [self.tableView indexPathsForRowsInRect:CGRectMake(0,
                                                        top,
                                                        self.tableView.contentSize.width,
@@ -256,7 +261,7 @@
 - (IBAction)previousThreadGesture:(id)sender {
     CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top - 1;
 
-    NSArray<NSIndexPath *> *backCells = [self.tableView indexPathsForRowsInRect:CGRectMake(0,
+    NSArray *backCells = [self.tableView indexPathsForRowsInRect:CGRectMake(0,
                                                                                            0,
                                                                                            self.tableView.contentSize.width,
                                                                                            top)];
@@ -346,7 +351,7 @@
 }
 
 - (void) insertNewRows {
-    NSMutableArray<NSIndexPath *> *indexes = [NSMutableArray array];
+    NSMutableArray *indexes = [NSMutableArray array];
     NSInteger oldLoadedRows = self.tableLoadedRows;
 
     for (NSInteger i = self.tableLoadedRows; i < [self.threads count] ; i++) {
@@ -424,7 +429,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (self.rowHeightCache[indexPath]) {
-        return self.rowHeightCache[indexPath].floatValue;
+        return [(NSNumber *) self.rowHeightCache[indexPath] floatValue];
     } else {
         NSManagedObject *entry = self.threads[indexPath.row];
         CGFloat height = 0.f;
