@@ -22,7 +22,7 @@
                                     @"post_password": pwd,
                                     };
 
-    [defaultValues enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [defaultValues enumerateKeysAndObjectsUsingBlock:^(id  key, id  obj, BOOL * stop) {
         if (![[NSUserDefaults standardUserDefaults] valueForKey:key]) {
             [[NSUserDefaults standardUserDefaults] setValue:obj forKey:key];
         }

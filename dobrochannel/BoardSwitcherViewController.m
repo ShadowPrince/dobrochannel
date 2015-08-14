@@ -39,7 +39,8 @@
 
 - (void) collectionView:(nonnull UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     [self dismissViewControllerAnimated:YES completion:^{
-        NSString *key = self.boardsList[indexPath.row];
+        NSString *key = self.boardsList[indexPath.section][indexPath.row];
+        self.controller.page = 0;
         self.controller.board = key;
     }];
 }
@@ -49,7 +50,7 @@
 - (UICollectionViewCell *) collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSString *key = self.boardsList[indexPath.row];
+    NSString *key = self.boardsList[indexPath.section][indexPath.row];
     NSArray<NSString *> *board = self.boardsData[key];
 
     UILabel *l = (UILabel *) [cell viewWithTag:100];
@@ -65,11 +66,15 @@
 }
 
 - (NSInteger) collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.boardsList count];
+    return [self.boardsList[section] count];
 }
 
 - (NSInteger) numberOfSectionsInCollectionView:(nonnull UICollectionView *)collectionView {
-    return 1;
+    return [self.boardsList count];
+}
+
+- (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"Header" forIndexPath:indexPath];
 }
 
 @end

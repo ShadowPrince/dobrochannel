@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *inReplyToTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inReplyToTextViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIView *postItBarButton;
+@property (weak, nonatomic) IBOutlet UIButton *danbooruButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *postItButton;
 
 @property NSURLSessionTask *captchaTask;
 @property NSMutableArray *attachedImages, *attachedRatings;
@@ -29,6 +31,10 @@
     self.attachedImages = [NSMutableArray new];
     self.attachedRatings = [NSMutableArray new];
     self.messageTextView.text = @"";
+
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
+        self.danbooruButton.hidden = NO;
+    }
 
     [self loadInReplyTo];
     [self loadCaptcha];
@@ -66,7 +72,6 @@
     [[BoardAPI api] requestSessionInfoWithFinishCallback:^(NSArray *info) {
         for (NSDictionary *token in info) {
             if ([token[@"token"] isEqualToString:@"no_user_captcha"]) {
-                self.captchaTextField.enabled = NO;
                 self.captchaTextField.text = @"no need";
             }
         }
@@ -89,6 +94,8 @@
 - (IBAction)postItAction:(id)sender {
     [self.activityIndicator startAnimating];
 
+    self.view.window.userInteractionEnabled = NO;
+
     NSMutableArray *files = [NSMutableArray new];
     for (int i = 0; i < self.attachedImages.count; i++) {
         [files addObject:@{@"image": self.attachedImages[i][UIImagePickerControllerOriginalImage],
@@ -104,6 +111,8 @@
                                @"files": files, }
               finishCallback:^(NSArray *errors) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
+                    self.view.window.userInteractionEnabled = YES;
+
                     [self.activityIndicator stopAnimating];
 
                     if (!errors) {
@@ -127,6 +136,12 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
+- (IBAction)addDanbooruAttachmentAction:(id)sender {
+    DanbooruPickerViewController *c = [[DanbooruPickerViewController alloc] initWithDelegate:self];
+
+    [self presentViewController:c animated:YES completion:nil];
+}
+
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [self.attachedImages addObject:info];
     [self.attachedRatings addObject:[[[BoardAPI api] ratingsList] firstObject]];
@@ -135,6 +150,19 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) danbooruPicker:(DanbooruPickerViewController *)controller didPickImageAt:(NSURL *)url {
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [[UIImage alloc] initWithData:data];
+
+    [self.attachedImages addObject:@{UIImagePickerControllerOriginalImage: image,
+                                     }];
+    [self.attachedRatings addObject:@"no rating"];
+}
+
+- (void) danbooruPicker:(DanbooruPickerViewController *)controller didFinishPicking:(NSInteger)count {
+    [self.attachmentsCollectionView reloadData];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 # pragma mark attachments view
 
@@ -216,12 +244,14 @@
     [coder encodeObject:self.inReplyToMessage forKey:@"inReplyToMessage"];
     [coder encodeObject:self.inReplyToIdentifier forKey:@"inReplyToIdentifier"];
     [coder encodeObject:self.thread_identifier forKey:@"thread_identifier"];
+    [coder encodeObject:self.board forKey:@"board"];
 }
 
 - (void) decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
 
     self.messageTextView.text = [coder decodeObjectForKey:@"messageTextView.text"];
+    self.board = [coder decodeObjectForKey:@"board"];
     self.attachedImages = [coder decodeObjectForKey:@"attachedImages"];
     self.attachedRatings = [coder decodeObjectForKey:@"attachedRatings"];
     self.inReplyToMessage = [coder decodeObjectForKey:@"inReplyToMessage"];

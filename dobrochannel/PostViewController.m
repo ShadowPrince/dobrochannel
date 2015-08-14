@@ -20,8 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    progressCallback = nil;
     [self.loadingIndicator startAnimating];
 
     if (self.targetObject) {
@@ -33,7 +31,7 @@
         [self.api requestPost:self.identifier
                          from:self.threadIdentifier
                            at:self.board
-                stateCallback:progressCallback];
+                stateCallback:nil];
     }
 }
 

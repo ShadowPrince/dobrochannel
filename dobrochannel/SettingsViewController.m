@@ -9,7 +9,7 @@
 #import "SettingsViewController.h"
 
 @interface SettingsViewController ()
-@property NSArray<NSString *> *ratings;
+@property NSArray *ratings;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPickerView *ratingsPicker;
 @property (weak, nonatomic) IBOutlet UISwitch *noRatingSwitch;
@@ -48,7 +48,7 @@
     [self.loadContentFullSwitch setOn:[UserDefaults contentReaderLoadFull]];
 
     NSInteger maxSize = [UserDefaults contentReaderLoadFullMaxSize];
-    self.loadContentFullMaxLabel.text = self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%dkb", maxSize];
+    self.loadContentFullMaxLabel.text = self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%lukb", (long) maxSize];
     self.loadContentFullMaxSlider.value = (CGFloat) maxSize / 3000;
 
     self.passwordField.text = [UserDefaults postPassword];
@@ -84,7 +84,7 @@
 
 - (IBAction)loadContentFullMaxSizeSlider:(UISlider *)sender {
     NSInteger value = (NSInteger) floor(3000 * sender.value);
-    self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%dkb", value];
+    self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%lukb", (long) value];
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:value] forKey:@"cr_load_full_max_size"];
 }
 

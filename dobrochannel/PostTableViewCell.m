@@ -25,6 +25,8 @@
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
     self.dynamicTextViewCombinedOffsets = 8;
 
+    self.headerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+
     [super awakeFromNib];
 }
 

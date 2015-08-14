@@ -57,6 +57,7 @@
         self.dynamicStackViewScrollWidthConstraint.constant = 0.f;
     }
 
+    self.dynamicTableView.contentOffset = CGPointMake(0, 0);
     self.dynamicTableDelegate.objects = attachments;
     self.dynamicTableDelegate.parentSize = CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT);
     [self.dynamicTableView reloadData];

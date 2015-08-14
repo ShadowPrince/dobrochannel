@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8173.3"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="gTV-IL-0wX" customClass="ImageCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="horo" translatesAutoresizingMaskIntoConstraints="NO" id="6OB-7T-ilk">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <animations/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="33333kb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLF-HE-cEh">
+                        <rect key="frame" x="8" y="8" width="134" height="22"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <size key="shadowOffset" width="1" height="1"/>
+                    </label>
+                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JVY-gn-ycs">
+                        <rect key="frame" x="8" y="137" width="134" height="5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="IjT-z9-ow9"/>
+                        </constraints>
+                    </progressView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nao-f2-9d7">
+                        <rect key="frame" x="65" y="65" width="20" height="20"/>
+                        <animations/>
+                    </activityIndicatorView>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JVY-gn-ycs" secondAttribute="bottom" constant="8" id="Avz-GY-44h"/>
+                <constraint firstAttribute="bottom" secondItem="6OB-7T-ilk" secondAttribute="bottom" id="PIs-U1-bdW"/>
+                <constraint firstItem="JVY-gn-ycs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="UAg-aD-Tzp"/>
+                <constraint firstItem="6OB-7T-ilk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WNf-sv-A4u"/>
+                <constraint firstItem="Nao-f2-9d7" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="aPT-ht-lyn"/>
+                <constraint firstItem="Nao-f2-9d7" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="aUJ-b9-MMk"/>
+                <constraint firstAttribute="trailing" secondItem="JVY-gn-ycs" secondAttribute="trailing" constant="8" id="fFD-9M-JNS"/>
+                <constraint firstAttribute="trailing" secondItem="6OB-7T-ilk" secondAttribute="trailing" id="fGa-WJ-46v"/>
+                <constraint firstItem="6OB-7T-ilk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="q2s-64-7ga"/>
+            </constraints>
+            <size key="customSize" width="150" height="150"/>
+            <connections>
+                <outlet property="activityIndicator" destination="Nao-f2-9d7" id="oXa-7j-pkh"/>
+                <outlet property="imageView" destination="6OB-7T-ilk" id="VYd-4J-EKx"/>
+                <outlet property="progressView" destination="JVY-gn-ycs" id="4ao-ta-3h4"/>
+                <outlet property="sizeLabel" destination="cLF-HE-cEh" id="kQR-Sz-FoX"/>
+            </connections>
+            <point key="canvasLocation" x="446" y="412"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="horo" width="1020" height="1182"/>
+    </resources>
+</document>

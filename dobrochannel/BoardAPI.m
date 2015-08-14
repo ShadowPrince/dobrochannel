@@ -42,12 +42,13 @@
 # pragma mark info and helper methods
 
 - (NSDictionary *) boardsList {
-    NSArray *sortedNames = @[@"b",        @"u" ,        @"dt" ,
-        @"vg" ,        @"r" ,        @"cr" ,        @"lor",        @"mu" ,        @"oe" ,
-        @"s",
-                             @"w",        @"hr", @"mad"];
+    NSArray *sortedNames = @[@[@"b", @"u", @"rf", @"dt", @"vg", @"r", @"cr", @"lor", @"mu", @"oe", @"s", @"w", @"hr", ],
+                             @[@"a", @"ma", @"sw", @"hau", @"azu", ],
+                             @[@"tv", @"cp", @"gf", @"bo", @"di", @"vn", @"ve", @"wh", @"fur", @"to", @"bg", @"wn", @"slow", @"mad", ],
+                             @[@"d", @"news", ], ];
     NSMutableDictionary *boards = [@{@"b": @[@"Братство", @"Доска обо всем"],
                                      @"u": @[@"Университет", @"Dum docemus, discimus"],
+                                     @"rf": @[@"Refuge", @""],
                                      @"dt": @[@"Dates and datings", @"Знакомства, встречи, сходочки", ],
                                      @"vg": @[@"Видеоигры", @"", ],
                                      @"r": @[@"Просьбы", @"", ],
@@ -58,9 +59,32 @@
                                      @"s": @[@"Li/s/p", @"(defboard li/s/p (:documentation \"Программирование\"))", ],
                                      @"w": @[@"Обои", @"Красивые обои для рабочего стола", ],
                                      @"hr": @[@"Высокое разрешение", @"Картинки в высоком разрешении", ],
+
+                                     @"a": @[@"Аниме", @"", ],
+                                     @"ma": @[@"Манга", @"", ],
+                                     @"sw": @[@"Spice & Wolf", @"Доска для обсуждения, арта и фанарта по сериалу Волчица и специи", ],
+                                     @"hau": @[@"When They Cry", @"Welcome to Rokkenjima", ],
+                                     @"azu": @[@"Azumanga Daioh", @"Доска для обсуждения, арта и фанарта по сериалу Адзуманга", ],
+
+                                     @"tv": @[@"Кино", @"", ],
+                                     @"cp": @[@"Копипаста", @"Копипаста, макросы и демотивация", ],
+                                     @"gf": @[@"Gif/Flash-анимация", @"", ],
+                                     @"bo": @[@"Книги", @"", ],
+                                     @"di": @[@"Dining room", @"Обсуждение добычи, приготовления и употребления еды", ],
+                                     @"vn": @[@"Visual novels", @"", ],
+                                     @"ve": @[@"Vehicles", @"", ],
+                                     @"wh": @[@"Вархаммер", @"", ],
+                                     @"fur": @[@"Фурри", @"", ],
+                                     @"bg": @[@"Настольные игры", @"", ],
+                                     @"to": @[@"Touhou Project", @"", ],
+                                     @"wn": @[@"События в мире", @"Обсуждение политики, событий в мире и интернетах", ],
+                                     @"slow": @[@"Слоудоска", @"", ],
                                      @"mad": @[@"Безумие", @"Экспериментальная доска", ],
 
+                                     @"d": @[@"Обсуждение", @"Доска для обсуждения Доброчана", ],
+                                     @"news": @[@"Новости", @"Новости Доброчана", ],
                                      } mutableCopy];
+
     return @{@"sorted_keys": sortedNames, @"data": boards};
 }
 
@@ -175,17 +199,13 @@
     [data setValuesForKeysWithDictionary:@{@"task": @"post",
                                            @"scroll_to": @"",
                                            @"goto": @"thread",
-                                           @"post_files_count": [NSString stringWithFormat:@"%d", files.count + 1],
+                                           @"post_files_count": [NSString stringWithFormat:@"%lu", files.count + 1],
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
-                                           @"name": @"Экспериментатор",
+                                           @"name": @"Анонимус",
                                            @"thread_id": threadId.stringValue,
                                            }];
     [data setValuesForKeysWithDictionary:postData];
-
-    // setup files ratings
-    for (int i = 0; i < files.count; i++)
-        data[[NSString stringWithFormat:@"file_%d_rating", i+1]] = [files[i][@"rating"] uppercaseString];
 
     // boundary and headers
     NSString *myboundary = @"------WebKitFormBoundaryf8AVk0gFLWQNUVjP";
@@ -203,12 +223,19 @@
 
     // fill HTTPBody with files
     for (int i = 0; i < files.count; i++) {
-        NSData *fileData = UIImageJPEGRepresentation(files[i][@"image"], 0.8f);
+        NSDictionary *file = files[i];
+        NSData *fileData = UIImageJPEGRepresentation(file[@"image"], 0.8f);
 
+        // file data
         [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file_%d\"; filename=\"%d.jpg\"\r\n", i+1, i]dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:fileData];
+        // file rating
+        [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",
+                               [NSString stringWithFormat:@"file_%d_rating", i+1]] dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[file[@"rating"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
 
     // close boundary
@@ -218,8 +245,8 @@
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-                               NSLog(@"%@", response);
-                               NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//                               NSLog(@"%@", response);
+//                               NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, threadId]];
                                if (![[response URL] isEqual:successUrl]) {
                                    NSArray *errors = [BoardPostResponseParser parseErrorsFromResponseData:data];

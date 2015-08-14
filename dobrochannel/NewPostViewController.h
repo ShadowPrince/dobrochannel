@@ -10,7 +10,9 @@
 #import "BoardAPI.h"
 #import "UserDefaults.h"
 
-@interface NewPostViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import "DanbooruPickerViewController.h"
+
+@interface NewPostViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DanbooruPickerDelegate>
 @property NSString *board;
 @property NSNumber *thread_identifier;
 @property NSAttributedString *inReplyToMessage;

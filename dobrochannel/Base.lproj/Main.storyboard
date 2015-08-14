@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSa-82-vgs">
-                                <rect key="frame" x="0.0" y="64" width="320" height="545"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSa-82-vgs">
+                                <rect key="frame" x="-4" y="64" width="328" height="692"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="rY7-JG-6Nm">
                                         <rect key="frame" x="8" y="185" width="308" height="150"/>
@@ -106,7 +106,9 @@
                                             <constraint firstAttribute="height" constant="30" id="RRg-qO-1ca"/>
                                             <constraint firstAttribute="width" constant="30" id="pZL-23-6DU"/>
                                         </constraints>
-                                        <state key="normal" title="+"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="addAttachmentAction:" destination="cug-9B-jI0" eventType="touchUpInside" id="HOV-rw-Dpa"/>
                                         </connections>
@@ -130,11 +132,27 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZa-Me-O8Z">
+                                        <rect key="frame" x="290" y="466" width="30" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="TIl-8k-iaZ"/>
+                                            <constraint firstAttribute="width" constant="30" id="XEy-44-4ak"/>
+                                        </constraints>
+                                        <state key="normal" title="d">
+                                            <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addDanbooruAttachmentAction:" destination="cug-9B-jI0" eventType="touchUpInside" id="ZXe-Xs-dhm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstItem="iZa-Me-O8Z" firstAttribute="bottom" secondItem="stF-G3-leE" secondAttribute="bottom" id="1Jr-aA-4eU"/>
                                     <constraint firstItem="stF-G3-leE" firstAttribute="top" secondItem="crT-s3-vJS" secondAttribute="bottom" constant="8" id="7Jo-Mx-bb6"/>
                                     <constraint firstItem="crT-s3-vJS" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" constant="8" id="8JK-9S-yQt"/>
+                                    <constraint firstItem="iZa-Me-O8Z" firstAttribute="trailing" secondItem="stF-G3-leE" secondAttribute="trailing" id="9Fu-Tj-zhE"/>
                                     <constraint firstItem="FIX-Mf-7eD" firstAttribute="top" secondItem="dSa-82-vgs" secondAttribute="top" constant="8" id="GMq-2E-CAg"/>
                                     <constraint firstItem="zIa-Xj-SRU" firstAttribute="top" secondItem="rY7-JG-6Nm" secondAttribute="bottom" constant="8" id="GVl-we-yJ9"/>
                                     <constraint firstAttribute="trailing" secondItem="FIX-Mf-7eD" secondAttribute="trailing" constant="8" id="JGt-cu-Ffg"/>
@@ -154,22 +172,24 @@
                                     <constraint firstItem="stF-G3-leE" firstAttribute="leading" secondItem="crT-s3-vJS" secondAttribute="leading" id="v0I-gb-KMt"/>
                                     <constraint firstAttribute="bottom" secondItem="stF-G3-leE" secondAttribute="bottom" constant="8" id="vLi-Mb-jzp"/>
                                     <constraint firstItem="CdP-5F-oRc" firstAttribute="trailing" secondItem="stF-G3-leE" secondAttribute="trailing" id="yXI-mU-L7l"/>
+                                    <constraint firstItem="iZa-Me-O8Z" firstAttribute="top" secondItem="CdP-5F-oRc" secondAttribute="bottom" constant="8" id="zIj-V0-4tG"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="JGt-cu-Ffg"/>
                                         <exclude reference="spc-Kj-ucX"/>
-                                        <exclude reference="j8J-ct-Ro5"/>
                                         <exclude reference="aK9-FQ-usL"/>
+                                        <exclude reference="j8J-ct-Ro5"/>
                                         <exclude reference="YD7-gJ-eld"/>
+                                        <exclude reference="8JK-9S-yQt"/>
+                                        <exclude reference="LKG-lQ-vOt"/>
+                                        <exclude reference="S9o-mi-kAU"/>
                                         <exclude reference="dlQ-gH-RHf"/>
                                         <exclude reference="r0S-Ye-aKL"/>
-                                        <exclude reference="S9o-mi-kAU"/>
-                                        <exclude reference="LKG-lQ-vOt"/>
-                                        <exclude reference="8JK-9S-yQt"/>
+                                        <exclude reference="Js1-RG-TZ9"/>
                                         <exclude reference="buE-9o-aFv"/>
                                         <exclude reference="v0I-gb-KMt"/>
-                                        <exclude reference="Js1-RG-TZ9"/>
+                                        <exclude reference="1Jr-aA-4eU"/>
                                     </mask>
                                 </variation>
                             </scrollView>
@@ -214,10 +234,12 @@
                         <outlet property="attachmentsCollectionView" destination="stF-G3-leE" id="It4-CU-2yK"/>
                         <outlet property="captchaImageView" destination="zIa-Xj-SRU" id="Qzv-CD-YSl"/>
                         <outlet property="captchaTextField" destination="crT-s3-vJS" id="7eD-iK-iOF"/>
+                        <outlet property="danbooruButton" destination="iZa-Me-O8Z" id="Jvb-Fg-juQ"/>
                         <outlet property="inReplyToTextView" destination="FIX-Mf-7eD" id="wXA-q4-oaT"/>
                         <outlet property="inReplyToTextViewHeightConstraint" destination="eLz-gL-ca0" id="Uux-cJ-49U"/>
                         <outlet property="messageTextView" destination="rY7-JG-6Nm" id="4jD-A8-3OC"/>
                         <outlet property="postItBarButton" destination="USR-2a-MAD" id="VnF-Be-xMW"/>
+                        <outlet property="postItButton" destination="C40-iX-YJp" id="5xJ-Xk-ZlK"/>
                         <outlet property="scrollView" destination="dSa-82-vgs" id="lta-nV-fXe"/>
                         <segue destination="Hjh-2j-Fhx" kind="unwind" identifier="unwindFromNewPost" unwindAction="unwindFromNewPost:" id="LMf-MV-PUm"/>
                     </connections>
@@ -313,6 +335,26 @@ Post popup viewer:
             </objects>
             <point key="canvasLocation" x="-1084" y="-447"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="rEl-vz-bvE">
+            <objects>
+                <viewController id="Wx8-RH-IC2" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qbK-6a-1I8"/>
+                        <viewControllerLayoutGuide type="bottom" id="f6I-Ou-ilo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="urV-we-k17">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PlX-3m-fW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1243" y="-953"/>
+        </scene>
         <!--Board Switcher View Controller-->
         <scene sceneID="i7V-ID-gHO">
             <objects>
@@ -324,13 +366,13 @@ Post popup viewer:
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="3" minimumInteritemSpacing="3" id="6ic-Nn-peO">
                             <size key="itemSize" width="104" height="101"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="4" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="8JV-cW-VKE">
-                                <rect key="frame" x="0.0" y="0.0" width="104" height="101"/>
+                                <rect key="frame" x="7" y="0.0" width="104" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="104" height="101"/>
@@ -378,6 +420,12 @@ Post popup viewer:
                                 </constraints>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="Header" id="t1G-dR-vLM">
+                            <rect key="frame" x="0.0" y="0.0" width="4" height="480"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <animations/>
+                            <color key="backgroundColor" red="0.93323183059692383" green="0.9333917498588562" blue="0.93322181701660156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="7Ud-oc-fUj" id="ftf-SA-3vE"/>
                             <outlet property="delegate" destination="7Ud-oc-fUj" id="rNR-xp-q3Q"/>
@@ -392,8 +440,14 @@ Post popup viewer:
                         <action selector="hideControllerGesture:" destination="7Ud-oc-fUj" id="cVG-uc-Ewt"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <view contentMode="scaleToFill" id="RmD-0d-iD9">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="-588" y="-993"/>
+            <point key="canvasLocation" x="-896" y="-766"/>
         </scene>
         <!--Loading...-->
         <scene sceneID="yye-u6-x0N">
@@ -548,6 +602,7 @@ Post popup viewer:
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hlo-Ua-hW9">
                                         <rect key="frame" x="14" y="415" width="231" height="31"/>
                                         <animations/>
+                                        <color key="minimumTrackTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="loadContentFullMaxSizeSlider:" destination="Kud-4n-lUk" eventType="valueChanged" id="CTu-bx-z6Q"/>
                                         </connections>
@@ -601,7 +656,9 @@ Post popup viewer:
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PAw-e9-t6x"/>
                                         </constraints>
-                                        <state key="normal" title="Manual"/>
+                                        <state key="normal" title="Manual">
+                                            <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="DIG-13-cdB" kind="show" id="vVI-hl-oiR"/>
                                         </connections>
@@ -789,8 +846,8 @@ Post popup viewer:
         <image name="horo" width="1020" height="1182"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="1Qu-39-GgE"/>
         <segue reference="W0K-MR-xhK"/>
         <segue reference="Nn8-IG-aUq"/>
-        <segue reference="1Qu-39-GgE"/>
     </inferredMetricsTieBreakers>
 </document>

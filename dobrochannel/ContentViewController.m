@@ -115,7 +115,7 @@
     return view;
 }
 
-# pragma mark actions
+# pragma mark - actions
 
 - (void) prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender {
     [super prepareForSegue:segue sender:sender];
@@ -261,7 +261,7 @@
                                                                                            self.tableView.contentSize.width,
                                                                                            top)];
 
-    for (int i = [backCells count] - 1; i >= 0; i--) {
+    for (int i = (int) [backCells count] - 1; i >= 0; i--) {
         NSIndexPath *index = backCells[i];
         NSManagedObject *object = self.threads[index.row];
         if ([object.entity.name isEqualToString:@"Thread"]) {
@@ -271,10 +271,19 @@
     }
 }
 
-# pragma mark view
+# pragma mark - view
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    if (self.progressView) {
+        id topGuide = self.topLayoutGuide;
+        [self.view addConstraints:
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:[topGuide]-0-[pv]"
+                                                 options: 0
+                                                 metrics: nil
+                                                   views: @{@"topGuide": topGuide, @"pv": self.progressView}]];
+    }
 
     [self.tableView registerNib:[UINib nibWithNibName:@"ThreadTableViewCell" bundle:nil]
          forCellReuseIdentifier:@"ThreadView"];
@@ -329,7 +338,7 @@
     self.viewChangedSize = YES;
 }
 
-# pragma mark context
+# pragma mark - context
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
     [self insetObject:object];
@@ -340,7 +349,7 @@
     NSMutableArray<NSIndexPath *> *indexes = [NSMutableArray array];
     NSInteger oldLoadedRows = self.tableLoadedRows;
 
-    for (int i = self.tableLoadedRows; i < [self.threads count] ; i++) {
+    for (NSInteger i = self.tableLoadedRows; i < [self.threads count] ; i++) {
         [indexes addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     }
 
@@ -348,7 +357,7 @@
     [self.tableView insertRowsAtIndexPaths:indexes
                           withRowAnimation:UITableViewRowAnimationNone];
 
-    for (int i = oldLoadedRows; i < [self.threads count]; i++) {
+    for (NSInteger i = oldLoadedRows; i < [self.threads count]; i++) {
         [self didInsertObject:self.threads[i]];
     }
 }

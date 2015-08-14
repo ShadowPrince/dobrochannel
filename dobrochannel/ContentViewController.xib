@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A234d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentViewController">
@@ -29,7 +29,7 @@
                         <outletCollection property="gestureRecognizers" destination="uN4-ZR-A7t" appends="YES" id="tqH-GP-4w8"/>
                     </connections>
                 </tableView>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
                     <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                     <animations/>
                     <gestureRecognizers/>
@@ -51,6 +51,11 @@
                 <constraint firstItem="dzy-Ca-fsd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="sca-hB-5bP"/>
                 <constraint firstItem="etf-Cz-pSu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xfo-9w-8Ph"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="sca-hB-5bP"/>
+                </mask>
+            </variation>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="whe-99-yaY" appends="YES" id="E8m-TG-96Y"/>
                 <outletCollection property="gestureRecognizers" destination="5tq-Am-0l0" appends="YES" id="Hfe-hp-HeH"/>
@@ -58,26 +63,22 @@
             <point key="canvasLocation" x="-108" y="262"/>
         </view>
         <swipeGestureRecognizer direction="right" id="whe-99-yaY">
-            <pressTypeMask key="allowedPressTypes"/>
             <connections>
                 <action selector="nextThreadGesture:" destination="-1" id="HBM-zU-HTU"/>
             </connections>
         </swipeGestureRecognizer>
         <swipeGestureRecognizer direction="left" id="5tq-Am-0l0">
-            <pressTypeMask key="allowedPressTypes"/>
             <connections>
                 <action selector="previousThreadGesture:" destination="-1" id="U2D-sc-g9J"/>
             </connections>
         </swipeGestureRecognizer>
         <tapGestureRecognizer id="Imy-yi-PT9">
-            <pressTypeMask key="allowedPressTypes"/>
             <connections>
                 <action selector="popPopup:" destination="-1" id="52b-Qa-nTT"/>
                 <outlet property="delegate" destination="-1" id="vUv-Je-UAW"/>
             </connections>
         </tapGestureRecognizer>
         <pongPressGestureRecognizer delaysTouchesBegan="YES" allowableMovement="10" minimumPressDuration="0.5" id="uN4-ZR-A7t">
-            <pressTypeMask key="allowedPressTypes"/>
             <connections>
                 <action selector="popAllPopups:" destination="-1" id="PPh-u8-KWa"/>
             </connections>

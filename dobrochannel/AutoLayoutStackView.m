@@ -10,7 +10,8 @@
 
 @interface AutoLayoutStackView ()
 @property id<AutoLayoutStackViewChildController> prevController, lastController, currentController;
-@property NSArray<NSLayoutConstraint *> *lastConstraints, *firstConstraints;
+@property NSArray *lastConstraints;
+@property NSArray *firstConstraints;
 //---
 @end @implementation AutoLayoutStackView
 @synthesize prevController, lastController, currentController;
