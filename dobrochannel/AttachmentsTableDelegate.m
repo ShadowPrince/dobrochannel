@@ -98,6 +98,7 @@
 
     if ([UserDefaults contentReaderLoadThumbnails]) {
         if (rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
+            cell.userInteractionEnabled = YES;
             aiv.hidden = NO;
             [aiv startAnimating];
 
