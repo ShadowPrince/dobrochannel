@@ -89,7 +89,7 @@
 }
 
 - (NSArray *) ratingsList {
-    return @[@"sfw", @"rated", @"r-15", @"r-18", @"r-18g"];
+    return @[@"sfw", @"r-15", @"r-18", @"r-18g"];
 }
 
 - (NSURL *) urlFor:(NSString *)relative {
