@@ -134,6 +134,7 @@
 			children = (
 				F3B063CC1B7B3F72003BA83E /* danbooru-picker */,
 				F33D94021B5BD8E7000AA303 /* dobrochannel */,
+				F33D941A1B5BD983000AA303 /* Assets */,
 				F33D94011B5BD8E7000AA303 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,7 +155,6 @@
 				F39CBEA41B5D70F50049DB45 /* Controllers */,
 				F33D94201B5BD9D1000AA303 /* Views */,
 				F33D94031B5BD8E7000AA303 /* Supporting Files */,
-				F33D941A1B5BD983000AA303 /* Assets */,
 			);
 			path = dobrochannel;
 			sourceTree = "<group>";
@@ -176,6 +176,7 @@
 				F3B063BF1B7A9764003BA83E /* Assets.xcassets */,
 			);
 			name = Assets;
+			path = dobrochannel;
 			sourceTree = "<group>";
 		};
 		F33D94201B5BD9D1000AA303 /* Views */ = {
