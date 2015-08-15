@@ -31,7 +31,6 @@
 		F3B063D01B7B3FD0003BA83E /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */; };
 		F3B063D11B7B3FD0003BA83E /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063CF1B7B3FD0003BA83E /* ImageCollectionViewCell.xib */; };
 		F3B063D41B7B412E003BA83E /* DanbooruAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063D31B7B412E003BA83E /* DanbooruAPI.m */; };
-		F3B063D71B7B4787003BA83E /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063D61B7B4787003BA83E /* TestViewController.m */; };
 		F3B063DC1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */; };
 		F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */; };
 		F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */; };
@@ -87,16 +86,14 @@
 		F3B063C71B7B3F6E003BA83E /* DanbooruPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DanbooruPickerViewController.h; path = "danbooru-picker/DanbooruPickerViewController.h"; sourceTree = "<group>"; };
 		F3B063C81B7B3F6E003BA83E /* DanbooruPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DanbooruPickerViewController.m; path = "danbooru-picker/DanbooruPickerViewController.m"; sourceTree = "<group>"; };
 		F3B063C91B7B3F6E003BA83E /* DanbooruPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DanbooruPickerViewController.xib; path = "danbooru-picker/DanbooruPickerViewController.xib"; sourceTree = "<group>"; };
-		F3B063CD1B7B3FD0003BA83E /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
-		F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
-		F3B063CF1B7B3FD0003BA83E /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		F3B063CD1B7B3FD0003BA83E /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCollectionViewCell.h; path = "danbooru-picker/ImageCollectionViewCell.h"; sourceTree = "<group>"; };
+		F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCollectionViewCell.m; path = "danbooru-picker/ImageCollectionViewCell.m"; sourceTree = "<group>"; };
+		F3B063CF1B7B3FD0003BA83E /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImageCollectionViewCell.xib; path = "danbooru-picker/ImageCollectionViewCell.xib"; sourceTree = "<group>"; };
 		F3B063D21B7B412E003BA83E /* DanbooruAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DanbooruAPI.h; sourceTree = "<group>"; };
 		F3B063D31B7B412E003BA83E /* DanbooruAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DanbooruAPI.m; sourceTree = "<group>"; };
-		F3B063D51B7B4787003BA83E /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		F3B063D61B7B4787003BA83E /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		F3B063D91B7B68F1003BA83E /* SearchSuggestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSuggestionTableViewCell.h; sourceTree = "<group>"; };
-		F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSuggestionTableViewCell.m; sourceTree = "<group>"; };
-		F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchSuggestionTableViewCell.xib; sourceTree = "<group>"; };
+		F3B063D91B7B68F1003BA83E /* SearchSuggestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchSuggestionTableViewCell.h; path = "danbooru-picker/SearchSuggestionTableViewCell.h"; sourceTree = "<group>"; };
+		F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchSuggestionTableViewCell.m; path = "danbooru-picker/SearchSuggestionTableViewCell.m"; sourceTree = "<group>"; };
+		F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchSuggestionTableViewCell.xib; path = "danbooru-picker/SearchSuggestionTableViewCell.xib"; sourceTree = "<group>"; };
 		F3B937B11B5DAAD300721CD8 /* ThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadTableViewCell.h; sourceTree = "<group>"; };
 		F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadTableViewCell.m; sourceTree = "<group>"; };
 		F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadTableViewCell.xib; sourceTree = "<group>"; };
@@ -264,8 +261,6 @@
 				F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */,
 				F3B063D91B7B68F1003BA83E /* SearchSuggestionTableViewCell.h */,
 				F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */,
-				F3B063D51B7B4787003BA83E /* TestViewController.h */,
-				F3B063D61B7B4787003BA83E /* TestViewController.m */,
 			);
 			name = "danbooru-picker";
 			sourceTree = "<group>";
@@ -384,7 +379,6 @@
 			files = (
 				F3B937C51B5E64F500721CD8 /* Board.xcdatamodeld in Sources */,
 				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
-				F3B063D71B7B4787003BA83E /* TestViewController.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
 				F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */,
