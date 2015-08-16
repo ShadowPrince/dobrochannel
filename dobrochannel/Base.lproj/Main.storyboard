@@ -245,7 +245,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J0O-Pc-t3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Hjh-2j-Fhx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-733" y="404"/>
+            <point key="canvasLocation" x="-489" y="388"/>
         </scene>
         <!--Manual-->
         <scene sceneID="J61-zd-l5P">
@@ -311,7 +311,7 @@ Post popup viewer:
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxV-Ff-2Hk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-224" y="-521"/>
+            <point key="canvasLocation" x="-188" y="-917"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ek6-88-s05">
@@ -332,26 +332,6 @@ Post popup viewer:
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U6I-oC-1zi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1084" y="-447"/>
-        </scene>
-        <!--Test View Controller-->
-        <scene sceneID="rEl-vz-bvE">
-            <objects>
-                <viewController id="Wx8-RH-IC2" customClass="TestViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qbK-6a-1I8"/>
-                        <viewControllerLayoutGuide type="bottom" id="f6I-Ou-ilo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="urV-we-k17">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PlX-3m-fW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1243" y="-953"/>
         </scene>
         <!--Board Switcher View Controller-->
         <scene sceneID="i7V-ID-gHO">
@@ -445,7 +425,7 @@ Post popup viewer:
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-896" y="-766"/>
+            <point key="canvasLocation" x="-1040" y="-1030"/>
         </scene>
         <!--Loading...-->
         <scene sceneID="yye-u6-x0N">
@@ -462,11 +442,12 @@ Post popup viewer:
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <segue destination="nrm-Cf-pbv" kind="showDetail" identifier="2showAttachmentsController" id="51b-nn-hlE"/>
+                        <segue destination="cug-9B-jI0" kind="show" identifier="2newPost" id="YxB-oc-Sy5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QpL-zU-Jvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1455" y="165"/>
+            <point key="canvasLocation" x="-1024" y="388"/>
         </scene>
         <!--Settings-->
         <scene sceneID="J4y-t1-7oy">
@@ -496,6 +477,7 @@ Post popup viewer:
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-ts-fM5">
                                         <rect key="frame" x="263" y="249" width="51" height="31"/>
                                         <animations/>
+                                        <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="noRatingSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="Hht-g1-73M"/>
                                         </connections>
@@ -503,6 +485,7 @@ Post popup viewer:
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K8P-Qc-gjg">
                                         <rect key="frame" x="263" y="292" width="51" height="31"/>
                                         <animations/>
+                                        <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="loadThumbsSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="Ax1-Re-Hac"/>
                                             <action selector="noRatingSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="Yxw-fy-zsr"/>
@@ -528,6 +511,7 @@ Post popup viewer:
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffg-2Z-naq">
                                         <rect key="frame" x="263" y="335" width="51" height="31"/>
                                         <animations/>
+                                        <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="loadFullSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="s5b-DZ-5ZC"/>
                                             <action selector="noRatingSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="JHv-Ud-iDl"/>
@@ -618,6 +602,7 @@ Post popup viewer:
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uU5-4d-FsB">
                                         <rect key="frame" x="263" y="378" width="51" height="31"/>
                                         <animations/>
+                                        <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="loadContentFullSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="UKZ-bx-t98"/>
                                             <action selector="loadFullSwitch:" destination="Kud-4n-lUk" eventType="valueChanged" id="3Xs-xD-mll"/>
@@ -649,8 +634,8 @@ Post popup viewer:
                                             <segue destination="DIG-13-cdB" kind="show" id="vVI-hl-oiR"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Max rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Gr-H4C">
-                                        <rect key="frame" x="16" y="46" width="85.5" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Gr-H4C">
+                                        <rect key="frame" x="16" y="46" width="296" height="21"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="OQT-bS-lnD"/>
@@ -673,6 +658,7 @@ Post popup viewer:
                                     <constraint firstItem="2Dr-ts-fM5" firstAttribute="leading" secondItem="t7H-AZ-WDf" secondAttribute="trailing" constant="8" id="A1y-mH-5aT"/>
                                     <constraint firstItem="t7H-AZ-WDf" firstAttribute="top" secondItem="2ub-Z8-5ql" secondAttribute="bottom" constant="8" id="ASB-Hq-3Xn"/>
                                     <constraint firstItem="kdH-ke-KjU" firstAttribute="leading" secondItem="Hlo-Ua-hW9" secondAttribute="trailing" constant="8" id="BE7-6j-ltV"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tme-Gr-H4C" secondAttribute="trailing" constant="16" id="D0S-vU-w7X"/>
                                     <constraint firstAttribute="bottom" secondItem="BKc-Lh-mmI" secondAttribute="bottom" constant="8" id="DdK-LP-sDg"/>
                                     <constraint firstItem="Hlo-Ua-hW9" firstAttribute="leading" secondItem="Tme-Gr-H4C" secondAttribute="leading" id="DsR-No-eqL"/>
                                     <constraint firstItem="K8P-Qc-gjg" firstAttribute="leading" secondItem="8oI-mU-mRT" secondAttribute="trailing" constant="8" id="EsA-Li-1Iv"/>
@@ -739,7 +725,7 @@ Post popup viewer:
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XDt-Cm-Lpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559" y="-411"/>
+            <point key="canvasLocation" x="-599" y="-911"/>
         </scene>
         <!--Show Attachments View Controller-->
         <scene sceneID="Mps-uY-cDX">
@@ -788,7 +774,7 @@ Post popup viewer:
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1103" y="793"/>
+            <point key="canvasLocation" x="-1495" y="377"/>
         </scene>
         <!--Dobrochannel-->
         <scene sceneID="PpP-sL-Le1">
@@ -832,6 +818,7 @@ Post popup viewer:
         <image name="horo" width="1020" height="1182"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="YxB-oc-Sy5"/>
         <segue reference="51b-nn-hlE"/>
     </inferredMetricsTieBreakers>
 </document>

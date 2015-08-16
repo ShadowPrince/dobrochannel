@@ -74,7 +74,7 @@
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:nil
                                                  context:nil].size;
-    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 20 + size.height;
+    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 22 + size.height;
 
     // dynamic stack view height
     CGFloat attachmentExpandHeight = self.frame.size.height -
