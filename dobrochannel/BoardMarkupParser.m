@@ -198,7 +198,7 @@
 }
 
 - (NSMutableAttributedString *) parse:(NSString *) str {
-    return [self parseAttributedString:[[NSMutableAttributedString alloc] initWithString:str]];
+    return [self parseAttributedString:[[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.f]}]];
 }
 
 @end

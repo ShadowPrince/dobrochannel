@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "BoardAPI.h"
+#import "BoardMarkupParser.h"
 #import "UserDefaults.h"
 
 @protocol BoardManagedObjectContextDelegate <NSObject>
@@ -19,6 +20,7 @@
 
 @interface BoardManagedObjectContext : NSManagedObjectContext <BoardDelegate, NSCoding>
 @property (weak) id<BoardManagedObjectContextDelegate> delegate;
+@property BoardMarkupParser *parser;
 
 - (instancetype) initWithPersistentPath:(NSString *) filePath;
 

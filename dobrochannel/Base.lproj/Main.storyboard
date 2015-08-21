@@ -335,6 +335,60 @@ Post popup viewer:
             </objects>
             <point key="canvasLocation" x="-1084" y="-447"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="L58-34-0b6">
+            <objects>
+                <viewController id="jO3-kp-XUu" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hBT-75-qJh"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hxd-3g-FnG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iBO-01-7JH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R5U-h7-BLG">
+                                <rect key="frame" x="16" y="20" width="160" height="240"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yV-cw-HEr">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="240"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="2yV-cw-HEr" firstAttribute="top" secondItem="R5U-h7-BLG" secondAttribute="top" id="4Ff-o5-DMb"/>
+                                    <constraint firstAttribute="trailing" secondItem="2yV-cw-HEr" secondAttribute="trailing" id="6W5-wq-RTx"/>
+                                    <constraint firstAttribute="height" constant="240" id="8c7-b9-txr"/>
+                                    <constraint firstAttribute="width" constant="160" id="H0P-2t-cOZ"/>
+                                    <constraint firstItem="2yV-cw-HEr" firstAttribute="leading" secondItem="R5U-h7-BLG" secondAttribute="leading" id="PWp-NM-lgN"/>
+                                    <constraint firstAttribute="bottom" secondItem="2yV-cw-HEr" secondAttribute="bottom" id="aUB-b3-zcI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="R5U-h7-BLG" firstAttribute="top" secondItem="hBT-75-qJh" secondAttribute="bottom" id="Aiu-KW-tWc"/>
+                            <constraint firstItem="R5U-h7-BLG" firstAttribute="leading" secondItem="iBO-01-7JH" secondAttribute="leadingMargin" id="feT-OY-PwM"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="containerView" destination="R5U-h7-BLG" id="oFp-jx-6XX"/>
+                        <outlet property="containerViewHeightConstraint" destination="8c7-b9-txr" id="eyp-lo-eBu"/>
+                        <outlet property="tv" destination="2yV-cw-HEr" id="GOP-AM-4sx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nAA-fP-bba" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1495" y="-1030"/>
+        </scene>
         <!--Board Switcher View Controller-->
         <scene sceneID="i7V-ID-gHO">
             <objects>
@@ -358,16 +412,10 @@ Post popup viewer:
                                     <rect key="frame" x="0.0" y="0.0" width="104" height="101"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rmq-oj-5qU">
-                                            <rect key="frame" x="0.0" y="0.0" width="104" height="101"/>
-                                            <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                            <color key="textColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q27-PI-yq0">
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="37"/>
                                             <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -375,25 +423,39 @@ Post popup viewer:
                                         <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доска обо всем" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPt-2K-l2G">
                                             <rect key="frame" x="0.0" y="61" width="104" height="40"/>
                                             <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ejq-XL-2eM">
+                                            <rect key="frame" x="8" y="8" width="88" height="85"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="touchBoardAction:" destination="7Ud-oc-fUj" eventType="touchUpInside" id="u0M-JK-ek6"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Rmq-oj-5qU" secondAttribute="bottom" constant="-8" id="KeC-xJ-e2Z"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Ejq-XL-2eM" secondAttribute="bottom" id="F4s-4U-Wqr"/>
+                                    <constraint firstItem="Ejq-XL-2eM" firstAttribute="top" secondItem="8JV-cW-VKE" secondAttribute="topMargin" id="O1M-aH-6eH"/>
                                     <constraint firstItem="KPt-2K-l2G" firstAttribute="leading" secondItem="8JV-cW-VKE" secondAttribute="leadingMargin" constant="-8" id="PHx-hx-f21"/>
                                     <constraint firstItem="q27-PI-yq0" firstAttribute="leading" secondItem="8JV-cW-VKE" secondAttribute="leadingMargin" constant="-8" id="VhE-hB-Vyp"/>
-                                    <constraint firstItem="Rmq-oj-5qU" firstAttribute="leading" secondItem="8JV-cW-VKE" secondAttribute="leadingMargin" constant="-8" id="WnH-lB-RNr"/>
+                                    <constraint firstItem="Ejq-XL-2eM" firstAttribute="leading" secondItem="8JV-cW-VKE" secondAttribute="leadingMargin" id="ZC2-6f-9en"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="KPt-2K-l2G" secondAttribute="bottom" constant="-8" id="hQg-2i-Tu6"/>
-                                    <constraint firstItem="Rmq-oj-5qU" firstAttribute="top" secondItem="8JV-cW-VKE" secondAttribute="topMargin" constant="-8" id="jM0-0D-Ksw"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Ejq-XL-2eM" secondAttribute="trailing" id="j8Q-Tr-AkF"/>
                                     <constraint firstItem="q27-PI-yq0" firstAttribute="top" secondItem="8JV-cW-VKE" secondAttribute="topMargin" constant="-8" id="sWF-h9-iMa"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="q27-PI-yq0" secondAttribute="trailing" constant="-8" id="tPz-cW-0Iv"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Rmq-oj-5qU" secondAttribute="trailing" constant="-8" id="thu-w9-dGf"/>
                                     <constraint firstItem="KPt-2K-l2G" firstAttribute="top" secondItem="q27-PI-yq0" secondAttribute="bottom" constant="24" id="uZc-7n-xgS"/>
                                     <constraint firstItem="KPt-2K-l2G" firstAttribute="top" secondItem="8JV-cW-VKE" secondAttribute="topMargin" constant="53" id="vdq-vs-4pO"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="KPt-2K-l2G" secondAttribute="trailing" constant="-8" id="xlk-c7-jj6"/>
@@ -735,9 +797,11 @@ Post popup viewer:
                         <outlet property="passwordField" destination="BKc-Lh-mmI" id="ed6-V9-LeZ"/>
                         <outlet property="ratingsPicker" destination="2ub-Z8-5ql" id="Odf-QF-UjO"/>
                         <outlet property="scrollView" destination="wGd-Ft-PaN" id="iWe-Rz-YB6"/>
+                        <segue destination="hAL-yj-aAj" kind="unwind" identifier="unwind" unwindAction="unwindFromSettings:" id="yau-4H-YCp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XDt-Cm-Lpg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hAL-yj-aAj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-599" y="-911"/>
         </scene>
@@ -835,7 +899,7 @@ Post popup viewer:
         <segue reference="1Qu-39-GgE"/>
         <segue reference="W0K-MR-xhK"/>
         <segue reference="Nn8-IG-aUq"/>
+        <segue reference="W0K-MR-xhK"/>
         <segue reference="YxB-oc-Sy5"/>
-        <segue reference="51b-nn-hlE"/>
     </inferredMetricsTieBreakers>
 </document>

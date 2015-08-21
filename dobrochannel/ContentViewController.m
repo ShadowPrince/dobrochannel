@@ -13,7 +13,6 @@
 
 @interface ContentViewController ()
 @property NSMutableArray<NSManagedObject *> *threads;
-@property BoardMarkupParser *markupParser;
 @property NSMutableArray<PostViewController *> *postPopups;
 
 // table loading
@@ -35,25 +34,6 @@
 - (instancetype) initWithCoder:(nonnull NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     self.api = [[BoardAPI alloc] init];
-
-    UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
-
-    self.markupParser = [[BoardMarkupParser alloc] initWithAttributes:
-                         @{
-                           @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
-                            @BoardMarkupParserTagBold: @{},
-                            @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
-                            @BoardMarkupParserTagItalic: @{ },
-                            @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
-                            @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
-                                                            NSBackgroundColorAttributeName: [UIColor blackColor], },
-                            @BoardMarkupParserWeblink: @{},
-                            @BoardMarkupParserBoardlink: @{},
-                            @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
-
-
-                            }];
-
     [self resetReuseProperties];
     return self;
 }
@@ -140,7 +120,7 @@
         controller.board = self.board;
         controller.thread_identifier = [[post valueForKey:@"thread"] valueForKey:@"display_identifier"];
         controller.inReplyToIdentifier = [post valueForKey:@"display_identifier"];
-        controller.inReplyToMessage = [self.markupParser parse:[post valueForKey:@"message"]];
+        controller.inReplyToMessage = [post valueForKey:@"attributedMessage"];
     }
 }
 
@@ -150,7 +130,13 @@
     [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
 }
 
-- (IBAction)postHeaderTouch:(UIButton *)sender {
+- (IBAction)threadReplyTouch:(UIButton *)sender {
+    ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
+
+    [self performSegueWithIdentifier:@"2newPost" sender:[cell.thread valueForKey:@"op_post"]];
+}
+
+- (IBAction)postReplyTouch:(UIButton *)sender {
     PostTableViewCell *cell = (PostTableViewCell *) [self superviewIn:sender atPosition:2];
 
     [self performSegueWithIdentifier:@"2newPost" sender:cell.post];
@@ -314,8 +300,10 @@
         [self.tableView reloadData];
         self.viewChangedSize = NO;
 
-        if (self.viewChangedSizeScrollTo)
-            [self.tableView scrollToRowAtIndexPath:self.viewChangedSizeScrollTo atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        if (self.viewChangedSizeScrollTo) {
+            if ([self.tableView numberOfRowsInSection:0] >= self.viewChangedSizeScrollTo.row)
+                [self.tableView scrollToRowAtIndexPath:self.viewChangedSizeScrollTo atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        }
     }
 }
 
@@ -368,6 +356,10 @@
     }
 }
 
+- (void) reloadData {
+    [self.tableView reloadData];
+}
+
 - (void) didInsertObject:(NSManagedObject *) object {
 
 }
@@ -378,6 +370,8 @@
 
     if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
         return NO;
+
+//    return self.threads.count < 2;
 
     return YES;
 }
@@ -391,31 +385,38 @@
     if ([cell isKindOfClass:[PostTableViewCell class]]) {
         // NSSelectorFromString used for supressing compiler warning
         [((PostTableViewCell *) cell) setHeaderTouchTarget:self
-                                                    action:NSSelectorFromString(@"postHeaderTouch:")];
+                                                    action:NSSelectorFromString(@"postReplyTouch:")];
+    } else if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
+        [(ThreadTableViewCell *) cell setReplyTouchTarget:self
+                                                   action:NSSelectorFromString(@"threadReplyTouch:")];
     }
 
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    [self popAllPopups:nil];
-    // pop all popups on scroll
-    // scrollViewDidScroll not used, 'cause it's being fired when modal view controller is dismissed
-    // also cellForRowAtIndexPath scroll comes with a little threshhold
-
     NSManagedObject *entry = self.threads[indexPath.row];
     BoardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@View", entry.entity.name]];
-
-    [cell setupAttachmentOffsetFor:tableView.frame.size];
-    [cell populate:entry
-       attachments:[self.context requestAttachmentsFor:entry]
-      markupParser:self.markupParser];
-    [self prepareCell:cell];
 
     if (![self.api isRequesting] && indexPath.row == [self.threads count] - 1) {
         [self didScrollToBottom];
     }
 
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(BoardTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self popAllPopups:nil];
+    // pop all popups on scroll
+    // scrollViewDidScroll not used, 'cause it's being fired when modal view controller is dismissed
+    // also cellForRowAtIndexPath scroll comes with a little threshhold
+
+    NSManagedObject *entry = self.threads[indexPath.row];
+
+    [cell setupAttachmentOffsetFor:tableView.frame.size];
+    [cell populate:entry
+       attachments:[self.context requestAttachmentsFor:entry]];
+    [self prepareCell:cell];
+    [cell setupAttachmentOffsetFor:tableView.frame.size];
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

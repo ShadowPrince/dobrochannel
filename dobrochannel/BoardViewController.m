@@ -54,9 +54,7 @@
     
     if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
         // NSSelectorFromString used for supressing compiler warning
-        [((ThreadTableViewCell *) cell).goToThreadButton addTarget:self
-                                                            action:NSSelectorFromString(@"threadHeaderTouch:")
-                                                  forControlEvents:UIControlEventTouchUpInside];
+        [(ThreadTableViewCell *) cell setThreadHeaderTouchTarget:self action:NSSelectorFromString(@"threadHeaderTouch:")];
     }
 }
 
@@ -76,6 +74,10 @@
 - (IBAction) unwindFromNewPost:(UIStoryboardSegue *)sender {
     self.page = 0;
     self.board = self.board;
+}
+
+- (IBAction) unwindFromSettings:(UIStoryboardSegue *)sender {
+    [self reloadData];
 }
 
 #pragma mark state restoration

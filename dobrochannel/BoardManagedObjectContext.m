@@ -34,6 +34,23 @@
     }
 
     self.postIds = [NSMutableDictionary new];
+    
+    UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
+    self.parser = [[BoardMarkupParser alloc] initWithAttributes:
+                   @{
+                     @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
+                      @BoardMarkupParserTagBold: @{},
+                      @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
+                      @BoardMarkupParserTagItalic: @{ },
+                      @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
+                      @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
+                                                      NSBackgroundColorAttributeName: [UIColor blackColor], },
+                      @BoardMarkupParserWeblink: @{},
+                      @BoardMarkupParserBoardlink: @{},
+                      @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
+
+
+                      }];
     return self;
 }
 
@@ -98,7 +115,7 @@
 
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self];
 
-    [object setValue:post[@"message"] forKey:@"message"];
+    [object setValue:[self.parser parse:post[@"message"]] forKey:@"attributedMessage"];
     [object setValue:post[@"post_id"] forKey:@"identifier"];
     [object setValue:post[@"display_id"] forKey:@"display_identifier"];
     [object setValue:post[@"post_id"] forKey:@"identifier"];
@@ -236,7 +253,10 @@
 
     NSMutableDictionary *postURIs = [aDecoder decodeObjectForKey:@"postURIs"];
     [postURIs enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        self.postIds[key] = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:obj];
+        NSManagedObjectID *i = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:obj];
+        
+        if (i)
+            self.postIds[key] = i;
     }];
     return self;
 }

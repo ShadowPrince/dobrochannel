@@ -89,7 +89,6 @@
 }
 
 - (IBAction)passwordValueChange:(id)sender {
-    NSLog(@"chaned");
     [[NSUserDefaults standardUserDefaults] setValue:self.passwordField.text forKey:@"post_password"];
 }
 
@@ -125,6 +124,15 @@
 
 - (void) pickerView:(nonnull UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:row] forKey:@"max_rating"];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    UIViewController *vc = self.navigationController.topViewController;
+    if ([BoardViewController class] == [vc class]) {
+        [self performSegueWithIdentifier:@"unwind" sender:nil];
+    }
+
+    [super viewWillDisappear:animated];
 }
 
 @end

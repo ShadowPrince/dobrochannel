@@ -12,8 +12,7 @@
 @end @implementation BoardTableViewCell
 
 - (void) populate:(NSManagedObject *)object
-      attachments:(NSArray *)attachments
-     markupParser:(BoardMarkupParser *)parser {
+      attachments:(NSArray *)attachments {
     @throw [NSException exceptionWithName:@"Abstract method call" reason:@"populate:markupParser: is abstract" userInfo:nil];
 }
 
@@ -27,8 +26,9 @@
     [self.dynamicTableView registerNib:[UINib nibWithNibName:@"AttachmentTableViewCell" bundle:nil]
                 forCellReuseIdentifier:@"Cell"];
 
-    //@TODO: figure out why this isn't working in XIB
-    self.dynamicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // remove text padding
+    self.dynamicTextView.textContainerInset = UIEdgeInsetsZero;
+    self.dynamicTextView.textContainer.lineFragmentPadding = 0.f;
 
     [super awakeFromNib];
 }
@@ -61,26 +61,28 @@
     self.dynamicTableDelegate.objects = attachments;
     self.dynamicTableDelegate.parentSize = CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT);
     [self.dynamicTableView reloadData];
-
-    self.dynamicTextView.text = self.dynamicText;
 }
 
 
 - (CGFloat) calculatedHeight:(CGSize) parentSize {
     CGFloat width = parentSize.width - self.dynamicTextViewCombinedOffsets - self.dynamicStackViewScrollWidthConstraint.constant;
+    width = roundf(width * 2) / 2; // round it to x.0 or x.5
 
     // dynamic text height
-    CGSize size = [self.dynamicText boundingRectWithSize:CGSizeMake(width - 18, MAXFLOAT)
-                                                 options:NSStringDrawingUsesLineFragmentOrigin
-                                              attributes:nil
-                                                 context:nil].size;
-    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + 22 + size.height;
+    CGSize size = [self.dynamicText.string boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                     attributes:@{NSFontAttributeName: self.dynamicTextView.font}
+                                                        context:nil].size;
+    CGFloat height = size.height;
+
+    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;
+
 
     // dynamic stack view height
     CGFloat attachmentExpandHeight = self.frame.size.height -
     self.dynamicTableView.frame.size.height +
     [self.dynamicTableDelegate calculatedWidth];
-    
+
     return MAX(messageExpandHeight, attachmentExpandHeight);
 }
 
