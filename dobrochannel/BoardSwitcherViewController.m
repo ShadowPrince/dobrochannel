@@ -59,7 +59,9 @@
     NSArray *board = self.boardsData[key];
 
     UIButton *b = (UIButton *) [cell viewWithTag:100];
-    [b setTitle:[NSString stringWithFormat:@"/%@/", key] forState:UIControlStateNormal];
+    [UIView performWithoutAnimation:^{
+        [b setTitle:[NSString stringWithFormat:@"/%@/", key] forState:UIControlStateNormal];
+    }];
 
     UILabel *l = (UILabel *) [cell viewWithTag:102];
     l.text = board[0];

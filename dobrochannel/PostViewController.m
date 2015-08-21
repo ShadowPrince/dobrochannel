@@ -56,13 +56,24 @@
 
     if (!self.loadingIndicator.isAnimating) {
         [self setHeight:[self tableView:(UITableView *)[NSNull null]
-                heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]]];
+                heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]];
     }
 }
 
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [cell setAttachmentTouchTarget:self.supercontroller action:@selector(attachmentTouch:)];
     [cell setBoardlinkTouchTarget:self.supercontroller action:@selector(boardlinkTouch:context:)];
+
+
+    if ([cell isKindOfClass:[PostTableViewCell class]]) {
+        // NSSelectorFromString used for supressing compiler warning
+        [((PostTableViewCell *) cell) setHeaderTouchTarget:self.supercontroller
+                                                    action:NSSelectorFromString(@"postReplyTouch:")];
+    } else if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
+        [(ThreadTableViewCell *) cell setReplyTouchTarget:self.supercontroller
+                                                   action:NSSelectorFromString(@"threadReplyTouch:")];
+    }
+
 }
 
 - (void) setHeight:(CGFloat) height {
@@ -70,7 +81,7 @@
     if (height > self.maxHeight) {
         frame.size.height = self.maxHeight;
     } else {
-        frame.size.height = height;
+        frame.size.height = height + 5.f;
     }
     self.view.frame = frame;
 }

@@ -83,7 +83,7 @@
 - (void) didReceivedPost:(NSDictionary *) _post {
     if (_post[@"code"]) {
         NSManagedObject *errorMessage = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self];
-        [errorMessage setValue:_post[@"message"] forKey:@"message"];
+        [errorMessage setValue:[self.parser parse:_post[@"message"]] forKey:@"attributedMessage"];
         [self.delegate context:self didInsertedObject:errorMessage];
         return;
     }
