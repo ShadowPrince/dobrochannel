@@ -49,6 +49,7 @@
         sl.tag = 113;
         [cell addSubview:sl];
     }
+
     NSManagedObject *attachment = self.objects[indexPath.row];
 
     UIImageView *iv = (UIImageView *) [cell viewWithTag:111];
@@ -57,13 +58,13 @@
 
 
     sl.frame = CGRectMake(0,
-                          0,
+                          -1,
                           self.parentSize.width,
                           [[UIFont systemFontOfSize:statusLabelFontSize] lineHeight]);
     iv.frame = CGRectMake(0,
-                          sl.frame.size.height + 1.f,
+                          sl.frame.size.height - 2,
                           self.parentSize.width,
-                          [self attachmentHeight:attachment] - sl.frame.size.height + 1.f);
+                          [self attachmentHeight:attachment] - sl.frame.size.height);
     aiv.frame = CGRectMake(0,
                            0,
                            self.parentSize.width,
