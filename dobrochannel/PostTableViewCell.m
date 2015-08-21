@@ -17,35 +17,40 @@
 @synthesize post;
 
 - (void) awakeFromNib {
+
     self.dynamicTextView = self.messageTextView;
+    self.dynamicTextView.font = [UIFont systemFontOfSize:12.f];
 
     self.dynamicTableDelegate = [[AttachmentsTableDelegate alloc] init];
     self.dynamicTableView = self.attachmentsView;
 
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
-    self.dynamicTextViewCombinedOffsets = 8;
+    self.dynamicTextViewCombinedOffsets =
+    14.f // autolayout padding hardcoded
+    + 16.f // post offset
+    + 3.f; // message view margin
 
     self.headerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.headerButton.titleLabel.backgroundColor = [UIColor whiteColor];
 
     [super awakeFromNib];
 }
 
 - (void) populate:(NSManagedObject *)data
-      attachments:(NSArray *)attachments
-     markupParser:(BoardMarkupParser *)parser {
+      attachments:(NSArray *)attachments {
     [self populateForHeightCalculation:data
                            attachments:attachments];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [data valueForKey:@"date"];
-    self.messageTextView.attributedText = [parser parse:self.dynamicText];
+    self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
 
     self.post = data;
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *)attachments {
-    self.dynamicText = [object valueForKey:@"message"];
+    self.dynamicText = [object valueForKey:@"attributedMessage"];
 
     [super populateForHeightCalculation:object
                             attachments:attachments];

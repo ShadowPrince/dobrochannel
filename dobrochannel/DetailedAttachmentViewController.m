@@ -119,10 +119,12 @@
     NSString *type = [self.attachment valueForKey:@"type"];
 
     if ([type isEqualToString:@"image"]) {
-        if (!self.task) {
+        if (!self.task && !self.didLoadedSource) {
             self.progressView.hidden = NO;
             self.progressView.progress = 0.f;
-            [self request:[self.attachment valueForKey:@"src"] completeWith:nil];
+            [self request:[self.attachment valueForKey:@"src"] completeWith:^{
+                self.didLoadedSource = YES;
+            }];
         }
     } else {
         [self openInBrowser];
@@ -147,6 +149,14 @@
                                         handler:^(UIAlertAction * __nonnull action) {
                                             [self hideInfoView];
                                             [self openInBrowser];
+                                        }]];
+    [c addAction:[UIAlertAction actionWithTitle:@"Copy"
+                                          style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction *action) {
+                                            [self hideInfoView];
+                                            NSString *path = [self.attachment valueForKey:@"src"];
+                                            NSURL *url = [[BoardAPI api] urlFor:path];
+                                            [UIPasteboard generalPasteboard].URL = url;
                                         }]];
 
     [c addAction:[UIAlertAction actionWithTitle:@"Cancel"

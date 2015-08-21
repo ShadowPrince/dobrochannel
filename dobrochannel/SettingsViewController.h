@@ -10,6 +10,8 @@
 #import "BoardAPI.h"
 #import "UserDefaults.h"
 
+#import "BoardViewController.h"
+
 @interface SettingsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end

@@ -14,14 +14,15 @@
 @interface ThreadTableViewCell : BoardTableViewCell
 @property NSManagedObject *thread;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
-@property (weak, nonatomic) IBOutlet UIButton *goToThreadButton;
 
 - (void) setThreadHeaderTouchTarget:(id) target
                              action:(SEL) action;
+- (void) setReplyTouchTarget:(id) target
+                      action:(SEL) action;
 
 @end

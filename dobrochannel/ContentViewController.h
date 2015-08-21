@@ -45,6 +45,7 @@ BoardManagedObjectContextDelegate> {
 
 - (void) insetObject:(NSManagedObject *) object;
 - (void) insertNewRows;
+- (void) reloadData;
 
 - (IBAction)attachmentTouch:(NSArray *)sender;
 - (IBAction) boardlinkTouch:(NSString *)identifier

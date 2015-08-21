@@ -38,11 +38,16 @@
 }
 
 - (void) collectionView:(nonnull UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSString *key = self.boardsList[indexPath.section][indexPath.row];
-        self.controller.page = 0;
-        self.controller.board = key;
-    }];
+    NSString *key = self.boardsList[indexPath.section][indexPath.row];
+    self.controller.page = 0;
+    self.controller.board = key;
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)touchBoardAction:(UIButton *)sender {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:(UICollectionViewCell *) sender.superview.superview];
+    [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 # pragma mark data source
@@ -53,10 +58,10 @@
     NSString *key = self.boardsList[indexPath.section][indexPath.row];
     NSArray *board = self.boardsData[key];
 
-    UILabel *l = (UILabel *) [cell viewWithTag:100];
-    l.text = [NSString stringWithFormat:@"/%@/", key];
+    UIButton *b = (UIButton *) [cell viewWithTag:100];
+    [b setTitle:[NSString stringWithFormat:@"/%@/", key] forState:UIControlStateNormal];
 
-    l = (UILabel *) [cell viewWithTag:102];
+    UILabel *l = (UILabel *) [cell viewWithTag:102];
     l.text = board[0];
 
     l = (UILabel *) [cell viewWithTag:101];

@@ -18,7 +18,7 @@
 @property NSUInteger attachmentsCount;
 @property MessageTextViewDelegate *textViewDelegate;
 
-@property (weak) NSString *dynamicText;
+@property (weak) NSAttributedString *dynamicText;
 @property (weak) UITextView *dynamicTextView;
 @property (weak) UITableView *dynamicTableView;
 @property AttachmentsTableDelegate *dynamicTableDelegate;
@@ -32,8 +32,7 @@
                           action:(SEL) action;
 
 - (void) populate:(NSManagedObject *) object
-      attachments:(NSArray *) attachments
-     markupParser:(BoardMarkupParser *) parser;
+      attachments:(NSArray *) attachments;
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *) attachments;
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize;

@@ -36,6 +36,7 @@
         UIImageView *iv = [[UIImageView alloc] init];
         iv.tag = 111;
         iv.contentMode = UIViewContentModeScaleAspectFit;
+        iv.backgroundColor = [UIColor whiteColor];
         [cell addSubview:iv];
 
         UIActivityIndicatorView *aiv = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -43,6 +44,7 @@
         [cell addSubview:aiv];
 
         UILabel *sl = [[UILabel alloc] init];
+        sl.backgroundColor = [UIColor whiteColor];
         sl.font = [UIFont systemFontOfSize:statusLabelFontSize];
         sl.tag = 113;
         [cell addSubview:sl];
