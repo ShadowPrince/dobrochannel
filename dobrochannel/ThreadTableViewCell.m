@@ -50,8 +50,9 @@
     NSNumber *postsCount = [data valueForKey:@"posts_count"];
     self.statusLabel.text = [NSString stringWithFormat:@"%@ post%@", postsCount, [postsCount isEqualToNumber:@1] ? @"" : @"s"];
     self.dateLabel.text = [[data valueForKey:@"op_post"] valueForKey:@"date"];
-
     self.messageTextView.attributedText = self.dynamicText;
+    [self.attachmentsView reloadData];
+
     self.thread = data;
 }
 

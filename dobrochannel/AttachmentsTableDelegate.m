@@ -59,7 +59,7 @@
 
     sl.frame = CGRectMake(0,
                           -1,
-                          self.parentSize.width,
+                          self.parentSize.width + 1,
                           [[UIFont systemFontOfSize:statusLabelFontSize] lineHeight]);
     iv.frame = CGRectMake(0,
                           sl.frame.size.height - 2,
@@ -125,7 +125,7 @@
 }
 
 - (CGFloat) tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    return [self attachmentHeight:self.objects[indexPath.row]] + 2.f;
+    return [self attachmentHeight:self.objects[indexPath.row]];
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
@@ -134,7 +134,7 @@
 
 - (CGFloat) calculatedWidth {
     CGFloat max_height = 0.f;
-    CGFloat margin = [self.objects count] > 1 ? 15.f : 3.f;
+    CGFloat margin = [self.objects count] > 1 ? 15.f : 11.f;
 
     for (NSManagedObject *attachment in self.objects) {
         CGFloat height = [self attachmentHeight:attachment];
@@ -149,7 +149,7 @@
     CGSize size = ((NSValue *) [attachment valueForKey:@"thumb_size"]).CGSizeValue;
     CGFloat ratio = self.parentSize.width / size.width;
 
-    return size.height * ratio + [[UIFont systemFontOfSize:STATUS_LABEL_FONT_SIZE] lineHeight] + 1.f;
+    return size.height * ratio + [[UIFont systemFontOfSize:STATUS_LABEL_FONT_SIZE] lineHeight];
 }
 
 - (void) tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

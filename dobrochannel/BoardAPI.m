@@ -288,21 +288,15 @@
 #pragma mark thread helpers
 
 - (void) didParsedThread:(NSDictionary *)thread {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.delegate didReceivedThread:thread];
-    });
+    [self.delegate didReceivedThread:thread];
 }
 
 - (void) didParsedPost:(NSDictionary *)post {
-dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.delegate didReceivedPost:post];
-    });
+    [self.delegate didReceivedPost:post];
 }
 
 - (void) didFinishedParsing {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.delegate didFinishedReceiving];
-    });
+    [self.delegate didFinishedReceiving];
 }
 
 #pragma mark private helper methods

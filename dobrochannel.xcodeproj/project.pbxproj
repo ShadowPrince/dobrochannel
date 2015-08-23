@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
+		F31B7C4D1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */; };
+		F31B7C501B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */; };
 		F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32657EA1B7E99600013078E /* Launch Screen.xib */; };
 		F33D94051B5BD8E7000AA303 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
 		F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94071B5BD8E7000AA303 /* AppDelegate.m */; };
@@ -49,6 +52,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F31B7C491B8A0F8E00C56C14 /* AnswerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerCollectionViewCell.h; sourceTree = "<group>"; };
+		F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerCollectionViewCell.m; sourceTree = "<group>"; };
+		F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerCollectionViewCell.xib; sourceTree = "<group>"; };
+		F31B7C4E1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewRightAlignedLayout.h; sourceTree = "<group>"; };
+		F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewRightAlignedLayout.m; sourceTree = "<group>"; };
 		F32657EA1B7E99600013078E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		F33D94001B5BD8E7000AA303 /* Dobrochannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dobrochannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33D94041B5BD8E7000AA303 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -213,8 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				F3B937BB1B5DAB0100721CD8 /* TableCells */,
-				F33D941B1B5BD9C8000AA303 /* ContentViewController.h */,
-				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
+				F3C25F5E1B88E50100282F6F /* ContentView */,
 				F39369341B5E86290068A85F /* BoardViewController.h */,
 				F39369351B5E86290068A85F /* BoardViewController.m */,
 				F39369311B5E839F0068A85F /* ThreadViewController.h */,
@@ -238,6 +245,8 @@
 		F39CBEAB1B5D813B0049DB45 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F31B7C4E1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.h */,
+				F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */,
 				F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */,
 				F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */,
 				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
@@ -286,6 +295,8 @@
 				F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */,
 				F3B937B61B5DAAFA00721CD8 /* PostTableViewCell.h */,
 				F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */,
+				F31B7C491B8A0F8E00C56C14 /* AnswerCollectionViewCell.h */,
+				F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -295,8 +306,18 @@
 			children = (
 				F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */,
 				F3B937B81B5DAAFA00721CD8 /* PostTableViewCell.xib */,
+				F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		F3C25F5E1B88E50100282F6F /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				F33D941B1B5BD9C8000AA303 /* ContentViewController.h */,
+				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
+			);
+			name = ContentView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F31B7C4D1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib in Resources */,
 				F33D941F1B5BD9C8000AA303 /* ContentViewController.xib in Resources */,
 				F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */,
 				F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */,
@@ -382,6 +404,7 @@
 				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
+				F31B7C501B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m in Sources */,
 				F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */,
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,
@@ -405,6 +428,7 @@
 				F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */,
 				F3B063C61B7AB5FC003BA83E /* BoardPostResponseParser.m in Sources */,
 				F3B063D01B7B3FD0003BA83E /* ImageCollectionViewCell.m in Sources */,
+				F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */,
 				F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

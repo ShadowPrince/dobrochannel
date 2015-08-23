@@ -25,6 +25,7 @@
 @property NSArray *searchTags;
 @property NSURLSessionTask *searchTask;
 //--
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTrailingConstraint;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *tagsSearchDisplay;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;

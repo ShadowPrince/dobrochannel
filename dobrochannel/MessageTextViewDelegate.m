@@ -23,13 +23,17 @@
     return self;
 }
 
+- (void) fireActionWith:(NSString *) identifier contextObject:(NSManagedObject *) context {
+    [self.target performSelector:self.action
+                      withObject:identifier
+                      withObject:context];
+}
+
 - (BOOL) textView:(nonnull UITextView *)textView shouldInteractWithURL:(nonnull NSURL *)URL inRange:(NSRange)characterRange {
     NSString *internal_protocol = @"dobrochannel://";
     if ([[[URL absoluteString] substringToIndex:internal_protocol.length] isEqualToString:internal_protocol]) {
-        [self.target performSelector:self.action
-                          withObject:[[URL absoluteString] substringFromIndex:internal_protocol.length]
-                          withObject:self.contextObject];
-
+        [self fireActionWith:[[URL absoluteString] substringFromIndex:internal_protocol.length]
+               contextObject:self.contextObject];
         return NO;
     } else {
         return YES;

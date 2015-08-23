@@ -17,4 +17,6 @@
 - (instancetype) initWithTarget:(id) target
                          action:(nullable SEL)action;
 
+- (void) fireActionWith:(NSString *) identifier contextObject:(NSManagedObject *) context;
+
 @end

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DanbooruPickerViewController">
@@ -20,41 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="eUh-Wh-gR4">
-                    <rect key="frame" x="65" y="25" width="219" height="44"/>
-                    <animations/>
-                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="JvW-cx-7p1"/>
-                    </connections>
-                </searchBar>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8gK-WT-gJE">
-                    <rect key="frame" x="284" y="37" width="20" height="20"/>
+                    <rect key="frame" x="12" y="37" width="20" height="20"/>
                     <animations/>
                 </activityIndicatorView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcF-HZ-sIO">
-                    <rect key="frame" x="0.0" y="32" width="65" height="30"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="9EV-Am-Vze"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Adc-ST-OQ7"/>
-                        <constraint firstAttribute="width" constant="65" id="OCN-hH-1Q5"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="OJN-nd-dzn"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="Done">
-                        <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Adc-ST-OQ7"/>
-                            <exclude reference="OJN-nd-dzn"/>
-                        </mask>
-                    </variation>
-                    <connections>
-                        <action selector="doneAction:" destination="-1" eventType="touchUpInside" id="brL-me-AZZ"/>
-                    </connections>
-                </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="l8K-MC-OX6">
                     <rect key="frame" x="0.0" y="69" width="320" height="411"/>
                     <animations/>
@@ -70,57 +38,56 @@
                         <outlet property="delegate" destination="-1" id="QhO-4e-Pc8"/>
                     </connections>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WcF-HZ-sIO">
+                    <rect key="frame" x="247" y="32" width="65" height="30"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="9EV-Am-Vze"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Adc-ST-OQ7"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="KR3-PV-U47"/>
+                        <constraint firstAttribute="width" constant="65" id="OCN-hH-1Q5"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="OJN-nd-dzn"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="pc3-kF-DeM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Adc-ST-OQ7"/>
+                            <exclude reference="OJN-nd-dzn"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="doneAction:" destination="-1" eventType="touchUpInside" id="brL-me-AZZ"/>
+                    </connections>
+                </button>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="eUh-Wh-gR4">
+                    <rect key="frame" x="0.0" y="25" width="247" height="44"/>
+                    <animations/>
+                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="JvW-cx-7p1"/>
+                    </connections>
+                </searchBar>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="5J8-Ip-Kwu"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="leading" secondItem="eUh-Wh-gR4" secondAttribute="trailing" constant="8" id="5kz-J1-Neh"/>
-                <constraint firstItem="eUh-Wh-gR4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5vJ-Xg-ae6"/>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="leading" secondItem="eUh-Wh-gR4" secondAttribute="trailing" id="8jC-4n-Aeu"/>
-                <constraint firstAttribute="trailing" secondItem="WcF-HZ-sIO" secondAttribute="trailing" constant="8" id="9RW-tV-eUv"/>
+                <constraint firstItem="WcF-HZ-sIO" firstAttribute="leading" secondItem="eUh-Wh-gR4" secondAttribute="trailing" id="4pf-qg-Wp2"/>
                 <constraint firstItem="l8K-MC-OX6" firstAttribute="top" secondItem="eUh-Wh-gR4" secondAttribute="bottom" id="Aib-hT-hBp"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="trailing" secondItem="eUh-Wh-gR4" secondAttribute="trailing" constant="-16" id="CXt-B0-RUt"/>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="leading" secondItem="8gK-WT-gJE" secondAttribute="trailing" id="E4z-4J-Cvd"/>
-                <constraint firstItem="l8K-MC-OX6" firstAttribute="top" secondItem="WcF-HZ-sIO" secondAttribute="bottom" constant="8" id="Esx-0q-yeH"/>
                 <constraint firstItem="eUh-Wh-gR4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="Jdl-V8-qg3"/>
                 <constraint firstAttribute="trailing" secondItem="l8K-MC-OX6" secondAttribute="trailing" id="KKA-m7-LmY"/>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="Kv6-no-yLt"/>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="top" secondItem="eUh-Wh-gR4" secondAttribute="bottom" id="SQf-jI-9Wc"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="37" id="VVX-23-4MI"/>
-                <constraint firstItem="WcF-HZ-sIO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XAy-ZU-Bto"/>
-                <constraint firstAttribute="trailing" secondItem="8gK-WT-gJE" secondAttribute="trailing" constant="8" id="Yy7-ff-yBG"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="leading" secondItem="eUh-Wh-gR4" secondAttribute="trailing" id="Zee-5e-Fdv"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="leading" secondItem="WcF-HZ-sIO" secondAttribute="trailing" constant="8" id="cnU-ol-0iE"/>
-                <constraint firstAttribute="trailing" secondItem="8gK-WT-gJE" secondAttribute="trailing" constant="16" id="daQ-7v-CHb"/>
-                <constraint firstAttribute="trailing" secondItem="eUh-Wh-gR4" secondAttribute="trailing" id="gSt-1G-0vI"/>
+                <constraint firstItem="WcF-HZ-sIO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="Nbg-r4-Vh4"/>
+                <constraint firstItem="eUh-Wh-gR4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" priority="999" id="YbN-38-5bB"/>
+                <constraint firstAttribute="trailing" secondItem="WcF-HZ-sIO" secondAttribute="trailing" constant="8" id="eGS-3w-OGe"/>
                 <constraint firstAttribute="bottom" secondItem="l8K-MC-OX6" secondAttribute="bottom" id="hhm-ic-MHS"/>
-                <constraint firstItem="eUh-Wh-gR4" firstAttribute="leading" secondItem="WcF-HZ-sIO" secondAttribute="trailing" id="jU5-s3-pBJ"/>
                 <constraint firstItem="l8K-MC-OX6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lnI-QA-vkx"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="leading" secondItem="eUh-Wh-gR4" secondAttribute="trailing" id="p9L-Ud-mDA"/>
+                <constraint firstItem="8gK-WT-gJE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="mJa-wu-XJa"/>
                 <constraint firstItem="8gK-WT-gJE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="37" id="xcc-k1-svx"/>
-                <constraint firstItem="8gK-WT-gJE" firstAttribute="top" secondItem="eUh-Wh-gR4" secondAttribute="bottom" constant="5" id="zfN-tO-CLh"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="5J8-Ip-Kwu"/>
-                    <exclude reference="8jC-4n-Aeu"/>
-                    <exclude reference="9RW-tV-eUv"/>
-                    <exclude reference="E4z-4J-Cvd"/>
-                    <exclude reference="SQf-jI-9Wc"/>
-                    <exclude reference="5vJ-Xg-ae6"/>
-                    <exclude reference="gSt-1G-0vI"/>
-                    <exclude reference="Esx-0q-yeH"/>
-                    <exclude reference="5kz-J1-Neh"/>
-                    <exclude reference="CXt-B0-RUt"/>
-                    <exclude reference="VVX-23-4MI"/>
-                    <exclude reference="Yy7-ff-yBG"/>
-                    <exclude reference="Zee-5e-Fdv"/>
-                    <exclude reference="cnU-ol-0iE"/>
-                    <exclude reference="zfN-tO-CLh"/>
-                </mask>
-            </variation>
         </view>
         <searchDisplayController id="4n4-nr-p6z">
             <connections>

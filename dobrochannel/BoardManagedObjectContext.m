@@ -115,7 +115,30 @@
 
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self];
 
-    [object setValue:[self.parser parse:post[@"message"]] forKey:@"attributedMessage"];
+    [object setValue:@"" forKey:@"answers"];
+    NSAttributedString *message = [self.parser parse:post[@"message"]];
+    [object setValue:message forKey:@"attributedMessage"];
+
+    if (message.length) {
+        NSRange range = NSRangeFromString(message.string);
+        NSString *prefix = @"dobrochannel://";
+        [[message attributesAtIndex:0 effectiveRange:&range] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if (key == NSLinkAttributeName && [[(NSURL *) obj absoluteString] hasPrefix:prefix]) {
+                NSString *absoluteString = [(NSURL *) obj absoluteString];
+                NSString *stringIdentifier = [absoluteString substringFromIndex:prefix.length];
+                NSNumber *identifier = [NSNumber numberWithInteger:stringIdentifier.integerValue];
+                NSManagedObjectID *oid = self.postIds[identifier];
+
+                if (oid) {
+                    NSManagedObject *linkedPost = [self objectWithID:oid];
+                    NSString *oldString = [linkedPost valueForKey:@"answers"];
+                    [linkedPost setValue:[oldString stringByAppendingString:[NSString stringWithFormat:@",%@", post[@"display_id"]]]
+                                  forKey:@"answers"];
+                }
+            }
+        }];
+    }
+
     [object setValue:post[@"post_id"] forKey:@"identifier"];
     [object setValue:post[@"display_id"] forKey:@"display_identifier"];
     [object setValue:post[@"post_id"] forKey:@"identifier"];

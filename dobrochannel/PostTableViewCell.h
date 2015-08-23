@@ -11,8 +11,10 @@
 #import "BoardMarkupParser.h"
 
 #import "BoardTableViewCell.h"
+#import "AnswerCollectionViewCell.h"
+#import "UICollectionViewRightAlignedLayout.h"
 
-@interface PostTableViewCell : BoardTableViewCell
+@interface PostTableViewCell : BoardTableViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;

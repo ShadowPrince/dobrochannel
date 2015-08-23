@@ -21,7 +21,6 @@
 @interface ContentViewController : UIViewController <UITableViewDataSource,
 UITableViewDelegate,
 UIGestureRecognizerDelegate,
-UIDataSourceModelAssociation,
 BoardManagedObjectContextDelegate> {
     BoardAPIProgressCallback progressCallback;
 }

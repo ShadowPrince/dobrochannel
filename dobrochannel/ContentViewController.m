@@ -46,7 +46,7 @@
     self.threads = [NSMutableArray new];
     self.rowHeightCache = [NSMutableDictionary dictionary];
     self.tableLoadedRows = 0;
-    [self.tableView reloadData];
+    [self reloadData];
 
     self.context = [self createContext];
     self.context.delegate = self;
@@ -334,7 +334,9 @@
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
     [self insetObject:object];
-    [self insertNewRows];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self insertNewRows];
+    });
 }
 
 - (void) insertNewRows {
@@ -472,7 +474,6 @@
 
     // actual insert will happen in viewDidLayoutSubviews
     self.tableLoadedRows = [self.threads count];
-    self.viewChangedSize = YES;
     self.viewChangedSizeScrollTo = [coder decodeObjectForKey:@"first_visible_row"];
 }
 
@@ -481,14 +482,6 @@
 
     [coder encodeObject:self.context forKey:@"context"];
     [coder encodeObject:[[self.tableView indexPathsForVisibleRows] firstObject] forKey:@"first_visible_row"];
-}
-
-- (NSString *) modelIdentifierForElementAtIndexPath:(nonnull NSIndexPath *)idx inView:(nonnull UIView *)view {
-    return [NSString stringWithFormat:@"%llu", (unsigned long long) idx.row];
-}
-
-- (NSIndexPath *) indexPathForElementWithModelIdentifier:(nonnull NSString *)identifier inView:(nonnull UIView *)view {
-    return [NSIndexPath indexPathForRow:identifier.integerValue inSection:0];
 }
 
 @end
