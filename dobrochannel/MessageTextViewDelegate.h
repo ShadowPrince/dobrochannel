@@ -12,10 +12,10 @@
 #import "BoardMarkupParser.h"
 
 @interface MessageTextViewDelegate : NSObject <UITextViewDelegate>
-@property NSManagedObject *contextObject;
+@property NSManagedObject* __nullable contextObject;
 
-- (instancetype) initWithTarget:(id) target
-                         action:(nullable SEL)action;
+- (instancetype) initWithTarget:(nonnull id) target
+                         action:(nonnull SEL)action;
 
 - (void) fireActionWith:(NSString *) identifier contextObject:(NSManagedObject *) context;
 

@@ -13,7 +13,6 @@
 
 #import "BoardTableViewCell.h"
 #import "AnswerCollectionViewCell.h"
-#import "UICollectionViewRightAlignedLayout.h"
 
 @interface PostTableViewCell : BoardTableViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;

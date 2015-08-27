@@ -34,8 +34,6 @@
     }
 
     self.postIds = [NSMutableDictionary new];
-    
-    UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
     self.parser = [BoardMarkupParser defaultParser];
     return self;
 }

@@ -15,7 +15,7 @@
 @synthesize contextObject;
 
 - (instancetype) initWithTarget:(id) target
-                         action:(nullable SEL)action {
+                         action:(SEL) action {
     self = [super init];
     self.target = target;
     self.action = action;

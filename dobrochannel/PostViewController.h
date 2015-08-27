@@ -17,7 +17,4 @@
 @property CGFloat maxHeight;
 
 @property (weak) ContentViewController *supercontroller;
-
-- (instancetype) initWithSupercontroller:(ContentViewController *) _supercontroller;
-
 @end

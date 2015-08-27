@@ -199,7 +199,7 @@
     [data setValuesForKeysWithDictionary:@{@"task": @"post",
                                            @"scroll_to": @"",
                                            @"goto": @"thread",
-                                           @"post_files_count": [NSString stringWithFormat:@"%lu", files.count + 1],
+                                           @"post_files_count": [NSString stringWithFormat:@"%u", files.count + 1],
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
                                            @"name": @"Анонимус",
@@ -339,7 +339,7 @@
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
     NSLog(@"%@", url);
-    url = [NSURL URLWithString:@"http://localhost/0.json"];
+//    url = [NSURL URLWithString:@"http://localhost/0.json"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                           delegate:ddelegate
                                                      delegateQueue:nil];

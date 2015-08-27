@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
 		F31B7C4D1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */; };
-		F31B7C501B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */; };
 		F31B7C531B8F16A200C56C14 /* UIViewController+Popups.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */; };
 		F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32657EA1B7E99600013078E /* Launch Screen.xib */; };
 		F33D94051B5BD8E7000AA303 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
@@ -56,8 +55,6 @@
 		F31B7C491B8A0F8E00C56C14 /* AnswerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerCollectionViewCell.h; sourceTree = "<group>"; };
 		F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerCollectionViewCell.m; sourceTree = "<group>"; };
 		F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerCollectionViewCell.xib; sourceTree = "<group>"; };
-		F31B7C4E1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewRightAlignedLayout.h; sourceTree = "<group>"; };
-		F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewRightAlignedLayout.m; sourceTree = "<group>"; };
 		F31B7C511B8F16A200C56C14 /* UIViewController+Popups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Popups.h"; sourceTree = "<group>"; };
 		F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Popups.m"; sourceTree = "<group>"; };
 		F32657EA1B7E99600013078E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -248,16 +245,11 @@
 		F39CBEAB1B5D813B0049DB45 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F31B7C4E1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.h */,
-				F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */,
+				F3FBFF141B8F8DD4002F8A1E /* Content */,
 				F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */,
 				F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */,
 				F31B7C511B8F16A200C56C14 /* UIViewController+Popups.h */,
 				F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */,
-				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
-				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
-				F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */,
-				F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */,
 				F38CAC471B68496E00A2EF98 /* UserDefaults.h */,
 				F38CAC481B68496E00A2EF98 /* UserDefaults.m */,
 			);
@@ -323,6 +315,17 @@
 				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
 			);
 			name = ContentView;
+			sourceTree = "<group>";
+		};
+		F3FBFF141B8F8DD4002F8A1E /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
+				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
+				F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */,
+				F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */,
+			);
+			name = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,7 +412,6 @@
 				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
-				F31B7C501B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m in Sources */,
 				F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */,
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,

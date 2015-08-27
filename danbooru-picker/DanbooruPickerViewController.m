@@ -64,6 +64,8 @@
     [(UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout setItemSize:CGSizeMake(size, size)];
 }
 
+#pragma mark - contents
+
 - (void) reset {
     self.page = 1;
 
@@ -85,18 +87,7 @@
     [self requestImages];
 }
 
-
-- (void) displayErrors:(NSArray *) errors {
-    UIAlertController *c = [UIAlertController alertControllerWithTitle:@"Error"
-                                                               message:[errors componentsJoinedByString:@"\n"]
-                                                        preferredStyle:UIAlertControllerStyleAlert];
-
-    c.popoverPresentationController.sourceRect = self.navigationController.navigationBar.frame;
-    c.popoverPresentationController.sourceView = self.view;
-    [c addAction:[UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:c animated:YES completion:nil];
-}
-//
+#pragma mark - actions
 
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSArray *tagsInbound = [searchText componentsSeparatedByString:@" "];
@@ -144,16 +135,6 @@
     [self.tagsSearchDisplay.searchResultsTableView reloadData];
 }
 
-- (void) imageDownloadingTask:(NSDictionary *)image
-                     progress:(long long)completed
-                           of:(long long)total {
-    NSValue *value = [NSValue valueWithCGSize:CGSizeMake((CGFloat) completed, (CGFloat) total)];
-    self.imageDownloadingProgress[image] = value;
-    NSInteger row = [self.imageInfos indexOfObject:image];
-
-    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]]];
-}
-
 - (void) didFinishedRequest {
     [self.activityIndicator stopAnimating];
 
@@ -165,6 +146,16 @@
 
 - (void) didFailRequest:(NSString *)msg {
     [self displayErrors:@[msg]];
+}
+
+- (void) imageDownloadingTask:(NSDictionary *)image
+                     progress:(long long)completed
+                           of:(long long)total {
+    NSValue *value = [NSValue valueWithCGSize:CGSizeMake((CGFloat) completed, (CGFloat) total)];
+    self.imageDownloadingProgress[image] = value;
+    NSInteger row = [self.imageInfos indexOfObject:image];
+
+    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]]];
 }
 
 #pragma mark - tag search
@@ -252,8 +243,17 @@
     return cell;
 }
 
-- (void) dealloc {
-    NSLog(@"dealloc");
+#pragma mark - helper methods
+
+- (void) displayErrors:(NSArray *) errors {
+    UIAlertController *c = [UIAlertController alertControllerWithTitle:@"Error"
+                                                               message:[errors componentsJoinedByString:@"\n"]
+                                                        preferredStyle:UIAlertControllerStyleAlert];
+
+    c.popoverPresentationController.sourceRect = self.navigationController.navigationBar.frame;
+    c.popoverPresentationController.sourceView = self.view;
+    [c addAction:[UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:c animated:YES completion:nil];
 }
 
 @end
