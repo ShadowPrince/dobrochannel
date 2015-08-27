@@ -10,12 +10,14 @@
 
 #import "ContentViewController.h"
 
-@interface PostViewController : ContentViewController
+@interface PostViewController : ContentViewController<ViewControllerPopup>
 @property NSManagedObject *targetObject;
 @property NSNumber *identifier;
 @property NSNumber *threadIdentifier;
 @property CGFloat maxHeight;
 
 @property (weak) ContentViewController *supercontroller;
+
+- (instancetype) initWithSupercontroller:(ContentViewController *) _supercontroller;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "BoardMarkupParser.h"
 
@@ -18,9 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
-
-@property NSManagedObject *post;
-
 
 - (void) setHeaderTouchTarget:(id) target
                        action:(SEL) action;

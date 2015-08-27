@@ -10,6 +10,8 @@
 
 @interface PostViewController ()
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+
+@property CGPoint viewOrigin, swipeOrigin;
 @end@implementation PostViewController
 @synthesize targetObject;
 @synthesize identifier, threadIdentifier, maxHeight;
@@ -20,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setMode:ContentViewControllerModeSingle];
     [self.loadingIndicator startAnimating];
 
     if (self.targetObject) {
@@ -40,6 +43,73 @@
     self.view = [[nib instantiateWithOwner:self options:nil] objectAtIndex:0];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    self.viewOrigin = self.view.frame.origin;
+    self.view.alpha = 0.f;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    CGPoint startingPoint = CGPointMake(self.viewOrigin.x, self.viewOrigin.y - 100.f);
+    self.view.frame = CGRectMake(startingPoint.x,
+                                 startingPoint.y,
+                                 self.view.frame.size.width,
+                                 self.view.frame.size.height);
+
+    [UIView animateWithDuration:0.2f animations:^{
+        self.view.alpha = 1.f;
+        self.view.frame = CGRectMake(self.viewOrigin.x,
+                                     self.viewOrigin.y,
+                                     self.view.frame.size.width,
+                                     self.view.frame.size.height);
+    }];
+}
+
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    if (!self.loadingIndicator.isAnimating) {
+        [self setHeight:[self tableView:(UITableView *)[NSNull null]
+                heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]];
+    }
+}
+
+///////
+
+- (void) panGesture:(UIGestureRecognizer *) sender {
+    CGPoint loc = [sender locationInView:self.supercontroller.view];
+    CGFloat x = loc.x - self.swipeOrigin.x;
+    CGFloat treshhold = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 200.f : 125.f;
+    __block CGRect frame = self.view.frame;
+
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+            self.swipeOrigin = loc;
+            break;
+        case UIGestureRecognizerStateChanged:
+            frame.origin = CGPointMake(self.viewOrigin.x + x, self.viewOrigin.y);
+            self.view.alpha = 1. - fabs(x) / treshhold;
+            self.view.frame = frame;
+            break;
+        case UIGestureRecognizerStateEnded:
+            if (fabs(x) < treshhold) {
+                [UIView animateWithDuration:0.2f animations:^{
+                    self.view.frame = CGRectMake(self.viewOrigin.x,
+                                                 self.viewOrigin.y,
+                                                 self.view.frame.size.width,
+                                                 self.view.frame.size.height);
+                    self.view.alpha = 1.f;
+                }];
+            } else {
+                [self.supercontroller popPopup];
+            }
+
+            break;
+        default: break;
+    }
+}
+
+///////
+
 - (BOOL) shouldInsertObject:(NSManagedObject *)object {
     // skip is_op check
     return [object.entity.name isEqualToString:@"Post"];
@@ -51,14 +121,15 @@
     [self.view setNeedsLayout];
 }
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
+    [super context:context didInsertedObject:object];
 
-    if (!self.loadingIndicator.isAnimating) {
-        [self setHeight:[self tableView:(UITableView *)[NSNull null]
-                heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]];
-    }
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self insertNewRows];
+    });
 }
+
+////
 
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [cell setAttachmentTouchTarget:self.supercontroller action:@selector(attachmentTouch:)];

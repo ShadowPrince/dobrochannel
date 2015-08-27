@@ -15,11 +15,11 @@
 //---
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *answersViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *answersCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *answersLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UITableView *attachmentsView;
 @end @implementation PostTableViewCell
-@synthesize post;
 
 - (void) awakeFromNib {
     self.queue = [NSOperationQueue new];
@@ -41,6 +41,20 @@
     self.headerButton.titleLabel.backgroundColor = [UIColor whiteColor];
 
     self.answersBaseHeight = self.answersViewHeightConstraint.constant;
+
+    CGColorRef borderColor = [UIColor colorWithWhite:0.8f alpha:1.f].CGColor;
+    CGFloat borderHeight = 0.5f;
+
+    CALayer *border = [CALayer layer];
+    border.frame = CGRectMake(0, 1, self.answersCollectionView.frame.size.width, borderHeight);
+    border.backgroundColor = borderColor;
+    [self.answersCollectionView.layer addSublayer:border];
+
+    border = [CALayer layer];
+    border.frame = CGRectMake(0, 1, self.answersLabel.frame.size.width, borderHeight);
+    border.backgroundColor = borderColor;
+    [self.answersLabel.layer addSublayer:border];
+
     [self.answersCollectionView registerNib:[UINib nibWithNibName:@"AnswerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
 
     [super awakeFromNib];
@@ -48,8 +62,7 @@
 
 - (void) populate:(NSManagedObject *)data
       attachments:(NSArray *)attachments {
-    [self populateForHeightCalculation:data
-                           attachments:attachments];
+    [super populate:data attachments:attachments];
 
     self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
     [self.answersCollectionView reloadData];
@@ -58,8 +71,6 @@
     self.dateLabel.text = [data valueForKey:@"date"];
     self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
     [self.attachmentsView reloadData];
-
-    self.post = data;
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
@@ -83,7 +94,7 @@
 - (void) setBoardlinkTouchTarget:(id) target
                           action:(SEL) action {
     self.textViewDelegate = [[MessageTextViewDelegate alloc] initWithTarget:target action:action];
-    self.textViewDelegate.contextObject = self.post;
+    self.textViewDelegate.contextObject = self.object;
     self.dynamicTextView.delegate = self.textViewDelegate;
 }
 
@@ -93,19 +104,22 @@
 }
 
 - (CGFloat) calculatedHeight:(CGSize)parentSize {
-    CGFloat height = [super calculatedHeight:parentSize];
-    if (!self.answers.count) {
-        height -= self.answersBaseHeight;
-    }
+    CGFloat attach = [self attachmentExpandHeight];
+    CGFloat message = [self messageExpandHeight:parentSize];
+    CGFloat height = MAX(attach, message);
 
-    return height;
+    if (attach > message && attach - message > self.answersBaseHeight) {
+        return attach - self.answersBaseHeight;
+    } else {
+        return height - (self.answers.count ? 0 : self.answersBaseHeight);
+    }
 }
 
 #pragma mark answers collection view
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *identifier = self.answers[indexPath.row];
-    [self.textViewDelegate fireActionWith:identifier.stringValue contextObject:self.post];
+    [self.textViewDelegate fireActionWith:identifier.stringValue contextObject:self.object];
 }
 
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

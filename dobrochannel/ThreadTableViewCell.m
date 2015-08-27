@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *attachmentsView;
 @property (weak, nonatomic) IBOutlet UIButton *replyButton;
 @end @implementation ThreadTableViewCell
-@synthesize thread;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -39,8 +38,7 @@
 
 - (void) populate:(NSManagedObject *)data
       attachments:(NSArray *)attachments {
-    [self populateForHeightCalculation:data
-                           attachments:attachments];
+    [super populate:data attachments:attachments];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     [UIView performWithoutAnimation:^{
@@ -52,8 +50,6 @@
     self.dateLabel.text = [[data valueForKey:@"op_post"] valueForKey:@"date"];
     self.messageTextView.attributedText = self.dynamicText;
     [self.attachmentsView reloadData];
-
-    self.thread = data;
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
@@ -76,7 +72,7 @@
 - (void) setBoardlinkTouchTarget:(id) target
                           action:(SEL) action {
     self.textViewDelegate = [[MessageTextViewDelegate alloc] initWithTarget:target action:action];
-    self.textViewDelegate.contextObject = self.thread;
+    self.textViewDelegate.contextObject = self.object;
     self.dynamicTextView.delegate = self.textViewDelegate;
 }
 

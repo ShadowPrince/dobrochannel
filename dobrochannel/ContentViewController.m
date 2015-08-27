@@ -12,8 +12,8 @@
 #import "NewPostViewController.h"
 
 @interface ContentViewController ()
-@property NSMutableArray *threads;
 @property NSMutableArray *postPopups;
+@property int numberOfTouches;
 
 // table loading
 @property NSMutableArray *preparedTableCells;
@@ -24,12 +24,11 @@
 @property ThreadTableViewCell *cachedThreadView;
 @property NSMutableDictionary *rowHeightCache;
 //---
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @end @implementation ContentViewController
-@synthesize api, context;
+@synthesize api, context, threads;
 @synthesize board;
-@synthesize cachedPostCell, cachedThreadView, threads, tableLoadedRows, rowHeightCache, viewChangedSize;
+@synthesize cachedPostCell, cachedThreadView, tableLoadedRows, rowHeightCache, viewChangedSize;
 
 - (instancetype) initWithCoder:(nonnull NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -127,19 +126,19 @@
 - (IBAction)threadHeaderTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    [self performSegueWithIdentifier:@"2threadController" sender:[cell.thread valueForKey:@"display_identifier"]];
+    [self performSegueWithIdentifier:@"2threadController" sender:[cell.object valueForKey:@"display_identifier"]];
 }
 
 - (IBAction)threadReplyTouch:(UIButton *)sender {
     ThreadTableViewCell *cell = (ThreadTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    [self performSegueWithIdentifier:@"2newPost" sender:[cell.thread valueForKey:@"op_post"]];
+    [self performSegueWithIdentifier:@"2newPost" sender:[cell.object valueForKey:@"op_post"]];
 }
 
 - (IBAction)postReplyTouch:(UIButton *)sender {
     PostTableViewCell *cell = (PostTableViewCell *) [self superviewIn:sender atPosition:2];
 
-    [self performSegueWithIdentifier:@"2newPost" sender:cell.post];
+    [self performSegueWithIdentifier:@"2newPost" sender:cell.object];
 }
 
 - (IBAction)attachmentTouch:(NSArray *)sender {
@@ -149,26 +148,24 @@
                                                                             index]];
 }
 
-- (IBAction)popPopup:(id)sender {
-    PostViewController *c = self.postPopups.lastObject;
-    [c.view removeFromSuperview];
-    [c.api cancelRequest];
-
-    [self.postPopups removeLastObject];
-}
-
-- (IBAction)popAllPopups:(id)sender {
-    while (self.postPopups.count)
-        [self popPopup:nil];
-}
-
 - (IBAction) boardlinkTouch:(NSString *)identifier
                     context:(NSManagedObject *) contextObject {
     // @TODO: figure it out right way
     if ([contextObject.entity.name isEqualToString:@"Thread"]) {
         ThreadViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"threadViewController"];
-        controller.identifier = [NSNumber numberWithInteger:identifier.integerValue];
-        controller.board = self.board;
+
+        NSNumber *targetNumber;
+        NSString *targetBoard;
+        if ([identifier containsString:@"/"]) {
+            NSArray *components = [identifier componentsSeparatedByString:@"/"];
+            targetBoard = [components firstObject];
+            targetNumber = [NSNumber numberWithInteger:[(NSString *) components.lastObject integerValue]];
+        } else {
+            targetBoard = self.board;
+            targetNumber = [NSNumber numberWithInteger:identifier.integerValue];
+        }
+        controller.identifier = targetNumber;
+        controller.board = targetBoard;
 
         [self.navigationController pushViewController:controller animated:YES];
     } else {
@@ -183,37 +180,7 @@
         pv.board = self.board;
         pv.identifier = idNumber;
 
-        CGFloat width = self.view.frame.size.width / 1.5;
-        CGFloat max_x_offset = self.view.frame.size.width - width;
-        CGFloat max_y_offset = self.view.frame.size.height - 100.f;
-        CGFloat initial_x_offset = 10.f;
-        CGFloat initial_y_offset = self.view.frame.size.height / 2 - 50.f;
-
-        CGFloat x_offset = initial_x_offset + 30.f * self.postPopups.count,
-        y_offset = initial_y_offset + 30.f * self.postPopups.count;
-
-        BOOL right_direction = YES;
-        while (x_offset > max_x_offset) {
-            x_offset -= max_x_offset;
-            right_direction = !right_direction;
-        }
-
-        while (y_offset > max_y_offset) {
-            y_offset -= max_y_offset;
-        }
-
-        if (y_offset < initial_y_offset)
-            y_offset = initial_y_offset;
-
-        if (!right_direction) {
-            x_offset = max_x_offset - x_offset;
-        }
-
-        pv.maxHeight = self.view.frame.size.height - y_offset;
-        pv.view.frame = CGRectMake(x_offset, y_offset, width, 30.f);
-        
-        [self.view addSubview:pv.view];
-        [self.postPopups addObject:pv];
+        [self pushPopup:pv];
     }
 }
 
@@ -299,6 +266,7 @@
 }
 
 - (void) viewDidLayoutSubviews {
+    // handles device orientation change
     if (viewChangedSize) {
         self.rowHeightCache = [NSMutableDictionary dictionary];
         [self.tableView reloadData];
@@ -309,6 +277,10 @@
                 [self.tableView scrollToRowAtIndexPath:self.viewChangedSizeScrollTo atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     }
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.api cancelRequest];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -330,13 +302,37 @@
     self.viewChangedSize = YES;
 }
 
+- (void) setMode:(NSInteger)mode {
+    switch (mode) {
+        case ContentViewControllerModeSingle:
+            break;
+        case ContentViewControllerModeMultiple:
+            break;
+        default:
+            break;
+    }
+}
+
 # pragma mark - context
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
     [self insetObject:object];
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self insertNewRows];
-    });
+
+    if ([object.entity.name isEqual:@"Thread"]) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self insertNewRows];
+        });
+    }
+}
+
+- (void) context:(NSManagedObjectContext *)context didFinishedLoading:(NSError *)error {
+    [self reloadData];
+}
+
+- (void) insetObject:(NSManagedObject *) object {
+    if ([self shouldInsertObject:object]) {
+        [self.threads addObject:object];
+    }
 }
 
 - (void) insertNewRows {
@@ -356,13 +352,8 @@
     }
 }
 
-- (void) insetObject:(NSManagedObject *) object {
-    if ([self shouldInsertObject:object]) {
-        [self.threads addObject:object];
-    }
-}
-
 - (void) reloadData {
+    self.rowHeightCache = [NSMutableDictionary new];
     [self.tableView reloadData];
 }
 
@@ -411,11 +402,6 @@
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(BoardTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self popAllPopups:nil];
-    // pop all popups on scroll
-    // scrollViewDidScroll not used, 'cause it's being fired when modal view controller is dismissed
-    // also cellForRowAtIndexPath scroll comes with a little threshhold
-
     NSManagedObject *entry = self.threads[indexPath.row];
 
     [cell setupAttachmentOffsetFor:tableView.frame.size];

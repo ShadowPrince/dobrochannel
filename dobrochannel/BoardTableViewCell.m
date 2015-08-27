@@ -13,7 +13,10 @@
 
 - (void) populate:(NSManagedObject *)object
       attachments:(NSArray *)attachments {
-    @throw [NSException exceptionWithName:@"Abstract method call" reason:@"populate:markupParser: is abstract" userInfo:nil];
+    self.object = object;
+
+    [self populateForHeightCalculation:object
+                           attachments:attachments];
 }
 
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize {
@@ -62,8 +65,7 @@
     self.dynamicTableDelegate.parentSize = CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT);
 }
 
-
-- (CGFloat) calculatedHeight:(CGSize) parentSize {
+- (CGFloat) messageExpandHeight:(CGSize) parentSize {
     CGFloat width = parentSize.width - self.dynamicTextViewCombinedOffsets - self.dynamicStackViewScrollWidthConstraint.constant;
     width = roundf(width * 2) / 2; // round it to x.0 or x.5
 
@@ -74,15 +76,19 @@
                                                         context:nil].size;
     CGFloat height = size.height;
 
-    CGFloat messageExpandHeight = self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;
+    return self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;
+}
 
-
-    // dynamic stack view height
+- (CGFloat) attachmentExpandHeight {
     CGFloat attachmentExpandHeight = self.frame.size.height -
     self.dynamicTableView.frame.size.height +
     [self.dynamicTableDelegate calculatedWidth];
 
-    return MAX(messageExpandHeight, attachmentExpandHeight);
+    return attachmentExpandHeight;
+}
+
+- (CGFloat) calculatedHeight:(CGSize) parentSize {
+    return MAX([self messageExpandHeight:parentSize], [self attachmentExpandHeight]);
 }
 
 @end

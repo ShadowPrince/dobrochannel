@@ -36,21 +36,7 @@
     self.postIds = [NSMutableDictionary new];
     
     UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
-    self.parser = [[BoardMarkupParser alloc] initWithAttributes:
-                   @{
-                     @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
-                      @BoardMarkupParserTagBold: @{},
-                      @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
-                      @BoardMarkupParserTagItalic: @{ },
-                      @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
-                      @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
-                                                      NSBackgroundColorAttributeName: [UIColor blackColor], },
-                      @BoardMarkupParserWeblink: @{},
-                      @BoardMarkupParserBoardlink: @{},
-                      @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
-
-
-                      }];
+    self.parser = [BoardMarkupParser defaultParser];
     return self;
 }
 
@@ -61,7 +47,7 @@
                                         YES);
 
     NSString *path = [[documentDirectories firstObject] stringByAppendingPathComponent:self.persistentPath];
-    [self.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+    [self.persistentStoreCoordinator addPersistentStoreWithType:NSBinaryStoreType
                                                   configuration:nil
                                                             URL:[NSURL fileURLWithPath:path]
                                                         options:nil
@@ -198,6 +184,8 @@
     for (NSManagedObject *post in [self executeFetchRequest:r error:nil]) {
         postIds[[post valueForKey:@"display_identifier"]] = post.objectID;
     }
+
+    [self.delegate context:self didFinishedLoading:nil];
 }
 
 # pragma mark requests
@@ -260,10 +248,11 @@
     NSURL *dbUrl = [NSURL URLWithString:path];
     NSError *e;
 
-    for (NSString *suff in @[@"", @"-shm", @"-wal"]) {
+    for (NSString *suff in @[@"", ]) {
         NSString *path = [[dbUrl path] stringByAppendingString:suff];
 
-        [[NSFileManager defaultManager] removeItemAtPath:path error:&e];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&e];
         if (e) @throw [NSException exceptionWithName:@"clearPersistentStorage error" reason:[e description] userInfo:nil];
     }
 }

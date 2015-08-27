@@ -17,6 +17,10 @@
 #import "ThreadTableViewCell.h"
 #import "PostTableViewCell.h"
 #import "ShowAttachmentsViewController.h"
+#import "UIViewController+Popups.h"
+
+#define ContentViewControllerModeSingle 0
+#define ContentViewControllerModeMultiple 1
 
 @interface ContentViewController : UIViewController <UITableViewDataSource,
 UITableViewDelegate,
@@ -28,6 +32,8 @@ BoardManagedObjectContextDelegate> {
 @property BoardAPI *api;
 @property BoardManagedObjectContext *context;
 @property NSString *board;
+@property NSMutableArray *threads;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (void) startedRequest;
 - (void) reset;
@@ -35,6 +41,7 @@ BoardManagedObjectContextDelegate> {
 
 - (void) scrollTo:(NSManagedObject *) object animated:(BOOL) animated;
 - (void) scrollToObjectAt:(NSUInteger) pos animated:(BOOL) animated;
+- (void) setMode:(NSInteger) mode;
 
 - (void) prepareCell:(BoardTableViewCell *) cell;
 
@@ -45,6 +52,7 @@ BoardManagedObjectContextDelegate> {
 - (void) insetObject:(NSManagedObject *) object;
 - (void) insertNewRows;
 - (void) reloadData;
+- (IBAction)popPopup:(id)sender;
 
 - (IBAction)attachmentTouch:(NSArray *)sender;
 - (IBAction) boardlinkTouch:(NSString *)identifier

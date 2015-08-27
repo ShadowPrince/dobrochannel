@@ -24,8 +24,6 @@
                     <connections>
                         <outlet property="dataSource" destination="-1" id="DGr-Cc-O6R"/>
                         <outlet property="delegate" destination="-1" id="zB2-Of-zj2"/>
-                        <outletCollection property="gestureRecognizers" destination="Imy-yi-PT9" appends="YES" id="9tH-Kv-oDg"/>
-                        <outletCollection property="gestureRecognizers" destination="uN4-ZR-A7t" appends="YES" id="tqH-GP-4w8"/>
                     </connections>
                 </tableView>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
@@ -58,6 +56,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="whe-99-yaY" appends="YES" id="E8m-TG-96Y"/>
                 <outletCollection property="gestureRecognizers" destination="5tq-Am-0l0" appends="YES" id="Hfe-hp-HeH"/>
+                <outletCollection property="gestureRecognizers" destination="Kye-NK-c5G" appends="YES" id="k2e-mx-trP"/>
             </connections>
             <point key="canvasLocation" x="-108" y="262"/>
         </view>
@@ -71,16 +70,11 @@
                 <action selector="previousThreadGesture:" destination="-1" id="U2D-sc-g9J"/>
             </connections>
         </swipeGestureRecognizer>
-        <tapGestureRecognizer id="Imy-yi-PT9">
+        <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="Kye-NK-c5G">
             <connections>
-                <action selector="popPopup:" destination="-1" id="52b-Qa-nTT"/>
-                <outlet property="delegate" destination="-1" id="vUv-Je-UAW"/>
+                <action selector="panPopups:" destination="-1" id="hlh-nX-A9X"/>
+                <outlet property="delegate" destination="-1" id="4Sq-JG-3v7"/>
             </connections>
-        </tapGestureRecognizer>
-        <pongPressGestureRecognizer delaysTouchesBegan="YES" allowableMovement="10" minimumPressDuration="0.5" id="uN4-ZR-A7t">
-            <connections>
-                <action selector="popAllPopups:" destination="-1" id="PPh-u8-KWa"/>
-            </connections>
-        </pongPressGestureRecognizer>
+        </panGestureRecognizer>
     </objects>
 </document>

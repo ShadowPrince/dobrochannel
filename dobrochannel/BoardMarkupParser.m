@@ -21,6 +21,30 @@
 
 @implementation BoardMarkupParser
 
++ (instancetype) defaultParser {
+    static BoardMarkupParser *parser = nil;
+    if (!parser) {
+        UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
+        parser = [[BoardMarkupParser alloc] initWithAttributes:
+                  @{
+                    @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
+                     @BoardMarkupParserTagBold: @{},
+                     @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
+                     @BoardMarkupParserTagItalic: @{ },
+                     @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
+                     @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
+                                                     NSBackgroundColorAttributeName: [UIColor blackColor], },
+                     @BoardMarkupParserWeblink: @{},
+                     @BoardMarkupParserBoardlink: @{},
+                     @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
+
+
+                     }];
+    }
+    
+    return parser;
+}
+
 - (instancetype) initWithAttributes:(NSDictionary *)attrs {
     self = [super init];
 
@@ -89,14 +113,17 @@
 
             if (protocol) {
                 [scanner scanUpToCharactersFromSet:spacingSet intoString:&url];
-                    
-                subexpression = [protocol stringByAppendingString:url];
-                i++;
-                tag = BoardMarkupParserWeblink;
-                parseInsides = NO;
+
+                if (url) {
+                    subexpression = [protocol stringByAppendingString:url];
+                    i++;
+                    tag = BoardMarkupParserWeblink;
+                    parseInsides = NO;
+                }
             }
         }
 
+        // boardlink
         if (ch == '>') {
             NSString *second;
             [scanner scanString:[scanseq stringByAppendingString:scanseq] intoString:&second];
@@ -114,18 +141,22 @@
             }
         }
 
+        // quote
         if (tag == -1 && ch == '>' && (prech == 0 || prech == '\n')) {
             NSString *quoting;
             [scanner scanString:@">" intoString:&quoting];
             if (quoting) {
                 [scanner scanUpToString:@"\n" intoString:&subexpression];
-                subexpression = [@">" stringByAppendingString:subexpression];
-                tag = BoardMarkupParserQuote;
-                parseInsides = NO;
+                if (subexpression) {
+                    subexpression = [@">" stringByAppendingString:subexpression];
+                    tag = BoardMarkupParserQuote;
+                    parseInsides = NO;
+                }
                 // @TODO: parse insides of quote
             }
         }
 
+        // bold+italics
         if (ch == '_' || ch == '*' || ch == '%') {
             tag = BoardMarkupParserTagBold;
             scanner.scanLocation++;
@@ -140,21 +171,12 @@
             // subexpression found, parse it
             reachedEOL = scanner.scanLocation == [scanner.string length];
             substartingSpace = [subexpression characterAtIndex:0] == ' ';
-
         }
 
         if (tag != -1 && !reachedEOL && !substartingSpace && subexpression) {
             NSDictionary *attrs = self.attrs[[NSNumber numberWithInt:tag]];
-
-            // if it's bold or italic tag, and there's already font attribute
-            // addBoldItalic tag attributes
-            if ([[[baseAttributes keyEnumerator] nextObject] isEqualToString:NSFontAttributeName]
-                && (tag == BoardMarkupParserTagBold || tag == BoardMarkupParserTagItalic)) {
-                attrs = self.attrs[[NSNumber numberWithInt:BoardMarkupParserTagBoldItalic]];
-                baseAttributes = nil;
-            }
-
             NSMutableAttributedString *attributedText;
+
             if (parseInsides) {
                 attributedText = [self parseAttributedString:[[NSMutableAttributedString alloc]
                                                                                          initWithString:subexpression
@@ -191,8 +213,10 @@
         }
     }
 
+    /*
     if (baseAttributes)
         [str addAttributes:baseAttributes range:NSMakeRange(0, [str length])];
+     */
 
     return str;
 }

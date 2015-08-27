@@ -11,6 +11,7 @@
 @interface NewPostViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+@property (weak, nonatomic) IBOutlet UITextView *previewTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *captchaImageView;
 @property (weak, nonatomic) IBOutlet UITextField *captchaTextField;
 @property (weak, nonatomic) IBOutlet UICollectionView *attachmentsCollectionView;
@@ -20,7 +21,11 @@
 @property (strong, nonatomic) IBOutlet UIView *postItBarButton;
 @property (weak, nonatomic) IBOutlet UIButton *danbooruButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postItButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewFixedWidthContraint;
 
+@property BoardMarkupParser *parser;
+@property NSOperationQueue *parserQueue;
 @property NSURLSessionTask *captchaTask;
 @property NSMutableArray *attachedImages, *attachedRatings;
 @end @implementation NewPostViewController
@@ -31,6 +36,10 @@
     self.attachedImages = [NSMutableArray new];
     self.attachedRatings = [NSMutableArray new];
     self.messageTextView.text = @"";
+    self.previewTextView.text = @"";
+    self.parser = [BoardMarkupParser defaultParser];
+    self.parserQueue = [NSOperationQueue new];
+    self.textViewWidthConstraint.active = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
         self.danbooruButton.hidden = NO;
@@ -45,6 +54,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void) viewDidLayoutSubviews {
+    self.textViewFixedWidthContraint.constant = self.view.frame.size.width / 2 - 16.f;
+    [super viewDidLayoutSubviews];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -162,6 +176,19 @@
 - (void) danbooruPicker:(DanbooruPickerViewController *)controller didFinishPicking:(NSInteger)count {
     [self.attachmentsCollectionView reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)tapGestureAction:(id)sender {
+    [self.view endEditing:YES];
+}
+
+- (void) textViewDidChange:(UITextView *)textView {
+    [self.parserQueue addOperationWithBlock:^{
+        NSAttributedString *str = [self.parser parse:textView.text];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.previewTextView.attributedText = str;
+        });
+    }];
 }
 
 # pragma mark attachments view

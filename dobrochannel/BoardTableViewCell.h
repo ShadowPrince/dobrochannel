@@ -17,6 +17,7 @@
 @interface BoardTableViewCell : UITableViewCell
 @property NSUInteger attachmentsCount;
 @property MessageTextViewDelegate *textViewDelegate;
+@property NSManagedObject *object;
 
 @property (weak) NSAttributedString *dynamicText;
 @property (weak) UITextView *dynamicTextView;
@@ -36,6 +37,9 @@
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *) attachments;
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize;
+
+- (CGFloat) messageExpandHeight:(CGSize) parentSize;
+- (CGFloat) attachmentExpandHeight;
 - (CGFloat) calculatedHeight:(CGSize) parentSize;
 
 @end

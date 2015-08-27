@@ -28,6 +28,7 @@
 @interface BoardMarkupParser : NSObject
 @property NSDictionary *attrs;
 
++ (instancetype) defaultParser;
 - (instancetype) initWithAttributes:(NSDictionary *) attrs;
 - (NSMutableAttributedString *) parse:(NSString *) str;
 @end

@@ -15,6 +15,7 @@
 @protocol BoardManagedObjectContextDelegate <NSObject>
 
 - (void) context:(NSManagedObjectContext *) context didInsertedObject:(NSManagedObject *) object;
+- (void) context: (NSManagedObjectContext *) context didFinishedLoading:(NSError *) error;
 
 @end
 

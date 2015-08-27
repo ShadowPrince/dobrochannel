@@ -35,7 +35,6 @@
 
         UIImageView *iv = [[UIImageView alloc] init];
         iv.tag = 111;
-        iv.contentMode = UIViewContentModeScaleAspectFit;
         iv.backgroundColor = [UIColor whiteColor];
         [cell addSubview:iv];
 
@@ -97,7 +96,8 @@
     }
 
     iv.image = nil;
-
+    iv.contentMode = UIViewContentModeScaleAspectFill;
+    iv.backgroundColor = [UIColor lightGrayColor];
 
     if ([UserDefaults contentReaderLoadThumbnails]) {
         if (rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
@@ -110,6 +110,7 @@
 
                                                    } finishCallback:^(UIImage *i) {
                                                        iv.image = i;
+                                                       iv.contentMode = UIViewContentModeScaleAspectFit;
                                                        [aiv stopAnimating];
                                                        aiv.hidden = YES;
                                                    }];
@@ -118,7 +119,7 @@
             iv.image = [UIImage imageNamed:@"rated"];
         }
     } else {
-        iv.image = [UIImage imageNamed:@"attachment"];
+        iv.image = nil;
     }
 
     return cell;
@@ -134,7 +135,7 @@
 
 - (CGFloat) calculatedWidth {
     CGFloat max_height = 0.f;
-    CGFloat margin = [self.objects count] > 1 ? 15.f : 11.f;
+    CGFloat margin = [self.objects count] > 1 ? 15.f : 30.f;
 
     for (NSManagedObject *attachment in self.objects) {
         CGFloat height = [self attachmentHeight:attachment];

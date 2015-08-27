@@ -12,8 +12,6 @@
 #import "BoardTableViewCell.h"
 
 @interface ThreadTableViewCell : BoardTableViewCell
-@property NSManagedObject *thread;
-
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;

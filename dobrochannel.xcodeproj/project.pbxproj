@@ -10,6 +10,7 @@
 		F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
 		F31B7C4D1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */; };
 		F31B7C501B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */; };
+		F31B7C531B8F16A200C56C14 /* UIViewController+Popups.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */; };
 		F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32657EA1B7E99600013078E /* Launch Screen.xib */; };
 		F33D94051B5BD8E7000AA303 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
 		F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94071B5BD8E7000AA303 /* AppDelegate.m */; };
@@ -57,6 +58,8 @@
 		F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerCollectionViewCell.xib; sourceTree = "<group>"; };
 		F31B7C4E1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewRightAlignedLayout.h; sourceTree = "<group>"; };
 		F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewRightAlignedLayout.m; sourceTree = "<group>"; };
+		F31B7C511B8F16A200C56C14 /* UIViewController+Popups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Popups.h"; sourceTree = "<group>"; };
+		F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Popups.m"; sourceTree = "<group>"; };
 		F32657EA1B7E99600013078E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		F33D94001B5BD8E7000AA303 /* Dobrochannel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dobrochannel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33D94041B5BD8E7000AA303 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -249,6 +252,8 @@
 				F31B7C4F1B8A1BB700C56C14 /* UICollectionViewRightAlignedLayout.m */,
 				F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */,
 				F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */,
+				F31B7C511B8F16A200C56C14 /* UIViewController+Popups.h */,
+				F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */,
 				F3796B101B64EC9B0001D81F /* AttachmentsTableDelegate.h */,
 				F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */,
 				F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */,
@@ -421,6 +426,7 @@
 				F33D94051B5BD8E7000AA303 /* main.m in Sources */,
 				F3B063CA1B7B3F6E003BA83E /* DanbooruPickerViewController.m in Sources */,
 				F37CA02A1B68E55400A885C7 /* DetailedAttachmentViewController.m in Sources */,
+				F31B7C531B8F16A200C56C14 /* UIViewController+Popups.m in Sources */,
 				F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */,
 				F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */,
 				F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */,

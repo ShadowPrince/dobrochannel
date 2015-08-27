@@ -339,6 +339,7 @@
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
     NSLog(@"%@", url);
+    url = [NSURL URLWithString:@"http://localhost/0.json"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                           delegate:ddelegate
                                                      delegateQueue:nil];
