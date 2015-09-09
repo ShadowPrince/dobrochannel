@@ -12,6 +12,7 @@
 @property NSMutableArray *answers;
 @property CGFloat answersBaseHeight;
 @property NSOperationQueue *queue;
+@property NSDateFormatter *dateFormatter;
 //---
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *answersViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *answersCollectionView;
@@ -46,16 +47,20 @@
     CGFloat borderHeight = 0.5f;
 
     CALayer *border = [CALayer layer];
-    border.frame = CGRectMake(0, 1, self.answersCollectionView.frame.size.width, borderHeight);
+    border.frame = CGRectMake(0, 0, self.answersCollectionView.frame.size.width, borderHeight);
     border.backgroundColor = borderColor;
     [self.answersCollectionView.layer addSublayer:border];
 
     border = [CALayer layer];
-    border.frame = CGRectMake(0, 1, self.answersLabel.frame.size.width, borderHeight);
+    border.frame = CGRectMake(0, 0, self.answersLabel.frame.size.width, borderHeight);
     border.backgroundColor = borderColor;
     [self.answersLabel.layer addSublayer:border];
 
     [self.answersCollectionView registerNib:[UINib nibWithNibName:@"AnswerCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
 
     [super awakeFromNib];
 }
@@ -63,14 +68,15 @@
 - (void) populate:(NSManagedObject *)data
       attachments:(NSArray *)attachments {
     [super populate:data attachments:attachments];
+    [self.attachmentsView reloadData];
 
     self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
+    [self layoutIfNeeded];
     [self.answersCollectionView reloadData];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
-    self.dateLabel.text = [data valueForKey:@"date"];
+    self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];
     self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
-    [self.attachmentsView reloadData];
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
@@ -105,14 +111,8 @@
 
 - (CGFloat) calculatedHeight:(CGSize)parentSize {
     CGFloat attach = [self attachmentExpandHeight];
-    CGFloat message = [self messageExpandHeight:parentSize];
-    CGFloat height = MAX(attach, message);
-
-    if (attach > message && attach - message > self.answersBaseHeight) {
-        return attach - self.answersBaseHeight;
-    } else {
-        return height - (self.answers.count ? 0 : self.answersBaseHeight);
-    }
+    CGFloat message = [self messageExpandHeight:parentSize] - (self.answers.count ? 0 : self.answersBaseHeight);
+    return MAX(attach, message);
 }
 
 #pragma mark answers collection view

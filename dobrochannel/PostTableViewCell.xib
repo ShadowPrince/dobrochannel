@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -57,7 +57,7 @@
                             <constraint firstAttribute="width" constant="82" id="G9G-DN-ogp"/>
                         </constraints>
                     </tableView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-5k-38I">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-5k-38I">
                         <rect key="frame" x="101" y="15" width="338" height="129"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,14 +75,15 @@
                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answers:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRi-XS-W7g">
-                        <rect key="frame" x="98" y="144" width="55.5" height="31"/>
+                        <rect key="frame" x="98" y="144" width="56" height="31"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="JSX-uC-q3f"/>
+                            <constraint firstAttribute="height" constant="31" id="o5A-m8-a1e"/>
                             <constraint firstAttribute="width" constant="55.5" id="thq-TH-W0W"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -90,19 +91,24 @@
                             </mask>
                         </variation>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-Ni-9mb">
-                        <rect key="frame" x="153" y="144" width="285.5" height="31"/>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wJY-Ni-9mb">
+                        <rect key="frame" x="153" y="144" width="286" height="31"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="31" id="qUN-jl-aW8"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mo9-Ih-mjm">
-                            <size key="itemSize" width="60" height="28"/>
+                            <size key="itemSize" width="60" height="25"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="qUN-jl-aW8"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="KGk-i7-Jjw" id="nuh-ng-YxE"/>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="FAv-W0-S4D"/>
@@ -137,10 +143,12 @@
                     <constraint firstItem="4dk-OT-448" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="kSh-1L-Err"/>
                     <constraint firstItem="e6t-5k-38I" firstAttribute="leading" secondItem="5CI-Zp-LTe" secondAttribute="trailing" constant="3" id="lIZ-TU-ctK"/>
                     <constraint firstItem="hBP-TK-h5d" firstAttribute="baseline" secondItem="4dk-OT-448" secondAttribute="baseline" constant="2" id="rAa-j8-qx8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="CRi-XS-W7g" secondAttribute="bottom" constant="-8" id="rCe-sk-ANN"/>
                     <constraint firstItem="wJY-Ni-9mb" firstAttribute="height" secondItem="CRi-XS-W7g" secondAttribute="height" id="sQM-o8-aMe"/>
                     <constraint firstItem="wJY-Ni-9mb" firstAttribute="trailing" secondItem="e6t-5k-38I" secondAttribute="trailing" id="sVr-Db-GLO"/>
                     <constraint firstAttribute="trailingMargin" secondItem="e6t-5k-38I" secondAttribute="trailing" constant="-8" id="uJU-is-OlD"/>
                     <constraint firstItem="Bl6-Nh-hQ5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ufA-5n-0Cl"/>
+                    <constraint firstItem="wJY-Ni-9mb" firstAttribute="top" secondItem="e6t-5k-38I" secondAttribute="bottom" id="vgU-3l-ijA"/>
                     <constraint firstItem="CRi-XS-W7g" firstAttribute="top" secondItem="e6t-5k-38I" secondAttribute="bottom" id="wk7-Zr-rKg"/>
                 </constraints>
                 <variation key="default">
@@ -152,8 +160,11 @@
                         <exclude reference="1NW-0j-cwX"/>
                         <exclude reference="3rB-fY-zSJ"/>
                         <exclude reference="5xv-0Z-wOQ"/>
+                        <exclude reference="7he-f3-3WZ"/>
                         <exclude reference="An3-OJ-k8F"/>
+                        <exclude reference="c1e-58-p1I"/>
                         <exclude reference="sQM-o8-aMe"/>
+                        <exclude reference="vgU-3l-ijA"/>
                         <exclude reference="ufA-5n-0Cl"/>
                     </mask>
                 </variation>
@@ -162,7 +173,7 @@
             <connections>
                 <outlet property="answersCollectionView" destination="wJY-Ni-9mb" id="Uqn-vy-krW"/>
                 <outlet property="answersLabel" destination="CRi-XS-W7g" id="gmM-bg-m9I"/>
-                <outlet property="answersViewHeightConstraint" destination="qUN-jl-aW8" id="dCx-4f-R8M"/>
+                <outlet property="answersViewHeightConstraint" destination="o5A-m8-a1e" id="WFw-T0-BZP"/>
                 <outlet property="attachmentsView" destination="5CI-Zp-LTe" id="Tau-4J-kgd"/>
                 <outlet property="dateLabel" destination="4dk-OT-448" id="e4h-Sg-W8m"/>
                 <outlet property="headerButton" destination="Bl6-Nh-hQ5" id="9o3-72-V1y"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -70,7 +70,7 @@
                 <action selector="previousThreadGesture:" destination="-1" id="U2D-sc-g9J"/>
             </connections>
         </swipeGestureRecognizer>
-        <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="Kye-NK-c5G">
+        <panGestureRecognizer delaysTouchesEnded="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="Kye-NK-c5G">
             <connections>
                 <action selector="panPopups:" destination="-1" id="hlh-nX-A9X"/>
                 <outlet property="delegate" destination="-1" id="4Sq-JG-3v7"/>

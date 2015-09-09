@@ -91,7 +91,8 @@
 
 - (void) viewDidDisappear:(BOOL)animated {
     if (self.task) {
-        [self.task cancel];
+        [[BoardAPI api] cancelRequest:self.task];
+        self.task = nil;
     }
 }
 

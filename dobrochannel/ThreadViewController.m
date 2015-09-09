@@ -31,6 +31,8 @@
         [self reset];
         [self.api requestThread:self.identifier from:self.board stateCallback:progressCallback];
         self.loadThread = NO;
+    } else {
+
     }
 }
 
@@ -69,6 +71,12 @@
     }
 }
 
+- (void) insetObject:(NSManagedObject *)object {
+    [super insetObject:object];
+
+    [self insertNewRows];
+}
+
 # pragma mark actions
 
 - (IBAction)refreshAction:(id)sender {
@@ -98,11 +106,6 @@
 
     [aCoder encodeObject:self.identifier forKey:@"identifier"];
     [aCoder encodeObject:self.board forKey:@"board"];
-}
-
-- (void) dealloc {
-    [self.api cancelRequest];
-    NSLog(@"dealloc");
 }
 
 @end

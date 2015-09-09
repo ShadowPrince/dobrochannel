@@ -11,8 +11,15 @@
 
 @interface AttachmentsTableDelegate ()
 @property NSMutableDictionary *tasks;
+@property CGFloat absolute_max_height;
 @end @implementation AttachmentsTableDelegate
 @synthesize tasks;
+
+- (instancetype) init {
+    self = [super init];
+    self.absolute_max_height = [UIScreen mainScreen].bounds.size.height / 1.25f;
+    return self;
+}
 
 - (void) setObjects:(NSArray *)objects {
     if (_objects == objects)
@@ -33,6 +40,12 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
 
+        UILabel *sl = [[UILabel alloc] init];
+        sl.backgroundColor = [UIColor whiteColor];
+        sl.font = [UIFont systemFontOfSize:statusLabelFontSize];
+        sl.tag = 113;
+        [cell addSubview:sl];
+
         UIImageView *iv = [[UIImageView alloc] init];
         iv.tag = 111;
         iv.backgroundColor = [UIColor whiteColor];
@@ -42,11 +55,6 @@
         aiv.tag = 112;
         [cell addSubview:aiv];
 
-        UILabel *sl = [[UILabel alloc] init];
-        sl.backgroundColor = [UIColor whiteColor];
-        sl.font = [UIFont systemFontOfSize:statusLabelFontSize];
-        sl.tag = 113;
-        [cell addSubview:sl];
     }
 
     NSManagedObject *attachment = self.objects[indexPath.row];
@@ -61,9 +69,9 @@
                           self.parentSize.width + 1,
                           [[UIFont systemFontOfSize:statusLabelFontSize] lineHeight]);
     iv.frame = CGRectMake(0,
-                          sl.frame.size.height - 2,
+                          10.f,
                           self.parentSize.width,
-                          [self attachmentHeight:attachment] - sl.frame.size.height);
+                          [self attachmentHeight:attachment] - 10.f); // - sl.frame.size.height);
     aiv.frame = CGRectMake(0,
                            0,
                            self.parentSize.width,
@@ -96,8 +104,8 @@
     }
 
     iv.image = nil;
-    iv.contentMode = UIViewContentModeScaleAspectFill;
-    iv.backgroundColor = [UIColor lightGrayColor];
+    iv.contentMode = UIViewContentModeScaleAspectFit;
+    iv.backgroundColor = [UIColor whiteColor];
 
     if ([UserDefaults contentReaderLoadThumbnails]) {
         if (rating_int <= [UserDefaults maxRating] && ([UserDefaults showUnrated] || rating_int != -1)) {
@@ -119,6 +127,7 @@
             iv.image = [UIImage imageNamed:@"rated"];
         }
     } else {
+        iv.backgroundColor = [UIColor lightGrayColor];
         iv.image = nil;
     }
 
@@ -135,7 +144,7 @@
 
 - (CGFloat) calculatedWidth {
     CGFloat max_height = 0.f;
-    CGFloat margin = [self.objects count] > 1 ? 15.f : 30.f;
+    CGFloat margin = [self.objects count] > 1 ? 15.f : 0.f;
 
     for (NSManagedObject *attachment in self.objects) {
         CGFloat height = [self attachmentHeight:attachment];
@@ -143,14 +152,14 @@
             max_height = height;
     }
 
-    return max_height + margin;
+    return MIN(self.absolute_max_height, max_height + margin);
 }
 
 - (CGFloat) attachmentHeight:(NSManagedObject *) attachment {
     CGSize size = ((NSValue *) [attachment valueForKey:@"thumb_size"]).CGSizeValue;
     CGFloat ratio = self.parentSize.width / size.width;
 
-    return size.height * ratio + [[UIFont systemFontOfSize:STATUS_LABEL_FONT_SIZE] lineHeight];
+    return size.height * ratio + 10.f;
 }
 
 - (void) tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

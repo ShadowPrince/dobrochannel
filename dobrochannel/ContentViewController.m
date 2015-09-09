@@ -64,11 +64,11 @@
 }
 
 - (NSManagedObjectContext *) createContext {
-    return [[BoardManagedObjectContext alloc] init];
+    return [[BoardManagedObjectContext alloc] initWithPersistentPath:@"store.data"];
 }
 
 - (void) startedRequest {
-    self.progressView.progress = 0.f;
+    self.progressView.progress = 0.001f;
     self.progressView.hidden = NO;
 }
 
@@ -268,12 +268,11 @@
 - (void) viewDidLayoutSubviews {
     // handles device orientation change
     if (viewChangedSize) {
-        self.rowHeightCache = [NSMutableDictionary dictionary];
-        [self.tableView reloadData];
+        [self reloadData];
         self.viewChangedSize = NO;
 
         if (self.viewChangedSizeScrollTo) {
-            if ([self.tableView numberOfRowsInSection:0] >= self.viewChangedSizeScrollTo.row)
+            if ([self.tableView numberOfRowsInSection:0] > self.viewChangedSizeScrollTo.row)
                 [self.tableView scrollToRowAtIndexPath:self.viewChangedSizeScrollTo atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     }
@@ -316,17 +315,21 @@
 # pragma mark - context
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
-    [self insetObject:object];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self insetObject:object];
 
-    if ([object.entity.name isEqual:@"Thread"]) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        if ([object.entity.name isEqual:@"Thread"]) {
             [self insertNewRows];
-        });
-    }
+        }
+    });
+
 }
 
 - (void) context:(NSManagedObjectContext *)context didFinishedLoading:(NSError *)error {
-    [self reloadData];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self insertNewRows];
+        [self reloadData];
+    });
 }
 
 - (void) insetObject:(NSManagedObject *) object {
@@ -368,6 +371,16 @@
     if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
         return NO;
 
+
+    /*
+    if ([object.entity.name isEqualToString:@"Thread"] && self.threads.count > 2)
+        return NO;
+
+    if ([[object valueForKey:@"display_identifier"] isEqualToNumber:@3817431])
+        return YES;
+    else return NO;
+
+     */
 //    return self.threads.count < 2;
 
     return YES;
@@ -443,6 +456,7 @@
 
 - (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
+
     self.context = [coder decodeObjectForKey:@"context"];
     self.context.delegate = self;
     self.api.delegate = self.context;
@@ -461,6 +475,7 @@
     // actual insert will happen in viewDidLayoutSubviews
     self.tableLoadedRows = [self.threads count];
     self.viewChangedSizeScrollTo = [coder decodeObjectForKey:@"first_visible_row"];
+    self.viewChangedSize = YES;
 }
 
 - (void) encodeRestorableStateWithCoder:(NSCoder *)coder {

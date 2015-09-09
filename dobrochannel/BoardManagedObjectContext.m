@@ -11,6 +11,7 @@
 @interface BoardManagedObjectContext ()
 @property NSDictionary *ongoingThreadData;
 @property NSManagedObject *ongoingThread;
+@property NSDateFormatter *dateFormatter;
 
 @property NSMutableDictionary *postIds;
 @property NSString *persistentPath;
@@ -35,6 +36,8 @@
 
     self.postIds = [NSMutableDictionary new];
     self.parser = [BoardMarkupParser defaultParser];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     return self;
 }
 
@@ -45,15 +48,47 @@
                                         YES);
 
     NSString *path = [[documentDirectories firstObject] stringByAppendingPathComponent:self.persistentPath];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createFileAtPath:path contents:[NSData data] attributes:nil];
+    }
+    
     [self.persistentStoreCoordinator addPersistentStoreWithType:NSBinaryStoreType
                                                   configuration:nil
                                                             URL:[NSURL fileURLWithPath:path]
                                                         options:nil
                                                           error:e];
+
 }
 
-- (instancetype) init {
-    return [self initWithPersistentPath:@"store.data"];
+- (void) clearPersistentStorage {
+    NSArray *documentDirectories =
+    NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                        NSUserDomainMask,
+                                        YES);
+
+    NSString *basePath = [[documentDirectories firstObject] stringByAppendingPathComponent:self.persistentPath];
+    NSError *e;
+
+    NSArray *suffixes = @[@"", ];
+    if ([(NSPersistentStore *)[self.persistentStoreCoordinator.persistentStores firstObject] type] == NSSQLiteStoreType) {
+        suffixes = @[@"", @"-shm", @"-wal"];
+    }
+
+    for (NSString *suffix in suffixes) {
+        NSString *path = [basePath stringByAppendingString:suffix];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&e];
+        }
+
+        [[NSFileManager defaultManager] createFileAtPath:path contents:[NSData data] attributes:nil];
+    }
+
+    if (e) @throw [NSException exceptionWithName:@"clearPersistentStorage error" reason:[e description] userInfo:nil];
+}
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"%@(%@)", [super description], self.persistentPath];
 }
 
 - (void) didReceivedThread:(NSDictionary *)thread {
@@ -126,7 +161,7 @@
     [object setValue:post[@"post_id"] forKey:@"identifier"];
     [object setValue:post[@"display_id"] forKey:@"display_identifier"];
     [object setValue:post[@"post_id"] forKey:@"identifier"];
-    [object setValue:post[@"date"] forKey:@"date"];
+    [object setValue:[self.dateFormatter dateFromString:post[@"date"]] forKey:@"date"];
     [object setValue:post[@"op"] forKey:@"is_op"];
 
     for (NSDictionary *attachData in post[@"files"]) {
@@ -175,7 +210,12 @@
 }
 
 - (void) didFinishedReceiving {
-    [self save:nil];
+    NSError *e;
+    [self save:&e];
+    if (e) {
+        NSLog(@"%@", e);
+        @throw e;
+    }
 
     // update postIds cache with permanent objectID's
     NSFetchRequest *r = [NSFetchRequest fetchRequestWithEntityName:@"Post"];
@@ -233,25 +273,6 @@
         return [self objectWithID:i];
     } else {
         return nil;
-    }
-}
-
-- (void) clearPersistentStorage {
-    NSArray *documentDirectories =
-    NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                        NSUserDomainMask,
-                                        YES);
-
-    NSString *path = [[documentDirectories firstObject] stringByAppendingPathComponent:self.persistentPath];
-    NSURL *dbUrl = [NSURL URLWithString:path];
-    NSError *e;
-
-    for (NSString *suff in @[@"", ]) {
-        NSString *path = [[dbUrl path] stringByAppendingString:suff];
-
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path])
-            [[NSFileManager defaultManager] removeItemAtPath:path error:&e];
-        if (e) @throw [NSException exceptionWithName:@"clearPersistentStorage error" reason:[e description] userInfo:nil];
     }
 }
 

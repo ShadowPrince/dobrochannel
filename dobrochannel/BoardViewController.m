@@ -33,6 +33,7 @@
 }
 
 - (void) didScrollToBottom {
+    [self startedRequest];
     [self.api requestThreadsFrom:self.board page:[NSNumber numberWithInteger:++self.page] stateCallback:progressCallback];
     [self updateNavigationItem:self.board page:self.page];
 
@@ -41,16 +42,14 @@
 
 - (void) scrollViewDidScroll:(UIScrollView *)scrollView {
     BoardTableViewCell *cell = [[self.tableView visibleCells] firstObject];
-    
+
     if (cell) {
         NSUInteger position = [self.threads indexOfObject:cell.object];
 
         NSUInteger i = 0;
-        NSUInteger count = 0;
         for (i = 0; i < self.pageCounts.count; i++) {
             NSNumber *object = self.pageCounts[i];
-            count += object.integerValue;
-            if (count >= position)
+            if (object.integerValue >= position)
                 break;
         }
 
@@ -117,11 +116,12 @@
     [super encodeRestorableStateWithCoder:coder];
     [coder encodeInteger:self.page forKey:@"page"];
     [coder encodeObject:self.board forKey:@"board"];
+    [coder encodeObject:self.pageCounts forKey:@"pageCounts"];
 }
 
 - (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-
+    self.pageCounts = [coder decodeObjectForKey:@"pageCounts"];
     [super setBoard:[coder decodeObjectForKey:@"board"]];
     self.page = [coder decodeIntegerForKey:@"page"];
 

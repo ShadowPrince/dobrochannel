@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
 @property CGPoint viewOrigin, swipeOrigin;
+@property CFAbsoluteTime swipeStart;
 @end@implementation PostViewController
 @synthesize targetObject;
 @synthesize identifier, threadIdentifier, maxHeight;
@@ -78,20 +79,22 @@
 - (void) panGesture:(UIGestureRecognizer *) sender {
     CGPoint loc = [sender locationInView:self.supercontroller.view];
     CGFloat x = loc.x - self.swipeOrigin.x;
-    CGFloat treshhold = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 200.f : 125.f;
+    CGFloat visible_treshhold = 300.f;
+    CGFloat logical_treshhold = 75.f;
     __block CGRect frame = self.view.frame;
 
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
             self.swipeOrigin = loc;
+            self.swipeStart = CFAbsoluteTimeGetCurrent();
             break;
         case UIGestureRecognizerStateChanged:
             frame.origin = CGPointMake(self.viewOrigin.x + x, self.viewOrigin.y);
-            self.view.alpha = 1. - fabs(x) / treshhold;
+            self.view.alpha = 1. - fabs(x) / visible_treshhold;
             self.view.frame = frame;
             break;
         case UIGestureRecognizerStateEnded:
-            if (fabs(x) < treshhold) {
+            if (fabs(x) < logical_treshhold) {
                 [UIView animateWithDuration:0.2f animations:^{
                     self.view.frame = CGRectMake(self.viewOrigin.x,
                                                  self.viewOrigin.y,
@@ -100,7 +103,18 @@
                     self.view.alpha = 1.f;
                 }];
             } else {
-                [self.supercontroller popPopup];
+                float spd = (CFAbsoluteTimeGetCurrent() - self.swipeStart) / fabs(x);
+                CGFloat pixels_to_move = visible_treshhold - fabs(x);
+
+                [UIView animateWithDuration:pixels_to_move * spd animations:^{
+                    self.view.frame = CGRectMake(self.viewOrigin.x + (x > 0 ? visible_treshhold : -visible_treshhold),
+                                                 self.viewOrigin.y,
+                                                 self.view.frame.size.width,
+                                                 self.view.frame.size.height);
+                    self.view.alpha = 1. - fabs(self.view.frame.origin.x - self.viewOrigin.x) / visible_treshhold;
+                } completion:^(BOOL finished) {
+                    [self.supercontroller popPopup];
+                }];
             }
 
             break;

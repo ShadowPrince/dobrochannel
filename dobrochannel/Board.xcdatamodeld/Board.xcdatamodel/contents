@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="15A243d" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="15A263e" minimumToolsVersion="Xcode 7.0">
     <entity name="Attachment" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -15,7 +15,7 @@
         <attribute name="answers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="attachments" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="attributedMessage" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="display_identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="is_op" optional="YES" attributeType="Boolean" syncable="YES"/>

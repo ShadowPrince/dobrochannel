@@ -9,6 +9,7 @@
 #import "ThreadTableViewCell.h"
 
 @interface ThreadTableViewCell ()
+@property NSDateFormatter *dateFormatter;
 //---
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *attachmentsView;
@@ -33,6 +34,10 @@
     14.f // autolayout hardcoded
     + 3.f; // message view margin
 
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+
     [super awakeFromNib];
 }
 
@@ -47,7 +52,7 @@
 
     NSNumber *postsCount = [data valueForKey:@"posts_count"];
     self.statusLabel.text = [NSString stringWithFormat:@"%@ post%@", postsCount, [postsCount isEqualToNumber:@1] ? @"" : @"s"];
-    self.dateLabel.text = [[data valueForKey:@"op_post"] valueForKey:@"date"];
+    self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKeyPath:@"op_post.date"]];
     self.messageTextView.attributedText = self.dynamicText;
     [self.attachmentsView reloadData];
 }

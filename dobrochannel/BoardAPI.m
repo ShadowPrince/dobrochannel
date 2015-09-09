@@ -285,6 +285,14 @@
     }
 }
 
+- (void) dealloc {
+    [self cancelRequest:self.currentTask];
+
+    [self.progressCallbacks enumerateKeysAndObjectsUsingBlock:^(NSURLSessionTask *key, id obj, BOOL *stop) {
+        [key removeObserver:self forKeyPath:@"countOfBytesReceived"];
+    }];
+}
+
 #pragma mark thread helpers
 
 - (void) didParsedThread:(NSDictionary *)thread {
@@ -323,7 +331,8 @@
     NSURLSessionDataTask *task = [self.imageLoadingSession
                                   dataTaskWithRequest:request
                                   completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-                                      finishCallback(data);
+                                      if (!error)
+                                          finishCallback(data);
                                   }];
 
     if (stateCallback) {

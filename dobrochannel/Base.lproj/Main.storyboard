@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -83,7 +83,7 @@
                                         </cells>
                                         <connections>
                                             <outlet property="dataSource" destination="cug-9B-jI0" id="IeZ-sO-mcZ"/>
-                                            <outlet property="delegate" destination="cug-9B-jI0" id="lwn-pl-n3T"/>
+                                            <outlet property="delegate" destination="cug-9B-jI0" id="VsS-eA-dxk"/>
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdP-5F-oRc">
@@ -297,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J0O-Pc-t3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Hjh-2j-Fhx" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="dS0-aD-M0J">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="dS0-aD-M0J">
                     <connections>
                         <action selector="tapGestureAction:" destination="cug-9B-jI0" id="kkg-jC-zTm"/>
                     </connections>
@@ -336,7 +336,8 @@ Attachments viewer:
     - swipe down: close viewer
     - touch: load full image / open link 
 Post popup viewer:
-    - swipe up/down: close popup     - swipe up/down with 2 fingers: close all popups  New post:     - swipe message field: show preview</mutableString>
+    - swipe left/right: close popup     - swipe left/right with 2 fingers: close all popups  New post:     - swipe message field: show preview
+    - touch attachment: change rating/remove</mutableString>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
