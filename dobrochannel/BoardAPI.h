@@ -24,7 +24,7 @@ typedef void (^BoardSessionFinishCallback) (NSArray *);
 @protocol BoardDelegate <NSObject>
 - (void) didReceivedThread:(NSDictionary *) thread;
 - (void) didReceivedPost:(NSDictionary *) post;
-- (void) didFinishedReceiving;
+- (void) didFinishedReceivingWithError:(NSError *) e;
 @end
 
 @interface BoardAPI : NSObject <BoardRequestParserDelegate>

@@ -18,6 +18,7 @@
 @property NSNumber *thread_identifier;
 @property NSAttributedString *inReplyToMessage;
 @property NSNumber *inReplyToIdentifier;
+@property NSString *messagePlaceholder;
 
 
 @end

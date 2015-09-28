@@ -10,6 +10,22 @@
 
 @implementation UserDefaults
 
++ (NSArray *) listOfBannedPosts {
+    static NSArray *list = nil;
+
+    if (!list) {
+        NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://shadowprince.github.io/dobrochannel/apple_banned_posts.txt"]
+                                                 encoding:NSUTF8StringEncoding
+                                                    error:nil];
+
+        list = [str componentsSeparatedByString:@"\n"];
+        if (!list)
+            list = @[];
+    }
+
+    return list;
+}
+
 + (void) setupDefaultValues {
     NSString *pwd = [[[NSProcessInfo processInfo] globallyUniqueString] substringToIndex:8];
 

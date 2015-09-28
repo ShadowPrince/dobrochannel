@@ -10,7 +10,6 @@
 
 @interface NewPostViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UITextView *previewTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *captchaImageView;
 @property (weak, nonatomic) IBOutlet UITextField *captchaTextField;
@@ -23,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *postItButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewFixedWidthContraint;
+@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+@property (weak, nonatomic) IBOutlet UIButton *reportMessageButton;
 
 @property BoardMarkupParser *parser;
 @property NSOperationQueue *parserQueue;
@@ -35,7 +36,11 @@
     [super viewDidLoad];
     self.attachedImages = [NSMutableArray new];
     self.attachedRatings = [NSMutableArray new];
-    self.messageTextView.text = @"";
+    if (self.messagePlaceholder) {
+        self.messageTextView.text = self.messagePlaceholder;
+    } else {
+        self.messageTextView.text = @"";
+    }
     self.previewTextView.text = @"";
     self.parser = [BoardMarkupParser defaultParser];
     self.parserQueue = [NSOperationQueue new];
@@ -47,6 +52,7 @@
 
     [self loadInReplyTo];
     [self loadCaptcha];
+    self.title = [NSString stringWithFormat:@"Reply into %@/%@", self.board, self.thread_identifier];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -73,6 +79,7 @@
             self.messageTextView.text = [NSString stringWithFormat:@">>%@\n", self.inReplyToIdentifier];
         self.inReplyToTextViewHeightConstraint.constant = 169.f;
     } else {
+        self.reportMessageButton.hidden = YES;
         self.inReplyToTextViewHeightConstraint.constant = 0.f;
     }
 }
@@ -184,7 +191,7 @@
 
 - (void) textViewDidChange:(UITextView *)textView {
     [self.parserQueue addOperationWithBlock:^{
-        NSAttributedString *str = [self.parser parse:textView.text];
+        NSAttributedString *str = [self.parser parse:self.previewTextView.text];
         dispatch_sync(dispatch_get_main_queue(), ^{
             self.previewTextView.attributedText = str;
         });
@@ -293,12 +300,14 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+    if ([segue.identifier isEqualToString:@"reportSegue"]) {
+        NewPostViewController *controller = segue.destinationViewController;
+        controller.board = @"mad";
+        controller.thread_identifier = @68963;
+        controller.messagePlaceholder = [NSString stringWithFormat:@"Reporting >>%@/%@:\n\n", self.board, self.inReplyToIdentifier];
+    }
 
-- (void) dealloc {
-    NSLog(@"DEALLOC");
+    [super prepareForSegue:segue sender:sender];
 }
 
 @end

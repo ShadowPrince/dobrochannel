@@ -16,7 +16,7 @@
 
 - (void) didParsedThread:(NSDictionary *) thread;
 - (void) didParsedPost:(NSDictionary *) post;
-- (void) didFinishedParsing;
+- (void) didFinishedParsingWithError:(NSError *) e;
 
 @end
 

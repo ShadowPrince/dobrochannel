@@ -34,8 +34,7 @@
 
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
     self.dynamicTextViewCombinedOffsets =
-    14.f // autolayout padding hardcoded
-    + 16.f // post offset
+    16.f // post offset
     + 3.f; // message view margin
 
     self.headerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -69,10 +68,10 @@
       attachments:(NSArray *)attachments {
     [super populate:data attachments:attachments];
     [self.attachmentsView reloadData];
+    [self.answersCollectionView reloadData];
 
     self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
     [self layoutIfNeeded];
-    [self.answersCollectionView reloadData];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];

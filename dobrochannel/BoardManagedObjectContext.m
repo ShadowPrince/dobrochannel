@@ -105,6 +105,8 @@
         [errorMessage setValue:[self.parser parse:_post[@"message"]] forKey:@"attributedMessage"];
         [self.delegate context:self didInsertedObject:errorMessage];
         return;
+    } else if ([[UserDefaults listOfBannedPosts] containsObject:_post[@"display_identifier"]]) {
+        return;
     }
 
     NSManagedObject *threadObject = self.ongoingThread;
@@ -209,12 +211,11 @@
     self.postIds[[object valueForKey:@"display_identifier"]] = object.objectID;
 }
 
-- (void) didFinishedReceiving {
+- (void) didFinishedReceivingWithError:(NSError *)error {
     NSError *e;
     [self save:&e];
     if (e) {
         NSLog(@"%@", e);
-        @throw e;
     }
 
     // update postIds cache with permanent objectID's
@@ -223,7 +224,7 @@
         postIds[[post valueForKey:@"display_identifier"]] = post.objectID;
     }
 
-    [self.delegate context:self didFinishedLoading:nil];
+    [self.delegate context:self didFinishedLoading:error];
 }
 
 # pragma mark requests

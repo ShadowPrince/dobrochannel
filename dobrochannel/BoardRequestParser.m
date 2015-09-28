@@ -63,7 +63,7 @@
 }
 
 - (void) URLSession:(nonnull NSURLSession *)session task:(nonnull NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-    [self.delegate didFinishedParsing];
+    [self.delegate didFinishedParsingWithError:error];
 }
 
 - (void) URLSession:(nonnull NSURLSession *)session dataTask:(nonnull NSURLSessionDataTask *)dataTask didReceiveData:(nonnull NSData *)data {

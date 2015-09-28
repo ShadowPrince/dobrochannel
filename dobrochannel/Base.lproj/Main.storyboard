@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4jH-qu-oqn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -183,6 +184,19 @@
                                             <constraint firstItem="rY7-JG-6Nm" firstAttribute="width" secondItem="IBH-CG-cDv" secondAttribute="width" id="yqj-qy-yqR"/>
                                         </constraints>
                                     </scrollView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRZ-BV-XLf">
+                                        <rect key="frame" x="4" y="556" width="320" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="PAX-EE-fMA"/>
+                                        </constraints>
+                                        <state key="normal" title="Report this message">
+                                            <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="cug-9B-jI0" kind="show" identifier="reportSegue" id="OME-Px-h4r"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <gestureRecognizers/>
@@ -196,6 +210,7 @@
                                     <constraint firstAttribute="trailing" secondItem="FIX-Mf-7eD" secondAttribute="trailing" constant="8" id="JGt-cu-Ffg"/>
                                     <constraint firstItem="stF-G3-leE" firstAttribute="top" secondItem="crT-s3-vJS" secondAttribute="bottom" constant="8" id="Js1-RG-TZ9"/>
                                     <constraint firstItem="crT-s3-vJS" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" constant="8" id="LKG-lQ-vOt"/>
+                                    <constraint firstItem="iRZ-BV-XLf" firstAttribute="top" secondItem="stF-G3-leE" secondAttribute="bottom" constant="8" id="Ly5-Pw-m5f"/>
                                     <constraint firstItem="CdP-5F-oRc" firstAttribute="top" secondItem="stF-G3-leE" secondAttribute="top" id="PPo-fh-aVY"/>
                                     <constraint firstItem="crT-s3-vJS" firstAttribute="top" secondItem="zIa-Xj-SRU" secondAttribute="bottom" id="S9o-mi-kAU"/>
                                     <constraint firstItem="zIa-Xj-SRU" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" constant="8" id="YD7-gJ-eld"/>
@@ -210,7 +225,7 @@
                                     <constraint firstAttribute="trailing" secondItem="crT-s3-vJS" secondAttribute="trailing" constant="8" id="r0S-Ye-aKL"/>
                                     <constraint firstItem="FIX-Mf-7eD" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" constant="8" id="spc-Kj-ucX"/>
                                     <constraint firstItem="stF-G3-leE" firstAttribute="leading" secondItem="crT-s3-vJS" secondAttribute="leading" id="v0I-gb-KMt"/>
-                                    <constraint firstAttribute="bottom" secondItem="stF-G3-leE" secondAttribute="bottom" constant="8" id="vLi-Mb-jzp"/>
+                                    <constraint firstAttribute="bottom" secondItem="iRZ-BV-XLf" secondAttribute="bottom" id="vlx-au-yup"/>
                                     <constraint firstItem="ZN8-Il-nvO" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" constant="8" id="vmG-mK-GLV"/>
                                     <constraint firstItem="ZN8-Il-nvO" firstAttribute="leading" secondItem="dSa-82-vgs" secondAttribute="leading" id="w9u-7m-hpj"/>
                                     <constraint firstItem="FIX-Mf-7eD" firstAttribute="leading" secondItem="ZN8-Il-nvO" secondAttribute="leading" id="wFJ-j8-iO7"/>
@@ -250,8 +265,10 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iRZ-BV-XLf" firstAttribute="leading" secondItem="USR-2a-MAD" secondAttribute="leadingMargin" constant="-16" id="3zW-dB-a72"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zIa-Xj-SRU" secondAttribute="trailing" constant="-12" id="DoL-eL-Otd"/>
                             <constraint firstItem="zIa-Xj-SRU" firstAttribute="leading" secondItem="USR-2a-MAD" secondAttribute="leadingMargin" constant="-12" id="GCJ-Mi-fNT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iRZ-BV-XLf" secondAttribute="trailing" constant="-16" id="JxI-32-hZb"/>
                             <constraint firstItem="G9B-wN-rTG" firstAttribute="centerY" secondItem="USR-2a-MAD" secondAttribute="centerY" id="LnG-jE-f4D"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dSa-82-vgs" secondAttribute="trailing" constant="-20" id="V2f-k5-mOq"/>
                             <constraint firstItem="FIX-Mf-7eD" firstAttribute="leading" secondItem="USR-2a-MAD" secondAttribute="leadingMargin" constant="-16" id="WIc-48-UEW"/>
@@ -289,6 +306,7 @@
                         <outlet property="postItBarButton" destination="USR-2a-MAD" id="VnF-Be-xMW"/>
                         <outlet property="postItButton" destination="C40-iX-YJp" id="5xJ-Xk-ZlK"/>
                         <outlet property="previewTextView" destination="IBH-CG-cDv" id="owf-Qy-bu2"/>
+                        <outlet property="reportMessageButton" destination="iRZ-BV-XLf" id="TFO-7H-IMD"/>
                         <outlet property="scrollView" destination="dSa-82-vgs" id="lta-nV-fXe"/>
                         <outlet property="textViewFixedWidthContraint" destination="Q60-DE-h6m" id="uiS-el-Lk2"/>
                         <outlet property="textViewWidthConstraint" destination="mLB-Tu-QgE" id="oA5-my-x47"/>
@@ -329,7 +347,7 @@
                                 <rect key="frame" x="16" y="208" width="288" height="228"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.93323183059692383" green="0.9333917498588562" blue="0.93322181701660156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <mutableString key="text">Board/thread viewer:
+                                <string key="text">Board/thread viewer:
     - swipe left/right: go to next/prev thread 
 Attachments viewer:
     - swipe up: info / actions
@@ -337,7 +355,7 @@ Attachments viewer:
     - touch: load full image / open link 
 Post popup viewer:
     - swipe left/right: close popup     - swipe left/right with 2 fingers: close all popups  New post:     - swipe message field: show preview
-    - touch attachment: change rating/remove</mutableString>
+    - touch attachment: change rating/remove</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -360,7 +378,7 @@ Post popup viewer:
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxV-Ff-2Hk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188" y="-917"/>
+            <point key="canvasLocation" x="-199" y="-911"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ek6-88-s05">

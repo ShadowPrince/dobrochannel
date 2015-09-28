@@ -279,7 +279,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
-    [self.api cancelRequest];
+//    [self.api cancelRequest];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -327,8 +327,17 @@
 
 - (void) context:(NSManagedObjectContext *)context didFinishedLoading:(NSError *)error {
     dispatch_sync(dispatch_get_main_queue(), ^{
-        [self insertNewRows];
-        [self reloadData];
+        if (error == nil) {
+            [self insertNewRows];
+            [self reloadData];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error during loading:"
+                                                            message:[NSString stringWithFormat:@"%@", error.localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Dismiss"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
     });
 }
 

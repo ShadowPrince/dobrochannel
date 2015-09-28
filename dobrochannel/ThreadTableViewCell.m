@@ -30,9 +30,7 @@
     self.dynamicTableView = self.attachmentsView;
 
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
-    self.dynamicTextViewCombinedOffsets =
-    14.f // autolayout hardcoded
-    + 3.f; // message view margin
+    self.dynamicTextViewCombinedOffsets = 3.f; // message view margin
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;

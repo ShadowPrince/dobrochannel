@@ -23,4 +23,6 @@
 
 + (NSString *) postPassword;
 
++ (NSArray *) listOfBannedPosts;
+
 @end

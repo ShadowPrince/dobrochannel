@@ -303,8 +303,8 @@
     [self.delegate didReceivedPost:post];
 }
 
-- (void) didFinishedParsing {
-    [self.delegate didFinishedReceiving];
+- (void) didFinishedParsingWithError:(NSError *) error {
+    [self.delegate didFinishedReceivingWithError:error];
 }
 
 #pragma mark private helper methods
@@ -347,7 +347,6 @@
 - (NSURLSessionTask *) requestURL:(NSURL *) url
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
-    NSLog(@"%@", url);
 //    url = [NSURL URLWithString:@"http://localhost/0.json"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                                           delegate:ddelegate

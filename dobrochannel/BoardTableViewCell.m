@@ -9,19 +9,8 @@
 #import "BoardTableViewCell.h"
 
 @interface BoardTableViewCell ()
+@property CGFloat autolayoutOffset;
 @end @implementation BoardTableViewCell
-
-- (void) populate:(NSManagedObject *)object
-      attachments:(NSArray *)attachments {
-    self.object = object;
-
-    [self populateForHeightCalculation:object
-                           attachments:attachments];
-}
-
-- (void) setupAttachmentOffsetFor:(CGSize) parentSize {
-    @throw [NSException exceptionWithName:@"Abstract method call" reason:@"setupAttachmentOffsetFor: is abstract" userInfo:nil];
-}
 
 - (void) awakeFromNib {
     self.dynamicTableView.delegate = self.dynamicTableDelegate;
@@ -33,7 +22,25 @@
     self.dynamicTextView.textContainerInset = UIEdgeInsetsZero;
     self.dynamicTextView.textContainer.lineFragmentPadding = 0.f;
 
+    if ([UIDevice currentDevice].systemVersion.integerValue == 9) {
+        self.autolayoutOffset = 0.f;
+    } else {
+        self.autolayoutOffset = 14.f;
+    }
+
     [super awakeFromNib];
+}
+
+- (void) populate:(NSManagedObject *)object
+      attachments:(NSArray *)attachments {
+    self.object = object;
+
+    [self populateForHeightCalculation:object
+                           attachments:attachments];
+}
+
+- (void) setupAttachmentOffsetFor:(CGSize) parentSize {
+    @throw [NSException exceptionWithName:@"Abstract method call" reason:@"setupAttachmentOffsetFor: is abstract" userInfo:nil];
 }
 
 # pragma mark action handling
@@ -66,7 +73,9 @@
 }
 
 - (CGFloat) messageExpandHeight:(CGSize) parentSize {
-    CGFloat width = parentSize.width - self.dynamicTextViewCombinedOffsets - self.dynamicStackViewScrollWidthConstraint.constant;
+    CGFloat combined_offsets = self.dynamicTextViewCombinedOffsets + self.autolayoutOffset;
+
+    CGFloat width = parentSize.width - combined_offsets - self.dynamicStackViewScrollWidthConstraint.constant;
     width = roundf(width * 2) / 2; // round it to x.0 or x.5
 
     // dynamic text height

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A243d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -11,15 +12,15 @@
             <rect key="frame" x="0.0" y="0.0" width="639" height="172"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="693" height="171.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="639" height="171"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-fh-1LI">
-                        <rect key="frame" x="550" y="0.0" width="66" height="24"/>
+                        <rect key="frame" x="536" y="0.0" width="80" height="24"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="66" id="aRR-iN-ShG"/>
+                            <constraint firstAttribute="width" constant="80" id="aRR-iN-ShG"/>
                             <constraint firstAttribute="height" constant="24" id="itJ-3X-bbW"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -58,7 +59,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-Bq-V85">
-                        <rect key="frame" x="8" y="0.0" width="549" height="24"/>
+                        <rect key="frame" x="8" y="0.0" width="520" height="24"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -109,6 +110,7 @@
                     <constraint firstItem="OyZ-Pw-IJK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-10" id="Hh4-fR-yac"/>
                     <constraint firstItem="wTw-U2-dhv" firstAttribute="leading" secondItem="TMp-lw-CGX" secondAttribute="trailing" constant="8" id="IXa-fs-LNO"/>
                     <constraint firstItem="Zfh-Bq-V85" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="JWJ-HM-ybl"/>
+                    <constraint firstItem="xO9-fh-1LI" firstAttribute="leading" secondItem="Zfh-Bq-V85" secondAttribute="trailing" constant="8" id="LhZ-Hh-Dno"/>
                     <constraint firstAttribute="bottomMargin" secondItem="E8F-hp-ipo" secondAttribute="bottom" constant="-8" id="NuQ-dn-Z0S"/>
                     <constraint firstAttribute="bottomMargin" secondItem="71V-CG-zwc" secondAttribute="bottom" constant="8" id="Rnz-WH-mV4"/>
                     <constraint firstItem="TMp-lw-CGX" firstAttribute="top" secondItem="71V-CG-zwc" secondAttribute="bottom" id="Sdr-Gn-PfV"/>
@@ -127,6 +129,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="wQp-CD-fh7"/>
                         <exclude reference="UZf-7Q-Vpi"/>
                         <exclude reference="Zj5-hE-gtj"/>
                     </mask>
