@@ -19,10 +19,10 @@
     [super viewDidLoad];
 
     self.zoomingImages = [NSMutableArray new];
-    for (int i = 0; i < self.attachments.count; i++)
+    for (int i = 0; i < self.attachments.count; i++) {
         [self.zoomingImages addObject:[NSNull null]];
+    }
 
-    self.page = 0;
     [self centerAtIndex:self.index];
 }
 

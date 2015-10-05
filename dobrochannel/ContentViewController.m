@@ -315,14 +315,11 @@
 # pragma mark - context
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self insetObject:object];
+    [self insetObject:object];
 
-        if ([object.entity.name isEqual:@"Thread"]) {
-            [self insertNewRows];
-        }
-    });
-
+    if ([object.entity.name isEqual:@"Thread"]) {
+        [self insertNewRows];
+    }
 }
 
 - (void) context:(NSManagedObjectContext *)context didFinishedLoading:(NSError *)error {

@@ -100,12 +100,16 @@
 }
 
 - (void) didReceivedPost:(NSDictionary *) _post {
+    NSMutableDictionary *post = [_post mutableCopy];
+
     if (_post[@"code"]) {
         NSManagedObject *errorMessage = [NSEntityDescription insertNewObjectForEntityForName:@"Post" inManagedObjectContext:self];
         [errorMessage setValue:[self.parser parse:_post[@"message"]] forKey:@"attributedMessage"];
         [self.delegate context:self didInsertedObject:errorMessage];
         return;
-    } else if ([[UserDefaults listOfBannedPosts] containsObject:_post[@"display_identifier"]]) {
+    } else if ([[UserDefaults listOfBannedPosts] containsObject:_post[@"display_id"]]) {
+        return;
+    } else if ([[UserDefaults listOfBannedPosts] containsObject:self.ongoingThreadData[@"display_id"]]) {
         return;
     }
 
@@ -128,7 +132,6 @@
         setupOpPost = YES;
     }
 
-    NSMutableDictionary *post = [_post mutableCopy];
 
     if (post[@"message"] == [NSNull null])
         post[@"message"] = @"";

@@ -296,11 +296,15 @@
 #pragma mark thread helpers
 
 - (void) didParsedThread:(NSDictionary *)thread {
-    [self.delegate didReceivedThread:thread];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.delegate didReceivedThread:thread];
+    });
 }
 
 - (void) didParsedPost:(NSDictionary *)post {
-    [self.delegate didReceivedPost:post];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.delegate didReceivedPost:post];
+    });
 }
 
 - (void) didFinishedParsingWithError:(NSError *) error {

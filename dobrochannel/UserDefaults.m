@@ -11,16 +11,19 @@
 @implementation UserDefaults
 
 + (NSArray *) listOfBannedPosts {
-    static NSArray *list = nil;
+    static NSMutableArray *list = nil;
 
     if (!list) {
         NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://shadowprince.github.io/dobrochannel/apple_banned_posts.txt"]
                                                  encoding:NSUTF8StringEncoding
                                                     error:nil];
 
-        list = [str componentsSeparatedByString:@"\n"];
-        if (!list)
-            list = @[];
+        list = [NSMutableArray new];
+        for (NSString *comp in [str componentsSeparatedByString:@"\n"]) {
+            if (![comp isEqualToString:@""]) {
+                [list addObject:[NSNumber numberWithInteger:comp.integerValue]];
+            }
+        }
     }
 
     return list;

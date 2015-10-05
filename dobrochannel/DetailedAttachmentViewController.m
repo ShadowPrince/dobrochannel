@@ -103,10 +103,10 @@
         return;
 
     if ([self shouldLoadFullImage]) {
+        self.didLoadedSource = YES;
+
         NSString *full_src = [self.attachment valueForKey:@"src"];
-        [self request:full_src completeWith:^{
-            self.didLoadedSource = YES;
-        }];
+        [self request:full_src completeWith:nil];
     }
 }
 
@@ -189,6 +189,11 @@
 
 - (void) request:(NSString *) imageUrl
     completeWith:(void (^)()) completeBlock {
+    int rating_int = [[self.attachment valueForKey:@"rating"] integerValue];
+    if (rating_int > [UserDefaults maxRating] || (![UserDefaults showUnrated] && rating_int == -1)) {
+        return;
+    }
+
     self.task = [[BoardAPI api] requestImage:imageUrl
                                stateCallback:^(long long processed, long long total) {
                                    if (processed == total) {

@@ -36,6 +36,7 @@
 		F3B063D41B7B412E003BA83E /* DanbooruAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063D31B7B412E003BA83E /* DanbooruAPI.m */; };
 		F3B063DC1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */; };
 		F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */; };
+		F3B182811BBBD9D600129140 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; settings = {ASSET_TAGS = (); }; };
 		F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */; };
 		F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */; };
 		F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */; };
@@ -102,6 +103,8 @@
 		F3B063D91B7B68F1003BA83E /* SearchSuggestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchSuggestionTableViewCell.h; path = "danbooru-picker/SearchSuggestionTableViewCell.h"; sourceTree = "<group>"; };
 		F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchSuggestionTableViewCell.m; path = "danbooru-picker/SearchSuggestionTableViewCell.m"; sourceTree = "<group>"; };
 		F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchSuggestionTableViewCell.xib; path = "danbooru-picker/SearchSuggestionTableViewCell.xib"; sourceTree = "<group>"; };
+		F3B1827F1BBBD9D600129140 /* EULAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EULAViewController.h; sourceTree = "<group>"; };
+		F3B182801BBBD9D600129140 /* EULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EULAViewController.m; sourceTree = "<group>"; };
 		F3B937B11B5DAAD300721CD8 /* ThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadTableViewCell.h; sourceTree = "<group>"; };
 		F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadTableViewCell.m; sourceTree = "<group>"; };
 		F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreadTableViewCell.xib; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 				F3BD076F1B683D79000946B5 /* SettingsViewController.m */,
 				F37DDFB81B77F2380056D316 /* NewPostViewController.h */,
 				F37DDFB91B77F2380056D316 /* NewPostViewController.m */,
+				F3B1827F1BBBD9D600129140 /* EULAViewController.h */,
+				F3B182801BBBD9D600129140 /* EULAViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B182811BBBD9D600129140 /* EULAViewController.m in Sources */,
 				F3B937C51B5E64F500721CD8 /* Board.xcdatamodeld in Sources */,
 				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,

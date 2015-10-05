@@ -22,6 +22,15 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"eula"] >= EULA_VERSION && false) {
+    } else {
+        UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+        UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"eulaViewController"];
+        self.window.rootViewController = rootViewController;
+        [self.window makeKeyAndVisible];
+    }
+
     return YES;
 }
 
