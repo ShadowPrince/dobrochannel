@@ -323,19 +323,17 @@
 }
 
 - (void) context:(NSManagedObjectContext *)context didFinishedLoading:(NSError *)error {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        if (error == nil) {
-            [self insertNewRows];
-            [self reloadData];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error during loading:"
-                                                            message:[NSString stringWithFormat:@"%@", error.localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Dismiss"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-    });
+    if (error == nil) {
+        [self insertNewRows];
+        [self reloadData];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error during loading:"
+                                                        message:[NSString stringWithFormat:@"%@", error.localizedDescription]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Dismiss"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void) insetObject:(NSManagedObject *) object {
@@ -423,9 +421,10 @@
 - (void) tableView:(UITableView *)tableView willDisplayCell:(BoardTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *entry = self.threads[indexPath.row];
 
+    NSArray<NSManagedObject *> *attachments = [self.context requestAttachmentsFor:entry];
     [cell setupAttachmentOffsetFor:tableView.frame.size];
     [cell populate:entry
-       attachments:[self.context requestAttachmentsFor:entry]];
+       attachments:attachments];
     [self prepareCell:cell];
     [cell setupAttachmentOffsetFor:tableView.frame.size];
 }

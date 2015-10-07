@@ -78,11 +78,11 @@
     CGFloat width = parentSize.width - combined_offsets - self.dynamicStackViewScrollWidthConstraint.constant;
     width = roundf(width * 2) / 2; // round it to x.0 or x.5
 
+
     // dynamic text height
-    CGSize size = [self.dynamicText.string boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
-                                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                                     attributes:@{NSFontAttributeName: self.dynamicTextView.font}
-                                                        context:nil].size;
+    CGSize size = [self.dynamicText boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                 context:nil].size;
     CGFloat height = size.height;
 
     return self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;

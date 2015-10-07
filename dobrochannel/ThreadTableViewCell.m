@@ -24,7 +24,6 @@
     self.titleButton.titleLabel.backgroundColor = [UIColor whiteColor];
     
     self.dynamicTextView = self.messageTextView;
-    self.dynamicTextView.font = [UIFont systemFontOfSize:12.f];
 
     self.dynamicTableDelegate = [[AttachmentsTableDelegate alloc] init];
     self.dynamicTableView = self.attachmentsView;

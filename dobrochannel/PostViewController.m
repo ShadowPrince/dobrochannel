@@ -137,10 +137,7 @@
 
 - (void) context:(NSManagedObjectContext *)context didInsertedObject:(NSManagedObject *)object {
     [super context:context didInsertedObject:object];
-
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self insertNewRows];
-    });
+    [self insertNewRows];
 }
 
 ////

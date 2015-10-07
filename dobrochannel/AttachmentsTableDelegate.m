@@ -58,6 +58,10 @@
     }
 
     NSManagedObject *attachment = self.objects[indexPath.row];
+    if ([attachment valueForKey:@"src"] == nil) {
+        NSLog(@"core data: attachment fullfill error on %@", attachment);
+        return cell;
+    }
 
     UIImageView *iv = (UIImageView *) [cell viewWithTag:111];
     UIActivityIndicatorView *aiv = (UIActivityIndicatorView *) [cell viewWithTag:112];
@@ -68,10 +72,14 @@
                           -1,
                           self.parentSize.width + 1,
                           [[UIFont systemFontOfSize:statusLabelFontSize] lineHeight]);
+    CGRect iv_frame = CGRectMake(0,
+                                10.f,
+                                self.parentSize.width,
+                                [self attachmentHeight:attachment] - 10.f);
     iv.frame = CGRectMake(0,
                           10.f,
                           self.parentSize.width,
-                          [self attachmentHeight:attachment] - 10.f); // - sl.frame.size.height);
+                          [self attachmentHeight:attachment] - 10.f);
     aiv.frame = CGRectMake(0,
                            0,
                            self.parentSize.width,
@@ -135,7 +143,13 @@
 }
 
 - (CGFloat) tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    return [self attachmentHeight:self.objects[indexPath.row]];
+    NSManagedObject *object = self.objects[indexPath.row];
+    if ([object valueForKey:@"src"] == nil) {
+        NSLog(@"core data: attachment fullfill error on %@", object);
+        return 1.f;
+    } else {
+        return [self attachmentHeight:self.objects[indexPath.row]];
+    }
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger) section {
@@ -159,7 +173,11 @@
     CGSize size = ((NSValue *) [attachment valueForKey:@"thumb_size"]).CGSizeValue;
     CGFloat ratio = self.parentSize.width / size.width;
 
-    return size.height * ratio + 10.f;
+    CGFloat height = size.height * ratio + 10.f;
+    if (height == NAN || height == 0) {
+        height = 15.f;
+    } 
+    return height;
 }
 
 - (void) tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

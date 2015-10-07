@@ -61,6 +61,7 @@
 }
 
 - (void) clearPersistentStorage {
+    [self reset];
     NSArray *documentDirectories =
     NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                         NSUserDomainMask,
@@ -195,11 +196,13 @@
                                                      @"weight": attachData[@"size"],
                                                      @"thumb_src": attachData[@"thumb"],
                                                      @"identifier": attachData[@"file_id"],
-                                                     @"thumb_size": [NSValue valueWithCGSize:thumb_size],
+
                                                      @"size": [NSValue valueWithCGSize:meta_size],
                                                      @"rating": [NSNumber numberWithInt:rating_int],
-                                                     @"src": attachData[@"src"],
-                                                     @"post": object, }];
+                                                     @"thumb_size": [NSValue valueWithCGSize:thumb_size],
+                                                     @"src": attachData[@"src"], }];
+        [attachment setValue:object forKey:@"post"];
+
     }
 
     [object setValue:threadObject forKey:@"thread"];
@@ -234,6 +237,7 @@
 
 - (NSArray *) requestEntity:(NSString *) entity using:(NSPredicate *) pred {
     NSFetchRequest *r = [NSFetchRequest fetchRequestWithEntityName:entity];
+//    r.returnsObjectsAsFaults = NO;
     r.predicate = pred;
 
     NSError *e;

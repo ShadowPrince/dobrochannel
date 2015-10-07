@@ -27,7 +27,6 @@
     self.answers = [NSMutableArray new];
 
     self.dynamicTextView = self.messageTextView;
-    self.dynamicTextView.font = [UIFont systemFontOfSize:12.f];
 
     self.dynamicTableDelegate = [[AttachmentsTableDelegate alloc] init];
     self.dynamicTableView = self.attachmentsView;
@@ -134,6 +133,15 @@
     NSNumber *answer = self.answers[indexPath.row];
     [cell populate:answer];
     return cell;
+}
+
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat base_height = 25.f;
+    CGRect bounds = [@">>00000000" boundingRectWithSize:CGSizeMake(MAXFLOAT, base_height)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:nil
+                                               context:nil];
+    return CGSizeMake(bounds.size.width, base_height);
 }
 
 @end

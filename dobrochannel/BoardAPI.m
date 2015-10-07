@@ -308,7 +308,9 @@
 }
 
 - (void) didFinishedParsingWithError:(NSError *) error {
-    [self.delegate didFinishedReceivingWithError:error];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [self.delegate didFinishedReceivingWithError:error];
+    });
 }
 
 #pragma mark private helper methods

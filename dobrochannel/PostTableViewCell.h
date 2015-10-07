@@ -14,7 +14,7 @@
 #import "BoardTableViewCell.h"
 #import "AnswerCollectionViewCell.h"
 
-@interface PostTableViewCell : BoardTableViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface PostTableViewCell : BoardTableViewCell <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;

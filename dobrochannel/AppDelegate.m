@@ -23,8 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"eula"] >= EULA_VERSION && false) {
-    } else {
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"eula"] < EULA_VERSION) {
         UIStoryboard *storyboard = self.window.rootViewController.storyboard;
         UIViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"eulaViewController"];
         self.window.rootViewController = rootViewController;

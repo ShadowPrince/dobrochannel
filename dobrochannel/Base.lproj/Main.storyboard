@@ -412,32 +412,36 @@ Post popup viewer:
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3R-1L-VxQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3R-1L-VxQ">
                                 <rect key="frame" x="16" y="442" width="140" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="evk-y3-9Gm"/>
                                 </constraints>
-                                <state key="normal" title="Accept &amp; Continue"/>
+                                <state key="normal" title="Accept &amp; Continue">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="acceptAction:" destination="wob-VF-syp" eventType="touchUpInside" id="Pkl-36-z8H"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Xf-L8-17x">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Xf-L8-17x">
                                 <rect key="frame" x="244" y="442" width="60" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="oW3-5E-mtf"/>
                                 </constraints>
-                                <state key="normal" title="Decline"/>
+                                <state key="normal" title="Decline">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="declineAction:" destination="wob-VF-syp" eventType="touchUpInside" id="F0m-d0-vF5"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wYU-Mi-uDL">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wYU-Mi-uDL">
                                 <rect key="frame" x="-4" y="57" width="328" height="377"/>
                                 <animations/>
-                                <mutableString key="text">TERMS OF SERVICE
+                                <string key="text">TERMS OF SERVICE
 
 ----
 
@@ -616,11 +620,11 @@ We reserve the right, at our sole discretion, to update, change or replace any p
 SECTION 20 - CONTACT INFORMATION
 
 Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru.
-</mutableString>
+</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End User License Agreement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEO-ms-Oiu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="End User License Agreement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEO-ms-Oiu">
                                 <rect key="frame" x="49" y="28" width="222" height="21"/>
                                 <animations/>
                                 <constraints>
@@ -801,7 +805,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                 <rect key="frame" x="-4" y="64" width="328" height="592"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show unrated: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7H-AZ-WDf">
-                                        <rect key="frame" x="16" y="245" width="239" height="35"/>
+                                        <rect key="frame" x="16" y="283" width="239" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="qbc-HI-MqM"/>
@@ -811,7 +815,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Dr-ts-fM5">
-                                        <rect key="frame" x="263" y="249" width="51" height="31"/>
+                                        <rect key="frame" x="263" y="287" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -819,7 +823,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </switch>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K8P-Qc-gjg">
-                                        <rect key="frame" x="263" y="292" width="51" height="31"/>
+                                        <rect key="frame" x="263" y="330" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -828,7 +832,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load attachments:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuI-zw-ZYa">
-                                        <rect key="frame" x="16" y="331" width="239" height="35"/>
+                                        <rect key="frame" x="16" y="369" width="239" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="IyM-Fc-D8V"/>
@@ -845,7 +849,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </variation>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffg-2Z-naq">
-                                        <rect key="frame" x="263" y="335" width="51" height="31"/>
+                                        <rect key="frame" x="263" y="373" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -854,7 +858,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load full images:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iq-J6-ZpJ">
-                                        <rect key="frame" x="16" y="374" width="239" height="35"/>
+                                        <rect key="frame" x="16" y="412" width="239" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="99C-i4-OAK"/>
@@ -871,7 +875,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jc-wO-pmH">
-                                        <rect key="frame" x="16" y="450" width="104" height="35"/>
+                                        <rect key="frame" x="16" y="488" width="104" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="143" id="6V4-gP-r08"/>
@@ -889,7 +893,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load thumbnails:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oI-mU-mRT">
-                                        <rect key="frame" x="16" y="288" width="239" height="35"/>
+                                        <rect key="frame" x="16" y="326" width="239" height="35"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="132" id="CE4-Rs-ARf"/>
@@ -906,7 +910,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </variation>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hlo-Ua-hW9">
-                                        <rect key="frame" x="14" y="415" width="231" height="31"/>
+                                        <rect key="frame" x="14" y="453" width="231" height="31"/>
                                         <animations/>
                                         <color key="minimumTrackTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -914,7 +918,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999kb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdH-ke-KjU">
-                                        <rect key="frame" x="251" y="419" width="61" height="21"/>
+                                        <rect key="frame" x="251" y="457" width="61" height="21"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="afK-e2-zBX"/>
@@ -925,7 +929,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ub-Z8-5ql">
-                                        <rect key="frame" x="8" y="75" width="312" height="162"/>
+                                        <rect key="frame" x="8" y="113" width="312" height="162"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="162" id="4PU-x8-qSp"/>
@@ -936,7 +940,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </pickerView>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uU5-4d-FsB">
-                                        <rect key="frame" x="263" y="378" width="51" height="31"/>
+                                        <rect key="frame" x="263" y="416" width="51" height="31"/>
                                         <animations/>
                                         <color key="onTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -946,7 +950,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </switch>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKc-Lh-mmI">
-                                        <rect key="frame" x="128" y="453" width="184" height="32"/>
+                                        <rect key="frame" x="128" y="491" width="184" height="32"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="184" id="Vrm-zc-awS"/>
@@ -958,7 +962,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2r-47-5od">
-                                        <rect key="frame" x="16" y="8" width="296" height="30"/>
+                                        <rect key="frame" x="16" y="46" width="296" height="30"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="PAw-e9-t6x"/>
@@ -971,7 +975,7 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Gr-H4C">
-                                        <rect key="frame" x="16" y="46" width="296" height="21"/>
+                                        <rect key="frame" x="16" y="84" width="296" height="21"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="OQT-bS-lnD"/>
@@ -980,6 +984,19 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHs-8Y-mbY">
+                                        <rect key="frame" x="16" y="8" width="296" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="F3Z-71-pVb"/>
+                                        </constraints>
+                                        <state key="normal" title="EULA">
+                                            <color key="titleColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="wob-VF-syp" kind="show" id="5by-6z-bAG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <constraints>
@@ -999,9 +1016,11 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                     <constraint firstItem="Hlo-Ua-hW9" firstAttribute="leading" secondItem="Tme-Gr-H4C" secondAttribute="leading" id="DsR-No-eqL"/>
                                     <constraint firstItem="K8P-Qc-gjg" firstAttribute="leading" secondItem="8oI-mU-mRT" secondAttribute="trailing" constant="8" id="EsA-Li-1Iv"/>
                                     <constraint firstItem="kdH-ke-KjU" firstAttribute="trailing" secondItem="2Dr-ts-fM5" secondAttribute="trailing" id="Fkv-pe-m0U"/>
-                                    <constraint firstItem="L2r-47-5od" firstAttribute="top" secondItem="wGd-Ft-PaN" secondAttribute="top" constant="8" id="JFs-Hs-nK5"/>
+                                    <constraint firstItem="L2r-47-5od" firstAttribute="top" secondItem="wGd-Ft-PaN" secondAttribute="top" constant="50" id="JFs-Hs-nK5"/>
                                     <constraint firstItem="BKc-Lh-mmI" firstAttribute="trailing" secondItem="2Dr-ts-fM5" secondAttribute="trailing" id="LIx-Vo-ed6"/>
+                                    <constraint firstItem="yHs-8Y-mbY" firstAttribute="top" secondItem="wGd-Ft-PaN" secondAttribute="top" constant="8" id="Mwt-YQ-JLY"/>
                                     <constraint firstItem="ffg-2Z-naq" firstAttribute="leading" secondItem="UuI-zw-ZYa" secondAttribute="trailing" constant="8" id="N7A-G5-Pbh"/>
+                                    <constraint firstItem="L2r-47-5od" firstAttribute="trailing" secondItem="yHs-8Y-mbY" secondAttribute="trailing" id="QaQ-Dl-ccl"/>
                                     <constraint firstItem="UuI-zw-ZYa" firstAttribute="leading" secondItem="Tme-Gr-H4C" secondAttribute="leading" id="QrV-Eg-BXm"/>
                                     <constraint firstItem="L2r-47-5od" firstAttribute="leading" secondItem="wGd-Ft-PaN" secondAttribute="leading" constant="16" id="TPZ-x1-ijX"/>
                                     <constraint firstItem="t7H-AZ-WDf" firstAttribute="leading" secondItem="Tme-Gr-H4C" secondAttribute="leading" id="Um3-mk-I5G"/>
@@ -1019,17 +1038,20 @@ Questions about the Terms of Service should be sent to us at shadow.prince@ya.ru
                                     <constraint firstItem="ffg-2Z-naq" firstAttribute="top" secondItem="K8P-Qc-gjg" secondAttribute="bottom" constant="12" id="iqt-LV-yJ6"/>
                                     <constraint firstItem="3jc-wO-pmH" firstAttribute="top" secondItem="Hlo-Ua-hW9" secondAttribute="bottom" constant="5" id="j7w-3C-qDA"/>
                                     <constraint firstItem="Hlo-Ua-hW9" firstAttribute="top" secondItem="7iq-J6-ZpJ" secondAttribute="bottom" constant="6" id="jXy-O9-llT"/>
+                                    <constraint firstItem="L2r-47-5od" firstAttribute="top" secondItem="yHs-8Y-mbY" secondAttribute="bottom" constant="8" id="lpI-bM-SIk"/>
                                     <constraint firstItem="ffg-2Z-naq" firstAttribute="trailing" secondItem="2Dr-ts-fM5" secondAttribute="trailing" id="ne2-kT-D81"/>
                                     <constraint firstItem="K8P-Qc-gjg" firstAttribute="top" secondItem="2Dr-ts-fM5" secondAttribute="bottom" constant="12" id="sTo-ay-SmR"/>
                                     <constraint firstItem="2Dr-ts-fM5" firstAttribute="top" secondItem="2ub-Z8-5ql" secondAttribute="bottom" constant="12" id="tmH-95-fh8"/>
                                     <constraint firstItem="2ub-Z8-5ql" firstAttribute="centerX" secondItem="wGd-Ft-PaN" secondAttribute="centerX" id="wZd-Yd-646"/>
                                     <constraint firstItem="7iq-J6-ZpJ" firstAttribute="top" secondItem="UuI-zw-ZYa" secondAttribute="bottom" constant="8" id="wbZ-Np-vgs"/>
+                                    <constraint firstItem="L2r-47-5od" firstAttribute="leading" secondItem="yHs-8Y-mbY" secondAttribute="leading" id="xju-hc-qe2"/>
                                     <constraint firstItem="BKc-Lh-mmI" firstAttribute="leading" secondItem="3jc-wO-pmH" secondAttribute="trailing" constant="8" id="zCw-9W-aE6"/>
                                     <constraint firstItem="uU5-4d-FsB" firstAttribute="leading" secondItem="7iq-J6-ZpJ" secondAttribute="trailing" constant="8" id="zOc-jf-nnw"/>
                                     <constraint firstAttribute="bottom" secondItem="kdH-ke-KjU" secondAttribute="bottom" constant="11" id="zxH-0T-4CT"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="JFs-Hs-nK5"/>
                                         <exclude reference="fMJ-bf-gOK"/>
                                         <exclude reference="zxH-0T-4CT"/>
                                     </mask>
