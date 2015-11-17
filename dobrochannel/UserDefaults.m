@@ -76,7 +76,7 @@
 + (BOOL) showUnrated {
     NSNumber *value = [[NSUserDefaults standardUserDefaults] valueForKey:@"show_no_rating"];
 
-    return value.boolValue;
+    return [self enhanced] && value;
 }
 
 + (NSInteger) maxRating {
@@ -87,6 +87,15 @@
 
 + (NSString *) postPassword {
     return (NSString *) [[NSUserDefaults standardUserDefaults] valueForKey:@"post_password"];
+}
+
++ (BOOL) enhanced {
+#ifdef RESTRICTIONS
+    NSString *secret = [[NSUserDefaults standardUserDefaults] valueForKey:@"secret"];
+    return secret != nil;
+#else
+    return YES;
+#endif
 }
 
 @end

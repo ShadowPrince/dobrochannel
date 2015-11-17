@@ -26,9 +26,8 @@
     self.switches = 0;
 
     self.ratings = [[BoardAPI api] ratingsList];
-    NSString *secret = [[NSUserDefaults standardUserDefaults] valueForKey:@"secret"];
-    if (!secret)
-        self.ratings = [self.ratings subarrayWithRange:NSMakeRange(0, 2)];
+    if (![UserDefaults enhanced])
+        self.ratings = [self.ratings subarrayWithRange:NSMakeRange(0, 1)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -56,11 +55,6 @@
 
 - (IBAction)noRatingSwitch:(UISwitch *)sender {
     self.switches++;
-
-    if (self.switches >= 18) {
-        [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"secret"];
-    }
-
     NSNumber *value = [NSNumber numberWithBool:sender.on];
 
     [[NSUserDefaults standardUserDefaults] setValue:value forKey:@"show_no_rating"];
@@ -133,6 +127,36 @@
     }
 
     [super viewWillDisappear:animated];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"eulaSegue"]) {
+        if (self.switches == 18) {
+                        UIAlertController *c = [UIAlertController alertControllerWithTitle:@"グーグル翻訳たわごと?"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+            c.popoverPresentationController.sourceRect = CGRectMake(0, 0, 0, 0);
+            c.popoverPresentationController.sourceView = self.view;
+
+            [c addAction:[UIAlertAction actionWithTitle:@"ファゴットそれを行います"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+            [c addAction:[UIAlertAction actionWithTitle:@"私に気付く、先輩"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * __nonnull action) {
+                                                    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:@"secret"];
+                                                    int max_rating = [[[BoardAPI api] ratingsList] count] - 1;
+                                                    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:max_rating] forKey:@"max_rating"];
+                                                }]];
+            [c addAction:[UIAlertAction actionWithTitle:@"こんにちは、魂魄妖夢"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+
+            [self presentViewController:c animated:YES completion:nil];
+        }
+    }
+
+    [super prepareForSegue:segue sender:sender];
 }
 
 @end

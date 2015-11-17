@@ -24,5 +24,6 @@
 + (NSString *) postPassword;
 
 + (NSArray *) listOfBannedPosts;
++ (BOOL) enhanced;
 
 @end

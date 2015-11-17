@@ -50,6 +50,49 @@
 		F3DC6FF11B6B93E60063857A /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEF1B6B93E60063857A /* PostViewController.m */; };
 		F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DC6FF01B6B93E60063857A /* PostViewController.xib */; };
 		F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */; };
+		F3FE85151BD12D17008C24B7 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F3FE85161BD12D17008C24B7 /* Board.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C31B5E64F500721CD8 /* Board.xcdatamodeld */; };
+		F3FE85171BD12D17008C24B7 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F38CAC481B68496E00A2EF98 /* UserDefaults.m */; };
+		F3FE85181BD12D17008C24B7 /* AutoLayoutStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */; };
+		F3FE85191BD12D17008C24B7 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D941C1B5BD9C8000AA303 /* ContentViewController.m */; };
+		F3FE851A1BD12D17008C24B7 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BD076F1B683D79000946B5 /* SettingsViewController.m */; };
+		F3FE851B1BD12D17008C24B7 /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369351B5E86290068A85F /* BoardViewController.m */; };
+		F3FE851C1BD12D17008C24B7 /* BoardAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F37149E01B5BDB5A00582DE4 /* BoardAPI.m */; };
+		F3FE851D1BD12D17008C24B7 /* DanbooruAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063D31B7B412E003BA83E /* DanbooruAPI.m */; };
+		F3FE851E1BD12D17008C24B7 /* BoardMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */; };
+		F3FE851F1BD12D17008C24B7 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEF1B6B93E60063857A /* PostViewController.m */; };
+		F3FE85201BD12D17008C24B7 /* MessageTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */; };
+		F3FE85211BD12D17008C24B7 /* SearchSuggestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */; };
+		F3FE85221BD12D17008C24B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94071B5BD8E7000AA303 /* AppDelegate.m */; };
+		F3FE85231BD12D17008C24B7 /* ShowAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */; };
+		F3FE85241BD12D17008C24B7 /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */; };
+		F3FE85251BD12D17008C24B7 /* NewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37DDFB91B77F2380056D316 /* NewPostViewController.m */; };
+		F3FE85261BD12D17008C24B7 /* BoardRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */; };
+		F3FE85271BD12D17008C24B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F33D94041B5BD8E7000AA303 /* main.m */; };
+		F3FE85281BD12D17008C24B7 /* DanbooruPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C81B7B3F6E003BA83E /* DanbooruPickerViewController.m */; };
+		F3FE85291BD12D17008C24B7 /* DetailedAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */; };
+		F3FE852A1BD12D17008C24B7 /* UIViewController+Popups.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */; };
+		F3FE852B1BD12D17008C24B7 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */; };
+		F3FE852C1BD12D17008C24B7 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
+		F3FE852D1BD12D17008C24B7 /* BoardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937BE1B5E55D700721CD8 /* BoardTableViewCell.m */; };
+		F3FE852E1BD12D17008C24B7 /* AttachmentsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */; };
+		F3FE852F1BD12D17008C24B7 /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
+		F3FE85301BD12D17008C24B7 /* BoardPostResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C51B7AB5FC003BA83E /* BoardPostResponseParser.m */; };
+		F3FE85311BD12D17008C24B7 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */; };
+		F3FE85321BD12D17008C24B7 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
+		F3FE85331BD12D17008C24B7 /* BoardManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */; };
+		F3FE85361BD12D17008C24B7 /* AnswerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */; };
+		F3FE85371BD12D17008C24B7 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */; };
+		F3FE85381BD12D17008C24B7 /* ThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */; };
+		F3FE85391BD12D17008C24B7 /* DetailedAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */; };
+		F3FE853A1BD12D17008C24B7 /* SearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */; };
+		F3FE853B1BD12D17008C24B7 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063CF1B7B3FD0003BA83E /* ImageCollectionViewCell.xib */; };
+		F3FE853C1BD12D17008C24B7 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32657EA1B7E99600013078E /* Launch Screen.xib */; };
+		F3FE853D1BD12D17008C24B7 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B937B81B5DAAFA00721CD8 /* PostTableViewCell.xib */; };
+		F3FE853E1BD12D17008C24B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F33D940C1B5BD8E7000AA303 /* Main.storyboard */; };
+		F3FE853F1BD12D17008C24B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3B063BF1B7A9764003BA83E /* Assets.xcassets */; };
+		F3FE85401BD12D17008C24B7 /* PostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DC6FF01B6B93E60063857A /* PostViewController.xib */; };
+		F3FE85411BD12D17008C24B7 /* DanbooruPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063C91B7B3F6E003BA83E /* DanbooruPickerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,10 +170,28 @@
 		F3DC6FF01B6B93E60063857A /* PostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostViewController.xib; sourceTree = "<group>"; };
 		F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAttachmentsViewController.h; sourceTree = "<group>"; };
 		F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAttachmentsViewController.m; sourceTree = "<group>"; };
+		F3FE84FF1BD12CD0008C24B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F3FE85011BD12CD0008C24B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F3FE85021BD12CD0008C24B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F3FE85041BD12CD0008C24B7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F3FE85051BD12CD0008C24B7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F3FE85081BD12CD0008C24B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F3FE850A1BD12CD0008C24B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3FE850D1BD12CD0008C24B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F3FE850F1BD12CD0008C24B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3FE85451BD12D17008C24B7 /* DobrochannelEnhanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DobrochannelEnhanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3FE85461BD12D17008C24B7 /* Dobrochannel copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Dobrochannel copy-Info.plist"; path = "/Users/sp/projects/ios/dobrochannel/Dobrochannel copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F33D93FD1B5BD8E7000AA303 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FE85341BD12D17008C24B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -146,7 +207,9 @@
 				F3B063CC1B7B3F72003BA83E /* danbooru-picker */,
 				F33D94021B5BD8E7000AA303 /* dobrochannel */,
 				F33D941A1B5BD983000AA303 /* Assets */,
+				F3FE84FD1BD12CD0008C24B7 /* dobrochannel */,
 				F33D94011B5BD8E7000AA303 /* Products */,
+				F3FE85461BD12D17008C24B7 /* Dobrochannel copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				F33D94001B5BD8E7000AA303 /* Dobrochannel.app */,
+				F3FE85451BD12D17008C24B7 /* DobrochannelEnhanced.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -333,6 +397,30 @@
 			name = Content;
 			sourceTree = "<group>";
 		};
+		F3FE84FD1BD12CD0008C24B7 /* dobrochannel */ = {
+			isa = PBXGroup;
+			children = (
+				F3FE85011BD12CD0008C24B7 /* AppDelegate.h */,
+				F3FE85021BD12CD0008C24B7 /* AppDelegate.m */,
+				F3FE85041BD12CD0008C24B7 /* ViewController.h */,
+				F3FE85051BD12CD0008C24B7 /* ViewController.m */,
+				F3FE85071BD12CD0008C24B7 /* Main.storyboard */,
+				F3FE850A1BD12CD0008C24B7 /* Assets.xcassets */,
+				F3FE850C1BD12CD0008C24B7 /* LaunchScreen.storyboard */,
+				F3FE850F1BD12CD0008C24B7 /* Info.plist */,
+				F3FE84FE1BD12CD0008C24B7 /* Supporting Files */,
+			);
+			path = dobrochannel;
+			sourceTree = "<group>";
+		};
+		F3FE84FE1BD12CD0008C24B7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F3FE84FF1BD12CD0008C24B7 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -351,6 +439,23 @@
 			name = Dobrochannel;
 			productName = dobrochannel;
 			productReference = F33D94001B5BD8E7000AA303 /* Dobrochannel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F3FE85131BD12D17008C24B7 /* DobrochannelEnhanced */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3FE85421BD12D17008C24B7 /* Build configuration list for PBXNativeTarget "DobrochannelEnhanced" */;
+			buildPhases = (
+				F3FE85141BD12D17008C24B7 /* Sources */,
+				F3FE85341BD12D17008C24B7 /* Frameworks */,
+				F3FE85351BD12D17008C24B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DobrochannelEnhanced;
+			productName = dobrochannel;
+			productReference = F3FE85451BD12D17008C24B7 /* DobrochannelEnhanced.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -383,6 +488,7 @@
 			projectRoot = "";
 			targets = (
 				F33D93FF1B5BD8E7000AA303 /* Dobrochannel */,
+				F3FE85131BD12D17008C24B7 /* DobrochannelEnhanced */,
 			);
 		};
 /* End PBXProject section */
@@ -404,6 +510,25 @@
 				F3B063C01B7A9764003BA83E /* Assets.xcassets in Resources */,
 				F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */,
 				F3B063CB1B7B3F6E003BA83E /* DanbooruPickerViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3FE85351BD12D17008C24B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FE85361BD12D17008C24B7 /* AnswerCollectionViewCell.xib in Resources */,
+				F3FE85371BD12D17008C24B7 /* ContentViewController.xib in Resources */,
+				F3FE85381BD12D17008C24B7 /* ThreadTableViewCell.xib in Resources */,
+				F3FE85391BD12D17008C24B7 /* DetailedAttachmentViewController.xib in Resources */,
+				F3FE853A1BD12D17008C24B7 /* SearchSuggestionTableViewCell.xib in Resources */,
+				F3FE853B1BD12D17008C24B7 /* ImageCollectionViewCell.xib in Resources */,
+				F3FE853C1BD12D17008C24B7 /* Launch Screen.xib in Resources */,
+				F3FE853D1BD12D17008C24B7 /* PostTableViewCell.xib in Resources */,
+				F3FE853E1BD12D17008C24B7 /* Main.storyboard in Resources */,
+				F3FE853F1BD12D17008C24B7 /* Assets.xcassets in Resources */,
+				F3FE85401BD12D17008C24B7 /* PostViewController.xib in Resources */,
+				F3FE85411BD12D17008C24B7 /* DanbooruPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +573,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F3FE85141BD12D17008C24B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FE85151BD12D17008C24B7 /* EULAViewController.m in Sources */,
+				F3FE85161BD12D17008C24B7 /* Board.xcdatamodeld in Sources */,
+				F3FE85171BD12D17008C24B7 /* UserDefaults.m in Sources */,
+				F3FE85181BD12D17008C24B7 /* AutoLayoutStackView.m in Sources */,
+				F3FE85191BD12D17008C24B7 /* ContentViewController.m in Sources */,
+				F3FE851A1BD12D17008C24B7 /* SettingsViewController.m in Sources */,
+				F3FE851B1BD12D17008C24B7 /* BoardViewController.m in Sources */,
+				F3FE851C1BD12D17008C24B7 /* BoardAPI.m in Sources */,
+				F3FE851D1BD12D17008C24B7 /* DanbooruAPI.m in Sources */,
+				F3FE851E1BD12D17008C24B7 /* BoardMarkupParser.m in Sources */,
+				F3FE851F1BD12D17008C24B7 /* PostViewController.m in Sources */,
+				F3FE85201BD12D17008C24B7 /* MessageTextViewDelegate.m in Sources */,
+				F3FE85211BD12D17008C24B7 /* SearchSuggestionTableViewCell.m in Sources */,
+				F3FE85221BD12D17008C24B7 /* AppDelegate.m in Sources */,
+				F3FE85231BD12D17008C24B7 /* ShowAttachmentsViewController.m in Sources */,
+				F3FE85241BD12D17008C24B7 /* ThreadTableViewCell.m in Sources */,
+				F3FE85251BD12D17008C24B7 /* NewPostViewController.m in Sources */,
+				F3FE85261BD12D17008C24B7 /* BoardRequestParser.m in Sources */,
+				F3FE85271BD12D17008C24B7 /* main.m in Sources */,
+				F3FE85281BD12D17008C24B7 /* DanbooruPickerViewController.m in Sources */,
+				F3FE85291BD12D17008C24B7 /* DetailedAttachmentViewController.m in Sources */,
+				F3FE852A1BD12D17008C24B7 /* UIViewController+Popups.m in Sources */,
+				F3FE852B1BD12D17008C24B7 /* PostTableViewCell.m in Sources */,
+				F3FE852C1BD12D17008C24B7 /* BoardSwitcherViewController.m in Sources */,
+				F3FE852D1BD12D17008C24B7 /* BoardTableViewCell.m in Sources */,
+				F3FE852E1BD12D17008C24B7 /* AttachmentsTableDelegate.m in Sources */,
+				F3FE852F1BD12D17008C24B7 /* ThreadViewController.m in Sources */,
+				F3FE85301BD12D17008C24B7 /* BoardPostResponseParser.m in Sources */,
+				F3FE85311BD12D17008C24B7 /* ImageCollectionViewCell.m in Sources */,
+				F3FE85321BD12D17008C24B7 /* AnswerCollectionViewCell.m in Sources */,
+				F3FE85331BD12D17008C24B7 /* BoardManagedObjectContext.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -457,6 +620,22 @@
 				F33D940D1B5BD8E7000AA303 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3FE85071BD12CD0008C24B7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3FE85081BD12CD0008C24B7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3FE850C1BD12CD0008C24B7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3FE850D1BD12CD0008C24B7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -551,6 +730,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"RESTRICTIONS=1",
+					"DEBUG=1",
+				);
 				INFOPLIST_FILE = dobrochannel/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -568,7 +751,43 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "RESTRICTIONS=1";
 				INFOPLIST_FILE = dobrochannel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.shdwprince.dobrochannel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		F3FE85431BD12D17008C24B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = "Dobrochannel copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.shdwprince.dobrochannel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3FE85441BD12D17008C24B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = "Dobrochannel copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.shdwprince.dobrochannel;
@@ -594,6 +813,15 @@
 			buildConfigurations = (
 				F33D94181B5BD8E7000AA303 /* Debug */,
 				F33D94191B5BD8E7000AA303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3FE85421BD12D17008C24B7 /* Build configuration list for PBXNativeTarget "DobrochannelEnhanced" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3FE85431BD12D17008C24B7 /* Debug */,
+				F3FE85441BD12D17008C24B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

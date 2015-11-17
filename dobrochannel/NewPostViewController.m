@@ -52,7 +52,6 @@
 
     [self loadInReplyTo];
     [self loadCaptcha];
-    self.title = [NSString stringWithFormat:@"Reply into %@/%@", self.board, self.thread_identifier];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -69,10 +68,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) loadInReplyTo {
+    self.title = [NSString stringWithFormat:@"Reply into %@/%@", self.board, self.thread_identifier];
+
     if (self.inReplyToIdentifier) {
         self.inReplyToTextView.attributedText = self.inReplyToMessage;
         if ([self.messageTextView.text isEqualToString:@""])
@@ -125,8 +125,7 @@
 
     [[BoardAPI api] postInto:self.thread_identifier
                           at:self.board
-                        data:@{
-                               @"message": self.messageTextView.text,
+                        data:@{@"message": self.messageTextView.text,
                                @"captcha": self.captchaTextField.text,
                                @"password": [UserDefaults postPassword],
                                @"files": files, }
@@ -191,7 +190,7 @@
 
 - (void) textViewDidChange:(UITextView *)textView {
     [self.parserQueue addOperationWithBlock:^{
-        NSAttributedString *str = [self.parser parse:self.previewTextView.text];
+        NSAttributedString *str = [self.parser parse:textView.text];
         dispatch_sync(dispatch_get_main_queue(), ^{
             self.previewTextView.attributedText = str;
         });
@@ -285,6 +284,7 @@
     [super decodeRestorableStateWithCoder:coder];
 
     self.messageTextView.text = [coder decodeObjectForKey:@"messageTextView.text"];
+    self.previewTextView.attributedText = [self.parser parse:self.messageTextView.text];
     self.board = [coder decodeObjectForKey:@"board"];
     self.attachedImages = [coder decodeObjectForKey:@"attachedImages"];
     self.attachedRatings = [coder decodeObjectForKey:@"attachedRatings"];
@@ -292,8 +292,8 @@
     self.inReplyToIdentifier = [coder decodeObjectForKey:@"inReplyToIdentifier"];
     self.thread_identifier = [coder decodeObjectForKey:@"thread_identifier"];
 
-    [self loadInReplyTo];
 
+    [self loadInReplyTo];
     [self.attachmentsCollectionView reloadData];
 }
 
