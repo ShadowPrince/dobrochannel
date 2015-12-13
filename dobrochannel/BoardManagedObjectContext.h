@@ -28,6 +28,7 @@
 - (NSManagedObject *) postObjectForDisplayId:(NSNumber *) _id;
 - (void) clearPersistentStorage;
 
+- (NSArray *) requestAttachmentsForThread:(NSNumber *)display_identifier;
 - (NSArray *) requestAttachmentsFor:(NSManagedObject *) post;
 - (NSArray *) requestThreads;
 - (NSArray *) requestPostsFrom:(NSManagedObject *) thread;

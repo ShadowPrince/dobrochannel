@@ -113,6 +113,24 @@
     return MAX(attach, message);
 }
 
+- (void) setOpacity:(BOOL) op {
+    UIColor *background = nil;
+
+    if (op) {
+        background = [UIColor clearColor];
+    } else {
+        background = [UIColor whiteColor];
+    }
+
+    for (UIView *view in @[self.dateLabel,
+                           self.idLabel,
+                           self.messageTextView,
+                           self.attachmentsView, ]) {
+        [view setValuesForKeysWithDictionary:@{@"backgroundColor": background,
+                                               @"opaque": [NSNumber numberWithBool:op], }];
+    }
+}
+
 #pragma mark answers collection view
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

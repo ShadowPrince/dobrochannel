@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContentViewController">
             <connections>
+                <outlet property="hidedProgressView" destination="Hsy-8q-pYR" id="Fnx-oR-Gxb"/>
+                <outlet property="hidedProgressViewWidth" destination="HJp-hU-FhK" id="fbn-Yy-PWm"/>
                 <outlet property="progressView" destination="dzy-Ca-fsd" id="p4I-Li-QmJ"/>
                 <outlet property="tableView" destination="etf-Cz-pSu" id="4yH-1o-6nZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,7 +30,7 @@
                     </connections>
                 </tableView>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzy-Ca-fsd">
-                    <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                    <rect key="frame" x="0.0" y="64" width="454" height="2"/>
                     <animations/>
                     <gestureRecognizers/>
                     <constraints>
@@ -35,14 +38,28 @@
                     </constraints>
                     <color key="progressTintColor" red="0.98431372549999996" green="0.30588235289999999" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
                 </progressView>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hsy-8q-pYR">
+                    <rect key="frame" x="468" y="64" width="132" height="2"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="HJp-hU-FhK"/>
+                    </constraints>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Hsy-8q-pYR" secondAttribute="trailing" id="6GD-MH-FAp"/>
+                <constraint firstItem="Hsy-8q-pYR" firstAttribute="height" secondItem="etf-Cz-pSu" secondAttribute="height" id="8EE-UL-e39"/>
+                <constraint firstItem="Hsy-8q-pYR" firstAttribute="centerY" secondItem="etf-Cz-pSu" secondAttribute="centerY" id="Bwm-qk-TEL"/>
                 <constraint firstAttribute="bottom" secondItem="etf-Cz-pSu" secondAttribute="bottom" id="G1u-PY-dJx"/>
                 <constraint firstAttribute="trailing" secondItem="etf-Cz-pSu" secondAttribute="trailing" id="Jyr-fn-nDE"/>
-                <constraint firstAttribute="trailing" secondItem="dzy-Ca-fsd" secondAttribute="trailing" id="Nam-WV-DJa"/>
+                <constraint firstAttribute="trailing" secondItem="dzy-Ca-fsd" secondAttribute="trailing" constant="30" id="Nam-WV-DJa"/>
+                <constraint firstItem="Hsy-8q-pYR" firstAttribute="centerY" secondItem="dzy-Ca-fsd" secondAttribute="centerY" id="NcV-eI-a0e"/>
+                <constraint firstItem="Hsy-8q-pYR" firstAttribute="height" secondItem="dzy-Ca-fsd" secondAttribute="height" id="Nno-yI-ccQ"/>
+                <constraint firstItem="Hsy-8q-pYR" firstAttribute="leading" secondItem="dzy-Ca-fsd" secondAttribute="trailing" id="WUO-EX-4i1"/>
                 <constraint firstItem="etf-Cz-pSu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gSZ-EH-d9t"/>
                 <constraint firstItem="dzy-Ca-fsd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hEq-xz-GRa"/>
                 <constraint firstItem="dzy-Ca-fsd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="sca-hB-5bP"/>
@@ -50,13 +67,17 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="Nam-WV-DJa"/>
                     <exclude reference="sca-hB-5bP"/>
+                    <exclude reference="8EE-UL-e39"/>
+                    <exclude reference="Bwm-qk-TEL"/>
                 </mask>
             </variation>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="whe-99-yaY" appends="YES" id="E8m-TG-96Y"/>
                 <outletCollection property="gestureRecognizers" destination="5tq-Am-0l0" appends="YES" id="Hfe-hp-HeH"/>
                 <outletCollection property="gestureRecognizers" destination="Kye-NK-c5G" appends="YES" id="k2e-mx-trP"/>
+                <outletCollection property="gestureRecognizers" destination="rrz-zW-DKr" appends="YES" id="CbV-Kl-aRm"/>
             </connections>
             <point key="canvasLocation" x="-108" y="262"/>
         </view>
@@ -68,6 +89,11 @@
         <swipeGestureRecognizer direction="left" id="5tq-Am-0l0">
             <connections>
                 <action selector="previousThreadGesture:" destination="-1" id="U2D-sc-g9J"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="rrz-zW-DKr">
+            <connections>
+                <action selector="threadLastPostGesture:" destination="-1" id="q5h-bQ-jLb"/>
             </connections>
         </swipeGestureRecognizer>
         <panGestureRecognizer delaysTouchesEnded="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="Kye-NK-c5G">

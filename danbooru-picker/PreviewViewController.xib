@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PreviewViewController">
+            <connections>
+                <outlet property="bottomToolbar" destination="SH1-Z9-Wpn" id="PGf-JD-PAG"/>
+                <outlet property="imageView" destination="F4B-c8-oss" id="1Of-O1-K6p"/>
+                <outlet property="scrollView" destination="itP-A1-7uB" id="Hqz-jp-zgp"/>
+                <outlet property="view" destination="iN0-l3-epB" id="0zS-gr-HH9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" maximumZoomScale="10" translatesAutoresizingMaskIntoConstraints="NO" id="itP-A1-7uB">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F4B-c8-oss">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="TJQ-9r-GbY"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="c8x-8T-TTY"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="F4B-c8-oss" secondAttribute="bottom" id="AA1-Dy-7gS"/>
+                        <constraint firstItem="F4B-c8-oss" firstAttribute="leading" secondItem="itP-A1-7uB" secondAttribute="leading" id="O7G-Nb-hWe"/>
+                        <constraint firstItem="F4B-c8-oss" firstAttribute="top" secondItem="itP-A1-7uB" secondAttribute="top" id="UDw-vS-zeG"/>
+                        <constraint firstAttribute="trailing" secondItem="F4B-c8-oss" secondAttribute="trailing" id="mNk-yw-Vfh"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="rdY-mK-6uN"/>
+                    </connections>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-Z9-Wpn" customClass="ILTranslucentView">
+                    <rect key="frame" x="0.0" y="434" width="320" height="46"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWX-Xg-D5U">
+                            <rect key="frame" x="8" y="8" width="148" height="30"/>
+                            <animations/>
+                            <state key="normal" title="Attach"/>
+                            <connections>
+                                <action selector="attachAction:" destination="-1" eventType="touchUpInside" id="eM2-Kq-44K"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eX9-ez-6aW">
+                            <rect key="frame" x="164" y="8" width="148" height="30"/>
+                            <animations/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="sqs-Rg-R4Z"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="SWX-Xg-D5U" firstAttribute="leading" secondItem="SH1-Z9-Wpn" secondAttribute="leading" constant="8" id="0je-U5-Sps"/>
+                        <constraint firstItem="eX9-ez-6aW" firstAttribute="top" secondItem="SH1-Z9-Wpn" secondAttribute="top" constant="8" id="1JN-v4-oaU"/>
+                        <constraint firstAttribute="trailing" secondItem="eX9-ez-6aW" secondAttribute="trailing" constant="8" id="5YJ-n9-2vJ"/>
+                        <constraint firstAttribute="bottom" secondItem="SWX-Xg-D5U" secondAttribute="bottom" constant="8" id="B2j-m4-9Mc"/>
+                        <constraint firstItem="SWX-Xg-D5U" firstAttribute="top" secondItem="SH1-Z9-Wpn" secondAttribute="top" constant="8" id="NAn-7J-dXU"/>
+                        <constraint firstAttribute="bottom" secondItem="eX9-ez-6aW" secondAttribute="bottom" constant="8" id="NGd-Sy-ZTd"/>
+                        <constraint firstItem="eX9-ez-6aW" firstAttribute="leading" secondItem="SWX-Xg-D5U" secondAttribute="trailing" constant="8" id="S24-6r-QnB"/>
+                        <constraint firstItem="SWX-Xg-D5U" firstAttribute="width" secondItem="eX9-ez-6aW" secondAttribute="width" id="h68-hz-Qja"/>
+                        <constraint firstItem="eX9-ez-6aW" firstAttribute="leading" secondItem="SWX-Xg-D5U" secondAttribute="trailing" constant="8" id="mSD-Fh-Vi8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="itP-A1-7uB" secondAttribute="trailing" id="9X8-PB-lwq"/>
+                <constraint firstAttribute="trailing" secondItem="SH1-Z9-Wpn" secondAttribute="trailing" id="BAf-Ha-ekZ"/>
+                <constraint firstItem="itP-A1-7uB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JGz-Ma-q2m"/>
+                <constraint firstAttribute="bottom" secondItem="itP-A1-7uB" secondAttribute="bottom" id="JXo-FA-DT7"/>
+                <constraint firstItem="itP-A1-7uB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eaa-LV-5dS"/>
+                <constraint firstAttribute="bottom" secondItem="SH1-Z9-Wpn" secondAttribute="bottom" id="kAx-s4-6aq"/>
+                <constraint firstItem="SH1-Z9-Wpn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="slD-tb-EuQ"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

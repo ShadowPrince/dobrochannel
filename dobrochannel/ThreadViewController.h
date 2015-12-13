@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "ContentViewController.h"
 #import "NewPostViewController.h"
+#import "FavoritesViewController.h"
+#import "ThreadAttachmentsViewController.h"
 
 @interface ThreadViewController : ContentViewController
 @property (nonatomic) NSNumber *identifier;

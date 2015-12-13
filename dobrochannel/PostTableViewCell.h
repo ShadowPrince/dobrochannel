@@ -22,4 +22,6 @@
 - (void) setHeaderTouchTarget:(id) target
                        action:(SEL) action;
 
+- (void) setOpacity:(BOOL) op;
+
 @end

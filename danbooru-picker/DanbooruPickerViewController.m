@@ -21,7 +21,8 @@
 
 @property NSMutableArray *imageInfos;
 @property NSMutableDictionary *thumbnailTasks;
-@property NSMutableDictionary *imageDownloadingProgress;
+@property NSMutableDictionary<NSDictionary *, NSValue *> *imageDownloadingProgress;
+@property NSMutableDictionary<NSDictionary *, NSValue *> *imageAttachStatus;
 @property NSArray *searchTags;
 @property NSURLSessionTask *searchTask;
 //--
@@ -55,12 +56,17 @@
     [super viewDidLayoutSubviews];
 
     CGFloat size = 0;
-
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        size = self.view.frame.size.width / 9;
+    CGFloat width = self.view.frame.size.width;
+    if (width >= 1024) {
+        size = self.view.frame.size.width / 6;
+    } else if (width >= 512) {
+        size = self.view.frame.size.width / 4;
     } else {
         size = self.view.frame.size.width / 3;
     }
+
+    size -= 5.f;
+
     [(UICollectionViewFlowLayout *) self.collectionView.collectionViewLayout setItemSize:CGSizeMake(size, size)];
 }
 
@@ -73,6 +79,7 @@
     self.imageInfos = [NSMutableArray new];
     self.searchTags = [NSMutableArray new];
     self.imageDownloadingProgress = [NSMutableDictionary new];
+    self.imageAttachStatus = [NSMutableDictionary new];
 
     [self.collectionView reloadData];
 }
@@ -104,9 +111,15 @@
     NSDictionary *entry = self.imageInfos[indexPath.row];
     self.requestedImages++;
 
+    DanbooruPickerViewController __weak *_self = self;
     [self.api downloadImage:entry finishCallback:^(NSURL *url) {
-        [self.delegate danbooruPicker:self didPickImageAt:url];
-        self.attachedImages++;
+
+        PreviewViewController *pvc = [PreviewViewController new];
+        pvc.context = @{@"entry": entry,
+                        @"url": url, };
+        pvc.image = [[UIImage alloc] initWithContentsOfFile:url.path];
+        pvc.delegate = _self;
+        [self presentViewController:pvc animated:YES completion:nil];
     }];
 }
 
@@ -120,6 +133,22 @@
 
 - (IBAction)doneAction:(id)sender {
     [self.delegate danbooruPicker:self didFinishPicking:self.attachedImages];
+}
+
+#pragma mark - preview
+
+- (void) didCancelled:(NSObject *)context {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) didAttached:(NSObject *)context {
+    NSDictionary *entry = (NSDictionary *) [context valueForKey:@"entry"];
+    self.imageAttachStatus[entry] = @YES;
+    [self reloadRowsForImageDict:entry];
+    
+    [self.delegate danbooruPicker:self didPickImageAt:(NSURL *) [context valueForKey:@"url"]];
+    self.attachedImages++;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - api
@@ -153,9 +182,7 @@
                            of:(long long)total {
     NSValue *value = [NSValue valueWithCGSize:CGSizeMake((CGFloat) completed, (CGFloat) total)];
     self.imageDownloadingProgress[image] = value;
-    NSInteger row = [self.imageInfos indexOfObject:image];
-
-    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]]];
+    [self reloadRowsForImageDict:image];
 }
 
 #pragma mark - tag search
@@ -231,6 +258,7 @@
         self.thumbnailTasks[indexPath] = task;
 
     cell.sizeLabel.text = [NSByteCountFormatter stringFromByteCount:[(NSNumber *) info[@"file_size"] longLongValue] countStyle:NSByteCountFormatterCountStyleFile];
+    cell.attachedLabel.hidden = !self.imageAttachStatus[info];
 
     NSValue *downloadingProgress = self.imageDownloadingProgress[info];
     if (downloadingProgress) {
@@ -254,6 +282,11 @@
     c.popoverPresentationController.sourceView = self.view;
     [c addAction:[UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:c animated:YES completion:nil];
+}
+
+- (void) reloadRowsForImageDict:(NSDictionary *) image {
+    NSInteger row = [self.imageInfos indexOfObject:image];
+    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]]];
 }
 
 @end

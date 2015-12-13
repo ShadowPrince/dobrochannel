@@ -24,7 +24,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewFixedWidthContraint;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UIButton *reportMessageButton;
+@property (weak, nonatomic) IBOutlet UIView *captchaView;
 
+@property UIAlertController *loadingAlertController;
 @property BoardMarkupParser *parser;
 @property NSOperationQueue *parserQueue;
 @property NSURLSessionTask *captchaTask;
@@ -34,6 +36,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView *captchaViewEmbed = [[NSBundle mainBundle] loadNibNamed:@"CaptchaView" owner:self options:nil][0];
+    captchaViewEmbed.frame = CGRectMake(0, 0, self.captchaView.frame.size.width, self.captchaView.frame.size.height);
+    [self.captchaView addSubview:captchaViewEmbed];
+
+    self.captchaImageView = [captchaViewEmbed viewWithTag:100];
+    self.captchaTextField = [captchaViewEmbed viewWithTag:101];
+
     self.attachedImages = [NSMutableArray new];
     self.attachedRatings = [NSMutableArray new];
     if (self.messagePlaceholder) {
@@ -44,11 +53,13 @@
     self.previewTextView.text = @"";
     self.parser = [BoardMarkupParser defaultParser];
     self.parserQueue = [NSOperationQueue new];
-    self.textViewWidthConstraint.active = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
 
     if ([[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
         self.danbooruButton.hidden = NO;
     }
+
+    if (![UserDefaults showReportButton])
+        self.reportMessageButton.hidden = YES;
 
     [self loadInReplyTo];
     [self loadCaptcha];
@@ -62,7 +73,8 @@
 }
 
 - (void) viewDidLayoutSubviews {
-    self.textViewFixedWidthContraint.constant = self.view.frame.size.width / 2 - 16.f;
+    self.textViewWidthConstraint.active = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone;
+    self.textViewFixedWidthContraint.constant = self.view.frame.size.width / 2;
     [super viewDidLayoutSubviews];
 }
 
@@ -112,10 +124,45 @@
 
 #pragma mark actions
 
-- (IBAction)postItAction:(id)sender {
-    [self.activityIndicator startAnimating];
+- (IBAction)deletePostAction:(id)sender {
+    UIViewController *progressbarEmbedController = [self.storyboard instantiateViewControllerWithIdentifier:@"activityEmbed"];
+    RMUniversalAlert *alert = [RMUniversalAlert showAlertInViewController:self
+                                                                withTitle:@"Deleting post..."
+                                                                  message:nil
+                                                        cancelButtonTitle:nil
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:nil
+                                                                 tapBlock:nil];
+    [alert presentViewController:progressbarEmbedController];
 
-    self.view.window.userInteractionEnabled = NO;
+    [[BoardAPI api] deletePost:self.inReplyToIdentifier
+                    fromThread:self.thread_internal_identifier
+                         board:self.board
+                finishCallback:^(NSArray *errors) {
+                    [alert.alertController dismissViewControllerAnimated:YES completion:nil];
+
+                    if (!errors) {
+                        [self performSegueWithIdentifier:@"unwindFromNewPost" sender:nil];
+                    } else {
+                        if (!errors.count) {
+                            [self displayErrors:@[@"Unknown error"]];
+                        } else {
+                            [self displayErrors:errors];
+                        }
+                    }
+                }];
+}
+
+- (IBAction)postItAction:(id)sender {
+    UIViewController *progressbarEmbedController = [self.storyboard instantiateViewControllerWithIdentifier:@"progressbarEmbed"];
+    RMUniversalAlert *alert = [RMUniversalAlert showAlertInViewController:self
+                                                                withTitle:@"Submitting post..."
+                                                                  message:nil
+                                                        cancelButtonTitle:nil
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:nil
+                                                                 tapBlock:nil];
+    [alert presentViewController:progressbarEmbedController];
 
     NSMutableArray *files = [NSMutableArray new];
     for (int i = 0; i < self.attachedImages.count; i++) {
@@ -129,23 +176,23 @@
                                @"captcha": self.captchaTextField.text,
                                @"password": [UserDefaults postPassword],
                                @"files": files, }
-              finishCallback:^(NSArray *errors) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    self.view.window.userInteractionEnabled = YES;
+            progressCallback:^(long long completed, long long total) {
+                UIProgressView *progress = [progressbarEmbedController.view viewWithTag:100];
+                progress.progress = (float) completed / total;
 
-                    [self.activityIndicator stopAnimating];
+            } finishCallback:^(NSArray *errors) {
+                  [alert.alertController dismissViewControllerAnimated:YES completion:nil];
 
-                    if (!errors) {
-                        [self performSegueWithIdentifier:@"unwindFromNewPost" sender:nil];
-                    } else {
-                        [self loadCaptcha];
-                        if (!errors.count) {
-                            [self displayErrors:@[@"Unknown error"]];
-                        } else {
-                            [self displayErrors:errors];
-                        }
-                    }
-                });
+                  if (!errors) {
+                      [self performSegueWithIdentifier:@"unwindFromNewPost" sender:nil];
+                  } else {
+                      [self loadCaptcha];
+                      if (!errors.count) {
+                          [self displayErrors:@[@"Unknown error"]];
+                      } else {
+                          [self displayErrors:errors];
+                      }
+                  }
               }];
 }
 

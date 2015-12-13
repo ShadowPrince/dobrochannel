@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3373A0F9D1460E30B409F496 /* libPods-Dobrochannel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FD0A78B9EA811240934DC3 /* libPods-Dobrochannel.a */; };
+		59BACD9932DF681C36B0AEF5 /* libPods-DobrochannelEnhanced.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B67DCCB2625C10751AEFEF52 /* libPods-DobrochannelEnhanced.a */; };
+		F310247D1C1B05B70064C473 /* ThreadHiderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F310247C1C1B05B70064C473 /* ThreadHiderViewController.m */; };
+		F310247F1C1B15C90064C473 /* CaptchaView~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = F310247E1C1B15C90064C473 /* CaptchaView~iphone.xib */; };
+		F31024811C1B15D80064C473 /* CaptchaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31024801C1B15D80064C473 /* CaptchaView.xib */; };
+		F31024841C1C91320064C473 /* BoardRequestProgressConnectionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31024831C1C91320064C473 /* BoardRequestProgressConnectionDelegate.m */; };
 		F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
 		F31B7C4D1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */; };
 		F31B7C531B8F16A200C56C14 /* UIViewController+Popups.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */; };
@@ -25,10 +31,18 @@
 		F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
 		F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
 		F39369361B5E86290068A85F /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369351B5E86290068A85F /* BoardViewController.m */; };
+		F396834E1C1CBC33006CB10D /* SPAnimationChain.m in Sources */ = {isa = PBXBuildFile; fileRef = F396834D1C1CBC33006CB10D /* SPAnimationChain.m */; };
+		F39683521C1CE9C4006CB10D /* RFQuiltLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F39683511C1CE9C4006CB10D /* RFQuiltLayout.m */; };
+		F39683581C1CEA49006CB10D /* ThreadAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39683571C1CEA49006CB10D /* ThreadAttachmentsViewController.m */; };
+		F39ADD7D1C1AD7EB00F956F1 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39ADD7C1C1AD7EB00F956F1 /* PreviewViewController.m */; };
+		F39ADD7F1C1AD80700F956F1 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F39ADD7E1C1AD80700F956F1 /* PreviewViewController.xib */; };
+		F39ADD821C1ADDCB00F956F1 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = F39ADD811C1ADDCB00F956F1 /* ILTranslucentView.m */; };
+		F39ADD8B1C1AEE5700F956F1 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39ADD8A1C1AEE5700F956F1 /* FavoritesViewController.m */; };
+		F39ADD8E1C1AF74100F956F1 /* BoardContextualNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39ADD8D1C1AF74100F956F1 /* BoardContextualNavigationViewController.m */; };
 		F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */; };
 		F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */; };
 		F3B063C01B7A9764003BA83E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3B063BF1B7A9764003BA83E /* Assets.xcassets */; };
-		F3B063C61B7AB5FC003BA83E /* BoardPostResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C51B7AB5FC003BA83E /* BoardPostResponseParser.m */; };
+		F3B063C61B7AB5FC003BA83E /* BoardWebResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C51B7AB5FC003BA83E /* BoardWebResponseParser.m */; };
 		F3B063CA1B7B3F6E003BA83E /* DanbooruPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C81B7B3F6E003BA83E /* DanbooruPickerViewController.m */; };
 		F3B063CB1B7B3F6E003BA83E /* DanbooruPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063C91B7B3F6E003BA83E /* DanbooruPickerViewController.xib */; };
 		F3B063D01B7B3FD0003BA83E /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */; };
@@ -36,7 +50,7 @@
 		F3B063D41B7B412E003BA83E /* DanbooruAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063D31B7B412E003BA83E /* DanbooruAPI.m */; };
 		F3B063DC1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */; };
 		F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */; };
-		F3B182811BBBD9D600129140 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F3B182811BBBD9D600129140 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; };
 		F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B21B5DAAD300721CD8 /* ThreadTableViewCell.m */; };
 		F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B937B31B5DAAD300721CD8 /* ThreadTableViewCell.xib */; };
 		F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937B71B5DAAFA00721CD8 /* PostTableViewCell.m */; };
@@ -46,11 +60,13 @@
 		F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */; };
 		F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BD076F1B683D79000946B5 /* SettingsViewController.m */; };
 		F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */; };
+		F3C6D9041C1C9F8C00151C32 /* RMPopoverPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C6D9011C1C9F8C00151C32 /* RMPopoverPresentationController.m */; };
+		F3C6D9051C1C9F8C00151C32 /* RMUniversalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C6D9031C1C9F8C00151C32 /* RMUniversalAlert.m */; };
 		F3DC6FED1B6A46FD0063857A /* MessageTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */; };
 		F3DC6FF11B6B93E60063857A /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DC6FEF1B6B93E60063857A /* PostViewController.m */; };
 		F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3DC6FF01B6B93E60063857A /* PostViewController.xib */; };
 		F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */; };
-		F3FE85151BD12D17008C24B7 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; settings = {ASSET_TAGS = (); }; };
+		F3FE85151BD12D17008C24B7 /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B182801BBBD9D600129140 /* EULAViewController.m */; };
 		F3FE85161BD12D17008C24B7 /* Board.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C31B5E64F500721CD8 /* Board.xcdatamodeld */; };
 		F3FE85171BD12D17008C24B7 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F38CAC481B68496E00A2EF98 /* UserDefaults.m */; };
 		F3FE85181BD12D17008C24B7 /* AutoLayoutStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */; };
@@ -77,7 +93,7 @@
 		F3FE852D1BD12D17008C24B7 /* BoardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937BE1B5E55D700721CD8 /* BoardTableViewCell.m */; };
 		F3FE852E1BD12D17008C24B7 /* AttachmentsTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F3796B111B64EC9B0001D81F /* AttachmentsTableDelegate.m */; };
 		F3FE852F1BD12D17008C24B7 /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
-		F3FE85301BD12D17008C24B7 /* BoardPostResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C51B7AB5FC003BA83E /* BoardPostResponseParser.m */; };
+		F3FE85301BD12D17008C24B7 /* BoardWebResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063C51B7AB5FC003BA83E /* BoardWebResponseParser.m */; };
 		F3FE85311BD12D17008C24B7 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */; };
 		F3FE85321BD12D17008C24B7 /* AnswerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */; };
 		F3FE85331BD12D17008C24B7 /* BoardManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */; };
@@ -96,6 +112,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13FD0A78B9EA811240934DC3 /* libPods-Dobrochannel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dobrochannel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21EADEC27FC4C06D3396B88B /* Pods-DobrochannelEnhanced.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DobrochannelEnhanced.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DobrochannelEnhanced/Pods-DobrochannelEnhanced.debug.xcconfig"; sourceTree = "<group>"; };
+		353310B716B525B8CAFB0F73 /* Pods-DobrochannelEnhanced.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DobrochannelEnhanced.release.xcconfig"; path = "Pods/Target Support Files/Pods-DobrochannelEnhanced/Pods-DobrochannelEnhanced.release.xcconfig"; sourceTree = "<group>"; };
+		6E0E7E0FD0D49B4B2CC0F00A /* Pods-Dobrochannel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dobrochannel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dobrochannel/Pods-Dobrochannel.debug.xcconfig"; sourceTree = "<group>"; };
+		B67DCCB2625C10751AEFEF52 /* libPods-DobrochannelEnhanced.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DobrochannelEnhanced.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB5C6DE9A0C485EC236648CE /* Pods-Dobrochannel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dobrochannel.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dobrochannel/Pods-Dobrochannel.release.xcconfig"; sourceTree = "<group>"; };
+		F310247B1C1B05B70064C473 /* ThreadHiderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadHiderViewController.h; sourceTree = "<group>"; };
+		F310247C1C1B05B70064C473 /* ThreadHiderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadHiderViewController.m; sourceTree = "<group>"; };
+		F310247E1C1B15C90064C473 /* CaptchaView~iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "CaptchaView~iphone.xib"; sourceTree = "<group>"; };
+		F31024801C1B15D80064C473 /* CaptchaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CaptchaView.xib; sourceTree = "<group>"; };
+		F31024821C1C91320064C473 /* BoardRequestProgressConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardRequestProgressConnectionDelegate.h; sourceTree = "<group>"; };
+		F31024831C1C91320064C473 /* BoardRequestProgressConnectionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardRequestProgressConnectionDelegate.m; sourceTree = "<group>"; };
 		F31B7C491B8A0F8E00C56C14 /* AnswerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerCollectionViewCell.h; sourceTree = "<group>"; };
 		F31B7C4A1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerCollectionViewCell.m; sourceTree = "<group>"; };
 		F31B7C4B1B8A0F8E00C56C14 /* AnswerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -128,13 +156,28 @@
 		F39369321B5E839F0068A85F /* ThreadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadViewController.m; sourceTree = "<group>"; };
 		F39369341B5E86290068A85F /* BoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardViewController.h; sourceTree = "<group>"; };
 		F39369351B5E86290068A85F /* BoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardViewController.m; sourceTree = "<group>"; };
+		F396834C1C1CBC33006CB10D /* SPAnimationChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPAnimationChain.h; path = libs/SPChainAnimations/SPAnimationChain.h; sourceTree = "<group>"; };
+		F396834D1C1CBC33006CB10D /* SPAnimationChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPAnimationChain.m; path = libs/SPChainAnimations/SPAnimationChain.m; sourceTree = "<group>"; };
+		F39683501C1CE9C4006CB10D /* RFQuiltLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RFQuiltLayout.h; path = libs/RFQuiltLayout/RFQuiltLayout.h; sourceTree = "<group>"; };
+		F39683511C1CE9C4006CB10D /* RFQuiltLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RFQuiltLayout.m; path = libs/RFQuiltLayout/RFQuiltLayout.m; sourceTree = "<group>"; };
+		F39683561C1CEA49006CB10D /* ThreadAttachmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadAttachmentsViewController.h; sourceTree = "<group>"; };
+		F39683571C1CEA49006CB10D /* ThreadAttachmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreadAttachmentsViewController.m; sourceTree = "<group>"; };
+		F39ADD7B1C1AD7EB00F956F1 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewViewController.h; path = "danbooru-picker/PreviewViewController.h"; sourceTree = "<group>"; };
+		F39ADD7C1C1AD7EB00F956F1 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewViewController.m; path = "danbooru-picker/PreviewViewController.m"; sourceTree = "<group>"; };
+		F39ADD7E1C1AD80700F956F1 /* PreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreviewViewController.xib; path = "danbooru-picker/PreviewViewController.xib"; sourceTree = "<group>"; };
+		F39ADD801C1ADDCB00F956F1 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ILTranslucentView.h; path = "../osbourne-explorer/ILTranslucentView/ILTranslucentView.h"; sourceTree = "<group>"; };
+		F39ADD811C1ADDCB00F956F1 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ILTranslucentView.m; path = "../osbourne-explorer/ILTranslucentView/ILTranslucentView.m"; sourceTree = "<group>"; };
+		F39ADD891C1AEE5700F956F1 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		F39ADD8A1C1AEE5700F956F1 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		F39ADD8C1C1AF74100F956F1 /* BoardContextualNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardContextualNavigationViewController.h; sourceTree = "<group>"; };
+		F39ADD8D1C1AF74100F956F1 /* BoardContextualNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardContextualNavigationViewController.m; sourceTree = "<group>"; };
 		F39CACB51B60FFEE003BEA68 /* BoardMarkupParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardMarkupParser.h; sourceTree = "<group>"; };
 		F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardMarkupParser.m; sourceTree = "<group>"; };
 		F39CBEA51B5D71440049DB45 /* AutoLayoutStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutStackView.h; sourceTree = "<group>"; };
 		F39CBEA61B5D71440049DB45 /* AutoLayoutStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutStackView.m; sourceTree = "<group>"; };
 		F3B063BF1B7A9764003BA83E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F3B063C41B7AB5FC003BA83E /* BoardPostResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPostResponseParser.h; sourceTree = "<group>"; };
-		F3B063C51B7AB5FC003BA83E /* BoardPostResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardPostResponseParser.m; sourceTree = "<group>"; };
+		F3B063C41B7AB5FC003BA83E /* BoardWebResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardWebResponseParser.h; sourceTree = "<group>"; };
+		F3B063C51B7AB5FC003BA83E /* BoardWebResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardWebResponseParser.m; sourceTree = "<group>"; };
 		F3B063C71B7B3F6E003BA83E /* DanbooruPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DanbooruPickerViewController.h; path = "danbooru-picker/DanbooruPickerViewController.h"; sourceTree = "<group>"; };
 		F3B063C81B7B3F6E003BA83E /* DanbooruPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DanbooruPickerViewController.m; path = "danbooru-picker/DanbooruPickerViewController.m"; sourceTree = "<group>"; };
 		F3B063C91B7B3F6E003BA83E /* DanbooruPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DanbooruPickerViewController.xib; path = "danbooru-picker/DanbooruPickerViewController.xib"; sourceTree = "<group>"; };
@@ -163,6 +206,10 @@
 		F3BD076F1B683D79000946B5 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		F3C59D3E1B5E9CFC0053CA72 /* BoardRequestParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardRequestParser.h; sourceTree = "<group>"; };
 		F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardRequestParser.m; sourceTree = "<group>"; };
+		F3C6D9001C1C9F8C00151C32 /* RMPopoverPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMPopoverPresentationController.h; path = libs/RMUniversalAlert/RMPopoverPresentationController.h; sourceTree = "<group>"; };
+		F3C6D9011C1C9F8C00151C32 /* RMPopoverPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMPopoverPresentationController.m; path = libs/RMUniversalAlert/RMPopoverPresentationController.m; sourceTree = "<group>"; };
+		F3C6D9021C1C9F8C00151C32 /* RMUniversalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMUniversalAlert.h; path = libs/RMUniversalAlert/RMUniversalAlert.h; sourceTree = "<group>"; };
+		F3C6D9031C1C9F8C00151C32 /* RMUniversalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMUniversalAlert.m; path = libs/RMUniversalAlert/RMUniversalAlert.m; sourceTree = "<group>"; };
 		F3DC6FEB1B6A46FD0063857A /* MessageTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextViewDelegate.h; sourceTree = "<group>"; };
 		F3DC6FEC1B6A46FD0063857A /* MessageTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextViewDelegate.m; sourceTree = "<group>"; };
 		F3DC6FEE1B6B93E60063857A /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
@@ -180,7 +227,6 @@
 		F3FE850D1BD12CD0008C24B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3FE850F1BD12CD0008C24B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3FE85451BD12D17008C24B7 /* DobrochannelEnhanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DobrochannelEnhanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3FE85461BD12D17008C24B7 /* Dobrochannel copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Dobrochannel copy-Info.plist"; path = "/Users/sp/projects/ios/dobrochannel/Dobrochannel copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3373A0F9D1460E30B409F496 /* libPods-Dobrochannel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,21 +242,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59BACD9932DF681C36B0AEF5 /* libPods-DobrochannelEnhanced.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8E22B96E66E11C214DB2B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13FD0A78B9EA811240934DC3 /* libPods-Dobrochannel.a */,
+				B67DCCB2625C10751AEFEF52 /* libPods-DobrochannelEnhanced.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69F83D52581915CAE9E559EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6E0E7E0FD0D49B4B2CC0F00A /* Pods-Dobrochannel.debug.xcconfig */,
+				BB5C6DE9A0C485EC236648CE /* Pods-Dobrochannel.release.xcconfig */,
+				21EADEC27FC4C06D3396B88B /* Pods-DobrochannelEnhanced.debug.xcconfig */,
+				353310B716B525B8CAFB0F73 /* Pods-DobrochannelEnhanced.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F33D93F71B5BD8E7000AA303 = {
 			isa = PBXGroup;
 			children = (
+				F3C6D9071C1C9F9700151C32 /* libs */,
 				F3B063CC1B7B3F72003BA83E /* danbooru-picker */,
 				F33D94021B5BD8E7000AA303 /* dobrochannel */,
-				F33D941A1B5BD983000AA303 /* Assets */,
 				F3FE84FD1BD12CD0008C24B7 /* dobrochannel */,
+				F33D941A1B5BD983000AA303 /* Assets */,
 				F33D94011B5BD8E7000AA303 /* Products */,
-				F3FE85461BD12D17008C24B7 /* Dobrochannel copy-Info.plist */,
+				69F83D52581915CAE9E559EC /* Pods */,
+				0C8E22B96E66E11C214DB2B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -262,6 +332,8 @@
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
 				F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */,
 				F32657EA1B7E99600013078E /* Launch Screen.xib */,
+				F310247E1C1B15C90064C473 /* CaptchaView~iphone.xib */,
+				F31024801C1B15D80064C473 /* CaptchaView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -276,37 +348,80 @@
 				F3B937C71B5E6A7100721CD8 /* BoardManagedObjectContext.m */,
 				F3C59D3E1B5E9CFC0053CA72 /* BoardRequestParser.h */,
 				F3C59D3F1B5E9CFC0053CA72 /* BoardRequestParser.m */,
-				F3B063C41B7AB5FC003BA83E /* BoardPostResponseParser.h */,
-				F3B063C51B7AB5FC003BA83E /* BoardPostResponseParser.m */,
+				F3B063C41B7AB5FC003BA83E /* BoardWebResponseParser.h */,
+				F3B063C51B7AB5FC003BA83E /* BoardWebResponseParser.m */,
+				F31024821C1C91320064C473 /* BoardRequestProgressConnectionDelegate.h */,
+				F31024831C1C91320064C473 /* BoardRequestProgressConnectionDelegate.m */,
 				F39CACB51B60FFEE003BEA68 /* BoardMarkupParser.h */,
 				F39CACB61B60FFEE003BEA68 /* BoardMarkupParser.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
 		};
-		F39CBEA41B5D70F50049DB45 /* Controllers */ = {
+		F396834F1C1CBC36006CB10D /* SPChainAnimations */ = {
 			isa = PBXGroup;
 			children = (
-				F3B937BB1B5DAB0100721CD8 /* TableCells */,
-				F3C25F5E1B88E50100282F6F /* ContentView */,
-				F39369341B5E86290068A85F /* BoardViewController.h */,
-				F39369351B5E86290068A85F /* BoardViewController.m */,
-				F39369311B5E839F0068A85F /* ThreadViewController.h */,
-				F39369321B5E839F0068A85F /* ThreadViewController.m */,
-				F3DC6FEE1B6B93E60063857A /* PostViewController.h */,
-				F3DC6FEF1B6B93E60063857A /* PostViewController.m */,
-				F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */,
-				F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */,
+				F396834C1C1CBC33006CB10D /* SPAnimationChain.h */,
+				F396834D1C1CBC33006CB10D /* SPAnimationChain.m */,
+			);
+			name = SPChainAnimations;
+			sourceTree = "<group>";
+		};
+		F39683531C1CE9C7006CB10D /* RFQuiltLayout */ = {
+			isa = PBXGroup;
+			children = (
+				F39683501C1CE9C4006CB10D /* RFQuiltLayout.h */,
+				F39683511C1CE9C4006CB10D /* RFQuiltLayout.m */,
+			);
+			name = RFQuiltLayout;
+			sourceTree = "<group>";
+		};
+		F39683541C1CEA1F006CB10D /* Attachments */ = {
+			isa = PBXGroup;
+			children = (
 				F3E461881B5FD09800A34BBF /* ShowAttachmentsViewController.h */,
 				F3E461891B5FD09800A34BBF /* ShowAttachmentsViewController.m */,
 				F37CA0271B68E55400A885C7 /* DetailedAttachmentViewController.h */,
 				F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */,
+				F39683561C1CEA49006CB10D /* ThreadAttachmentsViewController.h */,
+				F39683571C1CEA49006CB10D /* ThreadAttachmentsViewController.m */,
+			);
+			name = Attachments;
+			sourceTree = "<group>";
+		};
+		F39683551C1CEA2E006CB10D /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */,
+				F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */,
 				F3BD076E1B683D79000946B5 /* SettingsViewController.h */,
 				F3BD076F1B683D79000946B5 /* SettingsViewController.m */,
-				F37DDFB81B77F2380056D316 /* NewPostViewController.h */,
-				F37DDFB91B77F2380056D316 /* NewPostViewController.m */,
 				F3B1827F1BBBD9D600129140 /* EULAViewController.h */,
 				F3B182801BBBD9D600129140 /* EULAViewController.m */,
+				F39ADD891C1AEE5700F956F1 /* FavoritesViewController.h */,
+				F39ADD8A1C1AEE5700F956F1 /* FavoritesViewController.m */,
+				F310247B1C1B05B70064C473 /* ThreadHiderViewController.h */,
+				F310247C1C1B05B70064C473 /* ThreadHiderViewController.m */,
+			);
+			name = Menus;
+			sourceTree = "<group>";
+		};
+		F39ADD831C1ADDCF00F956F1 /* ILTranslucentView */ = {
+			isa = PBXGroup;
+			children = (
+				F39ADD801C1ADDCB00F956F1 /* ILTranslucentView.h */,
+				F39ADD811C1ADDCB00F956F1 /* ILTranslucentView.m */,
+			);
+			name = ILTranslucentView;
+			sourceTree = "<group>";
+		};
+		F39CBEA41B5D70F50049DB45 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F3B937BB1B5DAB0100721CD8 /* TableCells */,
+				F3C25F5E1B88E50100282F6F /* Content */,
+				F39683541C1CEA1F006CB10D /* Attachments */,
+				F39683551C1CEA2E006CB10D /* Menus */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +436,8 @@
 				F31B7C521B8F16A200C56C14 /* UIViewController+Popups.m */,
 				F38CAC471B68496E00A2EF98 /* UserDefaults.h */,
 				F38CAC481B68496E00A2EF98 /* UserDefaults.m */,
+				F39ADD8C1C1AF74100F956F1 /* BoardContextualNavigationViewController.h */,
+				F39ADD8D1C1AF74100F956F1 /* BoardContextualNavigationViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -337,6 +454,8 @@
 				F3B063CE1B7B3FD0003BA83E /* ImageCollectionViewCell.m */,
 				F3B063D91B7B68F1003BA83E /* SearchSuggestionTableViewCell.h */,
 				F3B063DA1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m */,
+				F39ADD7B1C1AD7EB00F956F1 /* PreviewViewController.h */,
+				F39ADD7C1C1AD7EB00F956F1 /* PreviewViewController.m */,
 			);
 			name = "danbooru-picker";
 			sourceTree = "<group>";
@@ -347,6 +466,7 @@
 				F3B063C91B7B3F6E003BA83E /* DanbooruPickerViewController.xib */,
 				F3B063CF1B7B3FD0003BA83E /* ImageCollectionViewCell.xib */,
 				F3B063DB1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib */,
+				F39ADD7E1C1AD80700F956F1 /* PreviewViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -377,13 +497,43 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		F3C25F5E1B88E50100282F6F /* ContentView */ = {
+		F3C25F5E1B88E50100282F6F /* Content */ = {
 			isa = PBXGroup;
 			children = (
 				F33D941B1B5BD9C8000AA303 /* ContentViewController.h */,
 				F33D941C1B5BD9C8000AA303 /* ContentViewController.m */,
+				F39369341B5E86290068A85F /* BoardViewController.h */,
+				F39369351B5E86290068A85F /* BoardViewController.m */,
+				F39369311B5E839F0068A85F /* ThreadViewController.h */,
+				F39369321B5E839F0068A85F /* ThreadViewController.m */,
+				F3DC6FEE1B6B93E60063857A /* PostViewController.h */,
+				F3DC6FEF1B6B93E60063857A /* PostViewController.m */,
+				F37DDFB81B77F2380056D316 /* NewPostViewController.h */,
+				F37DDFB91B77F2380056D316 /* NewPostViewController.m */,
 			);
-			name = ContentView;
+			name = Content;
+			sourceTree = "<group>";
+		};
+		F3C6D9061C1C9F9000151C32 /* RMUniversalAlert */ = {
+			isa = PBXGroup;
+			children = (
+				F3C6D9001C1C9F8C00151C32 /* RMPopoverPresentationController.h */,
+				F3C6D9011C1C9F8C00151C32 /* RMPopoverPresentationController.m */,
+				F3C6D9021C1C9F8C00151C32 /* RMUniversalAlert.h */,
+				F3C6D9031C1C9F8C00151C32 /* RMUniversalAlert.m */,
+			);
+			name = RMUniversalAlert;
+			sourceTree = "<group>";
+		};
+		F3C6D9071C1C9F9700151C32 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				F396834F1C1CBC36006CB10D /* SPChainAnimations */,
+				F3C6D9061C1C9F9000151C32 /* RMUniversalAlert */,
+				F39ADD831C1ADDCF00F956F1 /* ILTranslucentView */,
+				F39683531C1CE9C7006CB10D /* RFQuiltLayout */,
+			);
+			name = libs;
 			sourceTree = "<group>";
 		};
 		F3FBFF141B8F8DD4002F8A1E /* Content */ = {
@@ -428,9 +578,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F33D94171B5BD8E7000AA303 /* Build configuration list for PBXNativeTarget "Dobrochannel" */;
 			buildPhases = (
+				2A8E89AA7450C141D6895754 /* Check Pods Manifest.lock */,
 				F33D93FC1B5BD8E7000AA303 /* Sources */,
 				F33D93FD1B5BD8E7000AA303 /* Frameworks */,
 				F33D93FE1B5BD8E7000AA303 /* Resources */,
+				7E975DB0D9CFD42DFFA8EFBC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -445,9 +597,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F3FE85421BD12D17008C24B7 /* Build configuration list for PBXNativeTarget "DobrochannelEnhanced" */;
 			buildPhases = (
+				6D7EE1C1F85B92A01AF30D91 /* Check Pods Manifest.lock */,
 				F3FE85141BD12D17008C24B7 /* Sources */,
 				F3FE85341BD12D17008C24B7 /* Frameworks */,
 				F3FE85351BD12D17008C24B7 /* Resources */,
+				60EDD2F7B2B2FAC97E3E1EC9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -505,10 +659,13 @@
 				F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */,
 				F3B063D11B7B3FD0003BA83E /* ImageCollectionViewCell.xib in Resources */,
 				F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */,
+				F31024811C1B15D80064C473 /* CaptchaView.xib in Resources */,
 				F3B937BA1B5DAAFA00721CD8 /* PostTableViewCell.xib in Resources */,
 				F33D940E1B5BD8E7000AA303 /* Main.storyboard in Resources */,
 				F3B063C01B7A9764003BA83E /* Assets.xcassets in Resources */,
+				F310247F1C1B15C90064C473 /* CaptchaView~iphone.xib in Resources */,
 				F3DC6FF21B6B93E60063857A /* PostViewController.xib in Resources */,
+				F39ADD7F1C1AD80700F956F1 /* PreviewViewController.xib in Resources */,
 				F3B063CB1B7B3F6E003BA83E /* DanbooruPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +691,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2A8E89AA7450C141D6895754 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		60EDD2F7B2B2FAC97E3E1EC9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DobrochannelEnhanced/Pods-DobrochannelEnhanced-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D7EE1C1F85B92A01AF30D91 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7E975DB0D9CFD42DFFA8EFBC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dobrochannel/Pods-Dobrochannel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F33D93FC1B5BD8E7000AA303 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -544,12 +764,15 @@
 				F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */,
 				F39CBEA71B5D71440049DB45 /* AutoLayoutStackView.m in Sources */,
 				F33D941E1B5BD9C8000AA303 /* ContentViewController.m in Sources */,
+				F310247D1C1B05B70064C473 /* ThreadHiderViewController.m in Sources */,
 				F3BD07701B683D79000946B5 /* SettingsViewController.m in Sources */,
 				F39369361B5E86290068A85F /* BoardViewController.m in Sources */,
 				F37149E11B5BDB5A00582DE4 /* BoardAPI.m in Sources */,
 				F3B063D41B7B412E003BA83E /* DanbooruAPI.m in Sources */,
+				F31024841C1C91320064C473 /* BoardRequestProgressConnectionDelegate.m in Sources */,
 				F39CACB71B60FFEE003BEA68 /* BoardMarkupParser.m in Sources */,
 				F3DC6FF11B6B93E60063857A /* PostViewController.m in Sources */,
+				F39ADD821C1ADDCB00F956F1 /* ILTranslucentView.m in Sources */,
 				F3DC6FED1B6A46FD0063857A /* MessageTextViewDelegate.m in Sources */,
 				F3B063DC1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m in Sources */,
 				F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */,
@@ -558,16 +781,24 @@
 				F37DDFBA1B77F2380056D316 /* NewPostViewController.m in Sources */,
 				F3C59D401B5E9CFC0053CA72 /* BoardRequestParser.m in Sources */,
 				F33D94051B5BD8E7000AA303 /* main.m in Sources */,
+				F3C6D9041C1C9F8C00151C32 /* RMPopoverPresentationController.m in Sources */,
+				F3C6D9051C1C9F8C00151C32 /* RMUniversalAlert.m in Sources */,
 				F3B063CA1B7B3F6E003BA83E /* DanbooruPickerViewController.m in Sources */,
 				F37CA02A1B68E55400A885C7 /* DetailedAttachmentViewController.m in Sources */,
 				F31B7C531B8F16A200C56C14 /* UIViewController+Popups.m in Sources */,
 				F3B937B91B5DAAFA00721CD8 /* PostTableViewCell.m in Sources */,
 				F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */,
+				F396834E1C1CBC33006CB10D /* SPAnimationChain.m in Sources */,
 				F3B937BF1B5E55D700721CD8 /* BoardTableViewCell.m in Sources */,
+				F39ADD8B1C1AEE5700F956F1 /* FavoritesViewController.m in Sources */,
+				F39ADD8E1C1AF74100F956F1 /* BoardContextualNavigationViewController.m in Sources */,
+				F39ADD7D1C1AD7EB00F956F1 /* PreviewViewController.m in Sources */,
+				F39683521C1CE9C4006CB10D /* RFQuiltLayout.m in Sources */,
 				F3796B121B64EC9B0001D81F /* AttachmentsTableDelegate.m in Sources */,
 				F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */,
-				F3B063C61B7AB5FC003BA83E /* BoardPostResponseParser.m in Sources */,
+				F3B063C61B7AB5FC003BA83E /* BoardWebResponseParser.m in Sources */,
 				F3B063D01B7B3FD0003BA83E /* ImageCollectionViewCell.m in Sources */,
+				F39683581C1CEA49006CB10D /* ThreadAttachmentsViewController.m in Sources */,
 				F31B7C4C1B8A0F8E00C56C14 /* AnswerCollectionViewCell.m in Sources */,
 				F3B937C81B5E6A7100721CD8 /* BoardManagedObjectContext.m in Sources */,
 			);
@@ -604,7 +835,7 @@
 				F3FE852D1BD12D17008C24B7 /* BoardTableViewCell.m in Sources */,
 				F3FE852E1BD12D17008C24B7 /* AttachmentsTableDelegate.m in Sources */,
 				F3FE852F1BD12D17008C24B7 /* ThreadViewController.m in Sources */,
-				F3FE85301BD12D17008C24B7 /* BoardPostResponseParser.m in Sources */,
+				F3FE85301BD12D17008C24B7 /* BoardWebResponseParser.m in Sources */,
 				F3FE85311BD12D17008C24B7 /* ImageCollectionViewCell.m in Sources */,
 				F3FE85321BD12D17008C24B7 /* AnswerCollectionViewCell.m in Sources */,
 				F3FE85331BD12D17008C24B7 /* BoardManagedObjectContext.m in Sources */,
@@ -725,6 +956,7 @@
 		};
 		F33D94181B5BD8E7000AA303 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E0E7E0FD0D49B4B2CC0F00A /* Pods-Dobrochannel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -746,6 +978,7 @@
 		};
 		F33D94191B5BD8E7000AA303 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB5C6DE9A0C485EC236648CE /* Pods-Dobrochannel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -763,6 +996,7 @@
 		};
 		F3FE85431BD12D17008C24B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21EADEC27FC4C06D3396B88B /* Pods-DobrochannelEnhanced.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -781,6 +1015,7 @@
 		};
 		F3FE85441BD12D17008C24B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 353310B716B525B8CAFB0F73 /* Pods-DobrochannelEnhanced.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

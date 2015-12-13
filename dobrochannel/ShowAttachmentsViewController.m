@@ -26,6 +26,22 @@
     [self centerAtIndex:self.index];
 }
 
+- (void) didReceiveMemoryWarning {
+    for (int i = 0; i < self.zoomingImages.count; i++) {
+        if (i != self.page) {
+            DetailedAttachmentViewController *d = self.zoomingImages[i];
+            if (![[NSNull null] isEqual:d]) {
+                [d removeFromParentViewController];
+                [d.view removeFromSuperview];
+
+                self.zoomingImages[i] = [NSNull null];
+            }
+        }
+    }
+
+    [self centerAtIndex:self.page];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setupContentSize];
@@ -55,7 +71,7 @@
         i++;
     }
 
-    [self centerAtIndex:self.prev_page];
+    [self loadCurrentPage];
 }
 
 - (BOOL)prefersStatusBarHidden {

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DanbooruAPI.h"
 
+#import "PreviewViewController.h"
 #import "ImageCollectionViewCell.h"
 #import "SearchSuggestionTableViewCell.h"
 
@@ -20,7 +21,7 @@
 
 @end
 
-@interface DanbooruPickerViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, DanbooruAPIDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DanbooruPickerViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, DanbooruAPIDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, PreviewViewControllerDelegate>
 
 - (instancetype) initWithDelegate:(NSObject<DanbooruPickerDelegate> *) delegate;
 @end

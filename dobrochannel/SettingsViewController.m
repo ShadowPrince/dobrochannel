@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UISlider *loadContentFullMaxSlider;
 @property (weak, nonatomic) IBOutlet UILabel *loadContentFullMaxLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *loadFullAttachmentsViewSwitch;
 @property NSUInteger switches;
 @end @implementation SettingsViewController
 
@@ -38,6 +39,8 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
     [self.ratingsPicker reloadAllComponents];
 
     [self.ratingsPicker selectRow:[UserDefaults maxRating] inComponent:0 animated:YES];
@@ -45,6 +48,7 @@
     [self.loadThumbsSwitch setOn:[UserDefaults contentReaderLoadThumbnails]];
     [self.loadFullSwitch setOn:[UserDefaults attachmentsViewerLoadFull]];
     [self.loadContentFullSwitch setOn:[UserDefaults contentReaderLoadFull]];
+    [self.loadFullAttachmentsViewSwitch setOn:[UserDefaults attachmentsViewLoadFull]];
 
     NSInteger maxSize = [UserDefaults contentReaderLoadFullMaxSize];
     self.loadContentFullMaxLabel.text = self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%lukb", (long) maxSize];
@@ -80,6 +84,10 @@
     NSInteger value = (NSInteger) floor(3000 * sender.value);
     self.loadContentFullMaxLabel.text = [NSString stringWithFormat:@"%lukb", (long) value];
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:value] forKey:@"cr_load_full_max_size"];
+}
+- (IBAction)loadFullAttachmentsViewerSwitch:(UISwitch *)sender {
+    NSNumber *value = [NSNumber numberWithBool:sender.on];
+    [[NSUserDefaults standardUserDefaults] setValue:value forKey:@"aview_load_full"];
 }
 
 - (IBAction)passwordValueChange:(id)sender {

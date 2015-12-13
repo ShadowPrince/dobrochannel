@@ -273,6 +273,24 @@
     }];
 }
 
+- (NSArray *) requestAttachmentsForThread:(NSNumber *)display_identifier {
+    NSArray *result = [self requestEntity:@"Attachment" using:[NSPredicate predicateWithFormat:@"post.thread.display_identifier == %@", display_identifier]];
+
+    NSMutableArray *uniqueIds = [NSMutableArray new];
+    NSMutableArray *uniqueResult = [NSMutableArray new];
+
+    for (NSManagedObject *attachment in result) {
+        if (![uniqueIds containsObject:[attachment valueForKey:@"identifier"]]) {
+            [uniqueIds addObject:[attachment valueForKey:@"identifier"]];
+            [uniqueResult addObject:attachment];
+        }
+    }
+
+    return [uniqueResult sortedArrayUsingComparator:^NSComparisonResult(id  obj1, id  obj2) {
+        return [[obj1 valueForKeyPath:@"post.date"] compare:[obj2 valueForKeyPath:@"post.date"]];
+    }];
+}
+
 # pragma mark caching & persistance
 
 - (NSManagedObject *) postObjectForDisplayId:(NSNumber *)_id {

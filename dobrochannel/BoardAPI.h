@@ -10,15 +10,19 @@
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 
+#import "BoardRequestProgressConnectionDelegate.h"
+#import "UserDefaults.h"
 #import "BoardRequestParser.h"
-#import "BoardPostResponseParser.h"
+#import "BoardWebResponseParser.h"
 
 #define BoardPostSuccess 0
 
 typedef void (^BoardAPIFinishCallback) (NSData *);
 typedef void (^BoardAPIProgressCallback) (long long, long long);
 typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
+typedef void (^BoardDataDownloadFinishCallback) (NSData *);
 typedef void (^BoardPostFinishCallback) (NSArray *);
+typedef void (^BoardDeletePostFinishCallback) (NSArray *);
 typedef void (^BoardSessionFinishCallback) (NSArray *);
 
 @protocol BoardDelegate <NSObject>
@@ -43,13 +47,16 @@ typedef void (^BoardSessionFinishCallback) (NSArray *);
 - (void) requestThreadsFrom:(NSString *) board
                        page:(NSNumber *) page
               stateCallback: (BoardAPIProgressCallback) callback;
+
 - (void) requestThread:(NSNumber *) threadId
                   from:(NSString *) board
          stateCallback: (BoardAPIProgressCallback) callback;
+
 - (void) requestNewPostsFrom:(NSNumber *) thread
                           at:(NSString *) board
                        after:(NSNumber *) postId
                stateCallback: (BoardAPIProgressCallback) callback;
+
 - (void) requestPost:(NSNumber *) postId
                 from:(NSNumber *) threadId
                   at:(NSString *) board
@@ -59,14 +66,24 @@ typedef void (^BoardSessionFinishCallback) (NSArray *);
         stateCallback: (BoardAPIProgressCallback) stateCallback
        finishCallback: (BoardImageDownloadFinishCallback) finishCallback;
 
+- (NSURLSessionDataTask *) requestData:(NSString *) path
+                         stateCallback: (BoardAPIProgressCallback) stateCallback
+                        finishCallback: (BoardDataDownloadFinishCallback) finishCallback;
+
 - (NSURLSessionTask *) requestCaptchaAt:(NSString *) board
                          finishCallback:(BoardImageDownloadFinishCallback)finishCallback;
 
 - (void) requestSessionInfoWithFinishCallback:(BoardSessionFinishCallback) finishCallback;
 
-- (void) postInto:(NSNumber *) threadId
+- (void) postInto:(NSNumber *) thread_display_id
                at:(NSString *) board
              data:(NSDictionary *) data
+ progressCallback:(BoardAPIProgressCallback) progressCallback
    finishCallback:(BoardPostFinishCallback) callback;
+
+- (void) deletePost:(NSNumber *) post_id
+         fromThread:(NSNumber *) thread_id
+              board:(NSString *) board
+     finishCallback:(BoardDeletePostFinishCallback) cb;
 
 @end

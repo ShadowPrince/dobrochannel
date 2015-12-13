@@ -25,6 +25,8 @@
 @property NSMutableDictionary *rowHeightCache;
 //---
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hidedProgressViewWidth;
+@property (weak, nonatomic) IBOutlet UIView *hidedProgressView;
 @end @implementation ContentViewController
 @synthesize api, context, threads;
 @synthesize board;
@@ -80,10 +82,9 @@
     [self scrollToObjectAt:[self.threads indexOfObject:object] animated:animated];
 }
 
-
-- (void) scrollToObjectAt:(NSUInteger) pos animated:(BOOL) animated {
+- (void) scrollToObjectAt:(NSUInteger) pos position:(UITableViewScrollPosition) scrollPosition animated:(BOOL) animated {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:pos inSection:0]
-                          atScrollPosition:UITableViewScrollPositionTop
+                          atScrollPosition:scrollPosition
                                   animated:animated];
 }
 
@@ -117,6 +118,7 @@
         NSManagedObject *post = (NSManagedObject *) sender;
 
         controller.board = self.board;
+        controller.thread_internal_identifier = [[post valueForKey:@"thread"] valueForKey:@"identifier"];
         controller.thread_identifier = [[post valueForKey:@"thread"] valueForKey:@"display_identifier"];
         controller.inReplyToIdentifier = [post valueForKey:@"display_identifier"];
         controller.inReplyToMessage = [post valueForKey:@"attributedMessage"];
@@ -197,12 +199,15 @@
                                                        self.tableView.contentSize.width,
                                                        self.tableView.contentSize.height - top)];
 
+    if (forwardingCells.count == 0)
+        return;
+    
     NSRange range = NSMakeRange(1, [forwardingCells count] - 1);
     for (NSIndexPath *path in [forwardingCells subarrayWithRange:range]) {
         NSManagedObject *object = self.threads[path.row];
 
         if ([object.entity.name isEqualToString:@"Thread"]) {
-            [self scrollToObjectAt:path.row animated:YES];
+            [self scrollToObjectAt:path.row position:UITableViewScrollPositionTop animated:YES];
             return;
         }
     }
@@ -214,17 +219,66 @@
     CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top - 1;
 
     NSArray *backCells = [self.tableView indexPathsForRowsInRect:CGRectMake(0,
-                                                                                           0,
-                                                                                           self.tableView.contentSize.width,
-                                                                                           top)];
+                                                                            0,
+                                                                            self.tableView.contentSize.width,
+                                                                            top)];
 
     for (int i = (int) [backCells count] - 1; i >= 0; i--) {
         NSIndexPath *index = backCells[i];
         NSManagedObject *object = self.threads[index.row];
         if ([object.entity.name isEqualToString:@"Thread"]) {
-            [self scrollToObjectAt:index.row animated:YES];
+            [self scrollToObjectAt:index.row position:UITableViewScrollPositionTop animated:YES];
             break;
         }
+    }
+}
+
+- (IBAction)threadLastPostGesture:(id)sender {
+    CGFloat top = self.tableView.contentOffset.y + self.tableView.contentInset.top + 1;
+
+    NSArray *forwardingCells =
+    [self.tableView indexPathsForRowsInRect:CGRectMake(0,
+                                                       top,
+                                                       self.tableView.contentSize.width,
+                                                       self.tableView.contentSize.height - top)];
+
+    if (forwardingCells.count == 0)
+        return;
+
+    NSIndexPath *lastPostPath = nil;
+    NSRange range = NSMakeRange(1, [forwardingCells count] - 1);
+    for (NSIndexPath *path in [forwardingCells subarrayWithRange:range]) {
+        NSManagedObject *object = self.threads[path.row];
+
+        if ([object.entity.name isEqualToString:@"Thread"]) {
+            break;
+        } else {
+            lastPostPath = path;
+        }
+    }
+
+    if (lastPostPath) {
+        __weak ContentViewController *_self = self;
+        __block PostTableViewCell *cell;
+        [_self scrollToObjectAt:lastPostPath.row position:UITableViewScrollPositionMiddle animated:YES];
+        
+        [[[[[[SPAnimationChain new]
+             backgroundCall:^{
+                 while (!cell) {
+                     cell = (PostTableViewCell *) [_self.tableView cellForRowAtIndexPath:lastPostPath];
+                     [NSThread sleepForTimeInterval:0.1f];
+                 }
+             }]
+            call:^{
+                [cell setOpacity:YES];
+            }]
+           animate:^{
+               cell.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
+           } withDuration:0.2 damping:1.f velocity:5.f]
+          animate:^{
+              cell.backgroundColor = [UIColor whiteColor];
+          } withDuration:5.f damping:8.f velocity:2.f options:UIViewAnimationOptionAllowUserInteraction]
+         run];
     }
 }
 
@@ -251,18 +305,44 @@
     self.cachedThreadView = [self.tableView dequeueReusableCellWithIdentifier:@"ThreadView"];
 
     UIProgressView *pv = self.progressView;
+    UIView *hpv = self.hidedProgressView;
+    NSLayoutConstraint *hpvwc = self.hidedProgressViewWidth;
+    __weak ContentViewController *_self = self;
     progressCallback = ^void(long long completed, long long total) {
         if (total == 0) {
             pv.progress = 0.6f;
             [pv setHidden:NO];
-        } else if (completed == total) {
+            [hpv setHidden:NO];
+        } else if (completed == -1 && total == completed) {
             [pv setHidden:YES];
+            [hpv setHidden:YES];
+        } else if (completed == total) {
+            pv.progress = 1.f;
+            [[NSOperationQueue new] addOperationWithBlock:^{
+                [NSThread sleepForTimeInterval:3.f];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [pv setHidden:YES];
+                    [hpv setHidden:YES];
+                }];
+            }];
         } else {
+            NSUInteger hided = [ThreadHiderViewController totalHidedObjects];
+            CGFloat n = (float) hided / (_self.threads.count + hided);
+            if (!isfinite(n))
+                n = 0;
+
+            if (!isnan(n))
+                hpvwc.constant = n * _self.view.frame.size.width;
+
+            [UIView animateWithDuration:1.f animations:^{
+                [_self.view layoutIfNeeded];
+            }];
+            [hpv setHidden:NO];
+
             pv.progress = (CGFloat) completed / (CGFloat) total;
             [pv setHidden:NO];
         }
     };
-
 }
 
 - (void) viewDidLayoutSubviews {
@@ -385,7 +465,7 @@
     else return NO;
 
      */
-//    return self.threads.count < 2;
+    //return self.threads.count < 2;
 
     return YES;
 }

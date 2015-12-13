@@ -11,6 +11,7 @@
 @interface ImageCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *attachedLabel;
 
 - (void) setDownloadingProgress:(CGFloat) completed
                              of:(CGFloat) total;

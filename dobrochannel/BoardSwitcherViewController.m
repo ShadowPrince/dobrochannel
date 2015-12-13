@@ -11,6 +11,7 @@
 @interface BoardSwitcherViewController ()
 @property NSArray *boardsList;
 @property NSDictionary *boardsData;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @end @implementation BoardSwitcherViewController
 
 - (void)viewDidLoad {
@@ -31,6 +32,10 @@
     return YES;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 # pragma mark actions
 
 - (IBAction)hideControllerGesture:(id)sender {
@@ -39,10 +44,12 @@
 
 - (void) collectionView:(nonnull UICollectionView *)collectionView didSelectItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSString *key = self.boardsList[indexPath.section][indexPath.row];
-    self.controller.page = 0;
-    self.controller.board = key;
+    BoardViewController *controller = [(BoardContextualNavigationViewController *) self.navigationController boardViewController];
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    controller.page = 0;
+    controller.board = key;
+
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)touchBoardAction:(UIButton *)sender {

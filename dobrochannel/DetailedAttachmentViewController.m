@@ -13,7 +13,7 @@
 @property NSURLSessionTask *task;
 @property BOOL isCentered, didLoadedSource;
 //---
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet YLImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
 @property (weak, nonatomic) IBOutlet UIView *infoView;
@@ -59,27 +59,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     NSString *thumb_src = [self.attachment valueForKey:@"thumb_src"];
     NSString *full_src = [self.attachment valueForKey:@"src"];
-
-    NSNumber *weight = [attachment valueForKey:@"weight"];
-
-    if ([[attachment valueForKey:@"type"] isEqualToString:@"image"]) {
-        CGSize size = ((NSValue *) [attachment valueForKey:@"size"]).CGSizeValue;
-        self.sizesLabel.text = [NSString stringWithFormat:@"%@, %dx%d",
-                                [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
-                                (int) size.width,
-                                (int) size.height];
-    } else {
-        self.sizesLabel.text = [NSString stringWithFormat:@"%@, %@",
-                                [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
-                                [attachment valueForKey:@"type"]];
-    }
-    self.filenameLabel.text = full_src;
-    NSNumber *rating = [self.attachment valueForKey:@"rating"];
-    if ([rating isEqualToNumber:@-1]) {
-        self.ratingLabel.text = @"unrated";
-    } else {
-        self.ratingLabel.text = [[BoardAPI api] ratingsList][[rating integerValue]];
-    }
 
     [self request:thumb_src completeWith:^{
         if ([UserDefaults attachmentsViewerLoadFull] && [self shouldLoadFullImage]) {
@@ -145,6 +124,27 @@
                                                             0);
     c.popoverPresentationController.sourceView = self.view;
 
+    NSNumber *weight = [attachment valueForKey:@"weight"];
+    if ([[attachment valueForKey:@"type"] isEqualToString:@"image"]) {
+        CGSize size = ((NSValue *) [attachment valueForKey:@"size"]).CGSizeValue;
+        c.title = [NSString stringWithFormat:@"%@, %dx%d",
+                   [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
+                   (int) size.width,
+                   (int) size.height];
+    } else {
+        c.title = [NSString stringWithFormat:@"%@, %@",
+                   [NSByteCountFormatter stringFromByteCount:weight.longLongValue countStyle:NSByteCountFormatterCountStyleFile],
+                   [attachment valueForKey:@"type"]];
+    }
+
+    NSNumber *rating = [self.attachment valueForKey:@"rating"];
+    if ([rating isEqualToNumber:@-1]) {
+        c.message = @"unrated, ";
+    } else {
+        c.message = [[[BoardAPI api] ratingsList][[rating integerValue]] stringByAppendingString:@", "];
+    }
+    c.message = [c.message stringByAppendingString:[self.attachment valueForKey:@"src"]];
+
     [c addAction:[UIAlertAction actionWithTitle:@"Open in Safari"
                                           style:UIAlertActionStyleDefault
                                         handler:^(UIAlertAction * __nonnull action) {
@@ -194,22 +194,24 @@
         return;
     }
 
-    self.task = [[BoardAPI api] requestImage:imageUrl
+    __weak DetailedAttachmentViewController *_self = self;
+    self.task = [[BoardAPI api] requestData:imageUrl
                                stateCallback:^(long long processed, long long total) {
                                    if (processed == total) {
-                                       [self.progressView setHidden:YES];
+                                       [_self.progressView setHidden:YES];
                                    } else {
-                                       self.progressView.progress = (CGFloat) processed / (CGFloat) total;
-                                       [self.progressView setHidden:NO];
+                                       _self.progressView.progress = (CGFloat) processed / (CGFloat) total;
+                                       [_self.progressView setHidden:NO];
                                    }
                                }
-                              finishCallback:^(UIImage *i) {
-                                  [[BoardAPI api] cancelRequest:self.task];
-                                  self.task = nil;
+                              finishCallback:^(NSData *i) {
+                                  [[BoardAPI api] cancelRequest:_self.task];
+                                  _self.task = nil;
 
-                                  self.image = i;
+                                  _self.image = [YLGIFImage imageWithData:i];
                                   if (completeBlock) completeBlock();
                               }];
+
 }
 
 # pragma mark scrollview

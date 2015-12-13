@@ -13,7 +13,7 @@
 
 @class BoardViewController;
 
-@interface BoardSwitcherViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface BoardSwitcherViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak) BoardViewController *controller;
 
 

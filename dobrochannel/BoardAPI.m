@@ -10,6 +10,7 @@
 
 @interface BoardAPI ()
 @property NSOperationQueue *oqueue;
+@property NSURLConnection *currentConnection;
 @property NSURLSessionDataTask *currentTask;
 @property NSURLSession *imageLoadingSession;
 @property NSMutableDictionary *progressCallbacks;
@@ -89,7 +90,7 @@
 }
 
 - (NSArray *) ratingsList {
-    return @[@"sfw", @"r-15", @"r-18", @"r-18g"];
+    return @[@"no-images", @"sfw", @"r-15", @"r-18", @"r-18g"];
 }
 
 - (NSURL *) urlFor:(NSString *)relative {
@@ -146,7 +147,7 @@
                           stateCallback:(BoardAPIProgressCallback)stateCallback
                          finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
     NSURL *url = [self urlFor:path];
-
+    
     return [self requestURL:url
            progressCallback:stateCallback
              finishCallback:^(NSData *data) {
@@ -154,6 +155,22 @@
                  if (image) {
                      dispatch_sync(dispatch_get_main_queue(), ^{
                          finishCallback(image);
+                     });
+                 }
+             }];
+}
+
+- (NSURLSessionDataTask *) requestData:(NSString *)path
+                          stateCallback:(BoardAPIProgressCallback)stateCallback
+                         finishCallback:(BoardDataDownloadFinishCallback)finishCallback {
+    NSURL *url = [self urlFor:path];
+    
+    return [self requestURL:url
+           progressCallback:stateCallback
+             finishCallback:^(NSData *data) {
+                 if (data) {
+                     dispatch_sync(dispatch_get_main_queue(), ^{
+                         finishCallback(data);
                      });
                  }
              }];
@@ -182,9 +199,10 @@
                          }];
 }
 
-- (void) postInto:(NSNumber *)threadId
+- (void) postInto:(NSNumber *)thread_display_id
                at:(NSString *)board
              data:(NSDictionary *)_postData
+ progressCallback:(BoardAPIProgressCallback)progressCallback
    finishCallback:(BoardPostFinishCallback)callback {
     NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/post/new.json", board]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -203,7 +221,7 @@
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
                                            @"name": @"Анонимус",
-                                           @"thread_id": threadId.stringValue,
+                                           @"thread_id": thread_display_id.stringValue,
                                            }];
     [data setValuesForKeysWithDictionary:postData];
 
@@ -242,18 +260,56 @@
     [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPBody = HTTPBody;
 
+    NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, thread_display_id]];
+    __weak BoardAPI *_self = self;
+
+    [self.oqueue addOperationWithBlock:^{
+        BoardRequestProgressConnectionDelegate *d = [[BoardRequestProgressConnectionDelegate alloc] init];
+        d.finishCallback = ^void (NSURLResponse *response, NSData *data) {
+            if (![[response URL] isEqual:successUrl]) {
+                NSArray *errors = [BoardWebResponseParser parseErrorsFromPostData:data];
+                callback(errors);
+            } else {
+                callback(nil);
+            }
+
+            _self.currentConnection = nil;
+        };
+        
+        d.uploadCallback = ^void (NSInteger completed, NSInteger total) {
+            progressCallback((long long) completed, (long long) total);
+        };
+
+        _self.currentConnection = [[NSURLConnection alloc] initWithRequest:request delegate:d startImmediately:NO];
+        [_self.currentConnection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+                                           forMode:NSDefaultRunLoopMode];
+        [_self.currentConnection start];
+    }];
+}
+
+- (void) deletePost:(NSNumber *) post_id
+         fromThread:(NSNumber *) thread_id
+              board:(NSString *) board
+     finishCallback:(BoardDeletePostFinishCallback) cb {
+    NSString *escapedPassword = [[UserDefaults postPassword] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *postDataString = [NSString stringWithFormat:@"task=delete&%@=%@&password=%@", post_id, thread_id, escapedPassword];
+
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/delete", board]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [postDataString dataUsingEncoding:NSUTF8StringEncoding];
+
     [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[[NSOperationQueue alloc] init]
-                           completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError) {
-//                               NSLog(@"%@", response);
-//                               NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                               NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, threadId]];
-                               if (![[response URL] isEqual:successUrl]) {
-                                   NSArray *errors = [BoardPostResponseParser parseErrorsFromResponseData:data];
-                                   callback(errors);
-                               } else {
-                                   callback(nil);
-                               }
+                                       queue:[NSOperationQueue new]
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               dispatch_sync(dispatch_get_main_queue(), ^{
+                                   NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/index.xhtml", board]];
+                                   if (![[response URL] isEqual:successUrl]) {
+                                       cb([BoardWebResponseParser parseErrorsFromDeleteData:data]);
+                                   } else {
+                                       cb(nil);
+                                   }
+                               });
                            }];
 }
 

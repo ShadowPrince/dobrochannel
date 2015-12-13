@@ -22,10 +22,22 @@
 
 - (void) reset {
     self.pageCounts = [NSMutableArray new];
+    [ThreadHiderViewController resetThreadHiderStatistics];
     [super reset];
 }
 
+- (BOOL) shouldInsertObject:(NSManagedObject *)object {
+    if ([ThreadHiderViewController shouldHideThread:object])
+        return NO;
+
+    return [super shouldInsertObject:object];
+}
+
 #pragma mark actions
+
+- (IBAction)refreshAction:(id)sender {
+    [self refresh];
+}
 
 - (IBAction)nextPageAction:(id)sender {
     [self.api requestThreadsFrom:self.board page:[NSNumber numberWithInteger:++self.page] stateCallback:progressCallback];
@@ -67,6 +79,11 @@
 
 - (void) setBoard:(NSString *)board {
     [super setBoard:board];
+    [self refresh];
+}
+
+- (void) refresh {
+    [super setBoard:self.board];
     self.page = 0;
 
     [self reset];
@@ -93,11 +110,9 @@
 - (void) prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender {
     [super prepareForSegue:segue sender:sender];
 
-
     if ([segue.identifier isEqualToString:@"2boardSwitcherController"]) {
-        BoardSwitcherViewController *controller = segue.destinationViewController;
-
-        controller.controller = self;
+        BoardContextualNavigationViewController *controller = segue.destinationViewController;
+        controller.boardViewController = self;
     }
 }
 
@@ -126,7 +141,7 @@
     self.page = [coder decodeIntegerForKey:@"page"];
 
     [self updateNavigationItem:self.board page:self.page];
-    progressCallback(1, 1);
+    progressCallback(-1, -1);
 }
 
 @end

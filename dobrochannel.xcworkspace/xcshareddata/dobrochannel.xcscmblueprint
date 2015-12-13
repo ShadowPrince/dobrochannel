@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B8FCAC41CABC13BDBDB158EF5B85509D77670687",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "BA2938012D7B81AC7EFA4994651D695378AA7F1F" : 0,
+    "B8FCAC41CABC13BDBDB158EF5B85509D77670687" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8501B064-ECE5-4B5F-82FF-2C57F22BC1BD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "BA2938012D7B81AC7EFA4994651D695378AA7F1F" : "osbourne-explorer\/",
+    "B8FCAC41CABC13BDBDB158EF5B85509D77670687" : "dobrochannel\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "dobrochannel",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "dobrochannel.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ShadowPrince\/dobrochannel.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B8FCAC41CABC13BDBDB158EF5B85509D77670687"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ShadowPrince\/osbourne-explorer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BA2938012D7B81AC7EFA4994651D695378AA7F1F"
+    }
+  ]
+}

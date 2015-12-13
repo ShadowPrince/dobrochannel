@@ -6,18 +6,22 @@
 //  Copyright © 2015 Vasiliy Horbachenko. All rights reserved.
 //
 
+#import "math.h"
+
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
 #import "BoardAPI.h"
 #import "BoardManagedObjectContext.h"
 #import "BoardMarkupParser.h"
-#import "BoardPostResponseParser.h"
+#import "BoardWebResponseParser.h"
 
 #import "ThreadTableViewCell.h"
 #import "PostTableViewCell.h"
 #import "ShowAttachmentsViewController.h"
+
 #import "UIViewController+Popups.h"
+#import "SPAnimationChain.h"
 
 #define ContentViewControllerModeSingle 0
 #define ContentViewControllerModeMultiple 1

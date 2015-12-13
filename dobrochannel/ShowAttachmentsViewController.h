@@ -14,7 +14,7 @@
 #import "UserDefaults.h"
 
 @interface ShowAttachmentsViewController : UIViewController <UIScrollViewDelegate>
-@property NSMutableArray *attachments;
+@property NSArray<NSManagedObject *> *attachments;
 @property NSInteger index;
 
 @end

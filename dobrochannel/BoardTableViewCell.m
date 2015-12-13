@@ -22,10 +22,11 @@
     self.dynamicTextView.textContainerInset = UIEdgeInsetsZero;
     self.dynamicTextView.textContainer.lineFragmentPadding = 0.f;
 
+    // @TODO: figure out
     if ([UIDevice currentDevice].systemVersion.integerValue == 9) {
         self.autolayoutOffset = 0.f;
     } else {
-        self.autolayoutOffset = 14.f;
+        self.autolayoutOffset = 0.f;
     }
 
     [super awakeFromNib];
@@ -77,7 +78,6 @@
 
     CGFloat width = parentSize.width - combined_offsets - self.dynamicStackViewScrollWidthConstraint.constant;
     width = roundf(width * 2) / 2; // round it to x.0 or x.5
-
 
     // dynamic text height
     CGSize size = [self.dynamicText boundingRectWithSize:CGSizeMake(width, MAXFLOAT)

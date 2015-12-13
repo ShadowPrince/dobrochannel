@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="32"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9zS-ir-v1g">
+                    <rect key="frame" x="0.0" y="0.0" width="296" height="32"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="yWP-Da-7ae"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="yWP-Da-7ae"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="just do it" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U5h-es-o3j">
+                    <rect key="frame" x="304" y="0.0" width="296" height="32"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9zS-ir-v1g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="LgY-pM-U9B"/>
+                <constraint firstItem="U5h-es-o3j" firstAttribute="width" secondItem="9zS-ir-v1g" secondAttribute="width" id="Q8H-uu-Lho"/>
+                <constraint firstAttribute="bottom" secondItem="9zS-ir-v1g" secondAttribute="bottom" id="aQ9-im-1HX"/>
+                <constraint firstItem="U5h-es-o3j" firstAttribute="leading" secondItem="9zS-ir-v1g" secondAttribute="trailing" constant="8" id="hDr-o5-Fv7"/>
+                <constraint firstItem="U5h-es-o3j" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="juk-ai-JIv"/>
+                <constraint firstItem="9zS-ir-v1g" firstAttribute="height" secondItem="U5h-es-o3j" secondAttribute="height" id="o2s-uX-IlA"/>
+                <constraint firstItem="9zS-ir-v1g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rzV-It-SbO"/>
+                <constraint firstAttribute="trailing" secondItem="U5h-es-o3j" secondAttribute="trailing" id="sty-Vn-33E"/>
+                <constraint firstAttribute="bottom" secondItem="U5h-es-o3j" secondAttribute="bottom" id="tqp-h4-Dmr"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="578" y="135"/>
+        </view>
+    </objects>
+</document>

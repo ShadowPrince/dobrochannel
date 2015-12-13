@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YLGIFImage/YLGIFImage.h>
+#import <YLGIFImage/YLImageView.h>
 
 #import "UserDefaults.h"
 #import "BoardAPI.h"

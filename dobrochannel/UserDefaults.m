@@ -29,6 +29,37 @@
     return list;
 }
 
+#pragma mark - meta
+
++ (NSMutableArray<NSString *> *) meta {
+    static NSMutableArray *list = nil;
+
+    if (!list) {
+        NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://shadowprince.github.io/dobrochannel/meta.txt"]
+                                                 encoding:NSUTF8StringEncoding
+                                                    error:nil];
+
+        list = [NSMutableArray new];
+        for (NSString *comp in [str componentsSeparatedByString:@"\n"]) {
+            if (![comp isEqualToString:@""] && ![comp hasPrefix:@"#"]) {
+                [list addObject:comp];
+            }
+        }
+    }
+
+    return list;
+}
+
++ (NSNumber *) supportThreadNumber {
+    return [NSNumber numberWithInteger:[UserDefaults meta][0].integerValue];
+}
+
++ (BOOL) showReportButton {
+    return [UserDefaults meta][1].boolValue;
+}
+
+#pragma mark - user defaults
+
 + (void) setupDefaultValues {
     NSString *pwd = [[[NSProcessInfo processInfo] globallyUniqueString] substringToIndex:8];
 
@@ -50,6 +81,12 @@
 
 + (BOOL) attachmentsViewerLoadFull {
     NSNumber *value = [[NSUserDefaults standardUserDefaults] valueForKey:@"av_load_full"];
+
+    return value.boolValue;
+}
+
++ (BOOL) attachmentsViewLoadFull {
+    NSNumber *value = [[NSUserDefaults standardUserDefaults] valueForKey:@"aview_load_full"];
 
     return value.boolValue;
 }

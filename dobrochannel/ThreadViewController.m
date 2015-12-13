@@ -14,25 +14,25 @@
 @property NSManagedObject *lastPost;
 @property BOOL scrollToNew;
 @property BOOL loadThread;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteBarButtonItem;
 @end @implementation ThreadViewController
-@synthesize identifier;
 @synthesize scrollToNew, loadThread;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-
     self.loadThread = YES;
+    self.favoriteBarButtonItem.enabled = NO;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [ThreadHiderViewController resetThreadHiderStatistics];
     if (self.loadThread) {
         [self reset];
         [self.api requestThread:self.identifier from:self.board stateCallback:progressCallback];
         self.loadThread = NO;
     } else {
-
     }
 }
 
@@ -43,6 +43,9 @@
         NewPostViewController *controller = segue.destinationViewController;
         controller.board = self.board;
         controller.thread_identifier = self.identifier;
+    } else if ([segue.identifier isEqualToString:@"2attachmentsView"]) {
+        ThreadAttachmentsViewController *controller = segue.destinationViewController;
+        controller.attachments = [self.context requestAttachmentsForThread:self.identifier];
     } else {
         [super prepareForSegue:segue sender:sender];
     }
@@ -61,6 +64,7 @@
 - (void) didInsertObject:(NSManagedObject *)object {
     if ([object.entity.name isEqualToString:@"Thread"]) {
         self.navigationItem.title = [object valueForKey:@"title"];
+        self.favoriteBarButtonItem.enabled = ![FavoritesViewController checkThreadFavorited:[object valueForKey:@"display_identifier"]];
     } else if ([object.entity.name isEqualToString:@"Post"]) {
         self.lastPost = object;
 
@@ -78,6 +82,11 @@
 }
 
 # pragma mark actions
+
+- (IBAction)favoriteAction:(id)sender {
+    [FavoritesViewController favoriteThread:self.identifier board:self.board title:self.navigationItem.title];
+    self.favoriteBarButtonItem.enabled = NO;
+}
 
 - (IBAction)refreshAction:(id)sender {
     if (![self.api isRequesting]) {
@@ -98,7 +107,7 @@
     self.board = [coder decodeObjectForKey:@"board"];
     self.identifier = [coder decodeObjectForKey:@"identifier"];
     self.loadThread = NO;
-    progressCallback(1, 1);
+    progressCallback(-1, -1);
 }
 
 - (void) encodeRestorableStateWithCoder:(nonnull NSCoder *)aCoder {

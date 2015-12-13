@@ -13,6 +13,7 @@
 + (void) setupDefaultValues;
 
 + (BOOL) attachmentsViewerLoadFull;
++ (BOOL) attachmentsViewLoadFull;;
 + (BOOL) contentReaderLoadThumbnails;
 
 + (BOOL) contentReaderLoadFull;
@@ -24,6 +25,8 @@
 + (NSString *) postPassword;
 
 + (NSArray *) listOfBannedPosts;
++ (NSNumber *) supportThreadNumber;
++ (BOOL) showReportButton;
 + (BOOL) enhanced;
 
 @end

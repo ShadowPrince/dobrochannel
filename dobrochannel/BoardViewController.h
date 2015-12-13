@@ -11,6 +11,9 @@
 #import "ThreadViewController.h"
 #import "BoardSwitcherViewController.h"
 
+#import "BoardContextualNavigationViewController.h"
+#import "ThreadHiderViewController.h"
+
 @interface BoardViewController : ContentViewController
 @property NSUInteger page;
 
