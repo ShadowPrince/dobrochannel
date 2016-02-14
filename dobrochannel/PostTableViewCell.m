@@ -89,7 +89,7 @@
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];
-    //self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
+    self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
     //self.messageTextView.text = [[data valueForKey:@"attributedMessage"] string];
 }
 
