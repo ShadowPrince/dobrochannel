@@ -15,6 +15,7 @@
 @property BOOL scrollToNew;
 @property BOOL loadThread;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *attachmentsViewBarButtonItem;
 @end @implementation ThreadViewController
 @synthesize scrollToNew, loadThread;
 
@@ -22,6 +23,10 @@
     [super viewDidLoad];
     self.loadThread = YES;
     self.favoriteBarButtonItem.enabled = NO;
+
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
+        self.attachmentsViewBarButtonItem.enabled = NO;
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated {

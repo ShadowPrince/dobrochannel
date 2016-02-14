@@ -23,7 +23,7 @@ typedef void (^BoardImageDownloadFinishCallback) (UIImage *);
 typedef void (^BoardDataDownloadFinishCallback) (NSData *);
 typedef void (^BoardPostFinishCallback) (NSArray *);
 typedef void (^BoardDeletePostFinishCallback) (NSArray *);
-typedef void (^BoardSessionFinishCallback) (NSArray *);
+typedef void (^BoardSessionFinishCallback) (NSDictionary *);
 
 @protocol BoardDelegate <NSObject>
 - (void) didReceivedThread:(NSDictionary *) thread;
@@ -74,6 +74,7 @@ typedef void (^BoardSessionFinishCallback) (NSArray *);
                          finishCallback:(BoardImageDownloadFinishCallback)finishCallback;
 
 - (void) requestSessionInfoWithFinishCallback:(BoardSessionFinishCallback) finishCallback;
+- (void) requestDiffWithFinishCallback:(BoardSessionFinishCallback) finishCallback;
 
 - (void) postInto:(NSNumber *) thread_display_id
                at:(NSString *) board

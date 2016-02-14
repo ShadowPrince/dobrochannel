@@ -10,7 +10,8 @@
 #import "AttachmentsTableDelegate.h"
 
 @interface AttachmentsTableDelegate ()
-@property NSMutableDictionary *tasks;
+@property NSMutableDictionary<NSIndexPath *, NSURLSessionTask *> *tasks;
+@property NSMutableDictionary<NSNumber *, NSNumber *> *taskTokens;
 @property CGFloat absolute_max_height;
 @end @implementation AttachmentsTableDelegate
 @synthesize tasks;
@@ -32,6 +33,7 @@
     }];
 
     self.tasks = [NSMutableDictionary new];
+    self.taskTokens = [NSMutableDictionary new];
 }
 
 - (UITableViewCell *) tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -121,14 +123,24 @@
             aiv.hidden = NO;
             [aiv startAnimating];
 
+            NSNumber *token = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+            self.taskTokens[[NSNumber numberWithLongLong:(long long) cell]] = token;
+
+            if (self.tasks[indexPath]) {
+                [self.tasks[indexPath] cancel];
+            }
+
+            __weak AttachmentsTableDelegate *_self = self;
             self.tasks[indexPath] = [[BoardAPI api] requestImage:src
                                                    stateCallback:^(long long processed, long long total) {
-
+                                                       
                                                    } finishCallback:^(UIImage *i) {
-                                                       iv.image = i;
-                                                       iv.contentMode = UIViewContentModeScaleAspectFit;
-                                                       [aiv stopAnimating];
-                                                       aiv.hidden = YES;
+                                                       if ([_self.taskTokens[[NSNumber numberWithLongLong:(long long) cell]] isEqual:token]) {
+                                                           iv.image = i;
+                                                           iv.contentMode = UIViewContentModeScaleAspectFit;
+                                                           [aiv stopAnimating];
+                                                           aiv.hidden = YES;
+                                                       }
                                                    }];
         } else {
             cell.userInteractionEnabled = NO;

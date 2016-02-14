@@ -1,1 +1,0 @@
-../../../JWRefreshableTableController/Classes/JWRefreshTableCluster/EGORefreshTableFooterView.h

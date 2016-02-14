@@ -21,6 +21,9 @@
                 <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="just do it" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E9M-FH-xv1">
                     <rect key="frame" x="0.0" y="48" width="320" height="30"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="PTT-d8-ml5"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>

@@ -82,7 +82,13 @@
     [self scrollToObjectAt:[self.threads indexOfObject:object] animated:animated];
 }
 
-- (void) scrollToObjectAt:(NSUInteger) pos position:(UITableViewScrollPosition) scrollPosition animated:(BOOL) animated {
+- (void) scrollToObjectAt:(NSUInteger)pos animated:(BOOL)animated {
+    [self scrollToObjectAt:pos position:UITableViewScrollPositionTop animated:animated];
+}
+
+- (void) scrollToObjectAt:(NSUInteger) pos
+                 position:(UITableViewScrollPosition) scrollPosition
+                 animated:(BOOL) animated {
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:pos inSection:0]
                           atScrollPosition:scrollPosition
                                   animated:animated];
@@ -265,7 +271,10 @@
         [[[[[[SPAnimationChain new]
              backgroundCall:^{
                  while (!cell) {
-                     cell = (PostTableViewCell *) [_self.tableView cellForRowAtIndexPath:lastPostPath];
+                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                         cell = (PostTableViewCell *) [_self.tableView cellForRowAtIndexPath:lastPostPath];
+                     }];
+                     
                      [NSThread sleepForTimeInterval:0.1f];
                  }
              }]
@@ -319,7 +328,7 @@
         } else if (completed == total) {
             pv.progress = 1.f;
             [[NSOperationQueue new] addOperationWithBlock:^{
-                [NSThread sleepForTimeInterval:3.f];
+                [NSThread sleepForTimeInterval:1.5f];
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [pv setHidden:YES];
                     [hpv setHidden:YES];
@@ -455,7 +464,6 @@
     if ([object.entity.name isEqual:@"Post"] && [[object valueForKey:@"is_op"] isEqual:@YES])
         return NO;
 
-
     /*
     if ([object.entity.name isEqualToString:@"Thread"] && self.threads.count > 2)
         return NO;
@@ -473,18 +481,23 @@
 # pragma mark table
 
 - (void) prepareCell:(BoardTableViewCell *) cell {
-    [cell setAttachmentTouchTarget:self action:@selector(attachmentTouch:)];
-    [cell setBoardlinkTouchTarget:self action:@selector(boardlinkTouch:context:)];
+    if (cell.isPrepared) {
+        return;
+    } else {
+        cell.isPrepared = YES;
 
-    if ([cell isKindOfClass:[PostTableViewCell class]]) {
-        // NSSelectorFromString used for supressing compiler warning
-        [((PostTableViewCell *) cell) setHeaderTouchTarget:self
-                                                    action:NSSelectorFromString(@"postReplyTouch:")];
-    } else if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
-        [(ThreadTableViewCell *) cell setReplyTouchTarget:self
-                                                   action:NSSelectorFromString(@"threadReplyTouch:")];
+        [cell setAttachmentTouchTarget:self action:@selector(attachmentTouch:)];
+        [cell setBoardlinkTouchTarget:self action:@selector(boardlinkTouch:context:)];
+        
+        if ([cell isKindOfClass:[PostTableViewCell class]]) {
+            // NSSelectorFromString used for supressing compiler warning
+            [((PostTableViewCell *) cell) setHeaderTouchTarget:self
+                                                        action:NSSelectorFromString(@"postReplyTouch:")];
+        } else if ([cell isKindOfClass:[ThreadTableViewCell class]]) {
+            [(ThreadTableViewCell *) cell setReplyTouchTarget:self
+                                                       action:NSSelectorFromString(@"threadReplyTouch:")];
+        }
     }
-
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -502,7 +515,7 @@
     NSManagedObject *entry = self.threads[indexPath.row];
 
     NSArray<NSManagedObject *> *attachments = [self.context requestAttachmentsFor:entry];
-    [cell setupAttachmentOffsetFor:tableView.frame.size];
+
     [cell populate:entry
        attachments:attachments];
     [self prepareCell:cell];
@@ -537,6 +550,12 @@
     }
 }
 
+- (void) tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[PostTableViewCell class]]) {
+        [(PostTableViewCell *) cell setOpacity:NO];
+    }
+}
+
 # pragma mark state restoration
 
 - (void) decodeRestorableStateWithCoder:(nonnull NSCoder *)coder {
@@ -568,6 +587,11 @@
 
     [coder encodeObject:self.context forKey:@"context"];
     [coder encodeObject:[[self.tableView indexPathsForVisibleRows] firstObject] forKey:@"first_visible_row"];
+}
+
+- (void) dealloc {
+    self.context.delegate = nil;
+    [self.api cancelRequest];
 }
 
 @end

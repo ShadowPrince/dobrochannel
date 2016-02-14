@@ -19,27 +19,33 @@
 }
 @end
 
-@implementation BoardMarkupParser
+@interface BoardMarkupParser ()
+@property CGFloat fontSize;
+@end @implementation BoardMarkupParser
 
 + (instancetype) defaultParser {
     static BoardMarkupParser *parser = nil;
+    CGFloat size = [UserDefaults textSize];
+
     if (!parser) {
         UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
         parser = [[BoardMarkupParser alloc] initWithAttributes:
                   @{
-                    @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12.f], },
-                     @BoardMarkupParserTagBold: @{},
-                     @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:12.f], },
-                     @BoardMarkupParserTagItalic: @{ },
-                     @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:12.f], },
+                    @BoardMarkupParserText: @{NSFontAttributeName: [UIFont systemFontOfSize:size]},
+                    @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:size], },
+                     @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:size], },
+                     @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:size], },
                      @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
-                                                     NSBackgroundColorAttributeName: [UIColor blackColor], },
-                     @BoardMarkupParserWeblink: @{},
-                     @BoardMarkupParserBoardlink: @{},
-                     @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, },
+                                                     NSBackgroundColorAttributeName: [UIColor blackColor],
+                                                     NSFontAttributeName: [UIFont systemFontOfSize:size], },
+                     @BoardMarkupParserWeblink: @{NSFontAttributeName: [UIFont systemFontOfSize:size],},
+                     @BoardMarkupParserBoardlink: @{NSFontAttributeName: [UIFont systemFontOfSize:size],},
+                     @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, NSFontAttributeName: [UIFont systemFontOfSize:size],},
 
 
                      }];
+        
+        parser.fontSize = size;
     }
     
     return parser;
@@ -222,7 +228,8 @@
 }
 
 - (NSMutableAttributedString *) parse:(NSString *) str {
-    return [self parseAttributedString:[[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.f]}]];
+    return [self parseAttributedString:[[NSMutableAttributedString alloc] initWithString:str
+                                                                              attributes:self.attrs[@BoardMarkupParserText]]];
 }
 
 @end

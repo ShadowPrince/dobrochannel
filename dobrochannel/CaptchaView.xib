@@ -26,6 +26,9 @@
                 <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="just do it" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U5h-es-o3j">
                     <rect key="frame" x="304" y="0.0" width="296" height="32"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="NBJ-4g-HuO"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>

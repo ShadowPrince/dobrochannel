@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UISlider *loadContentFullMaxSlider;
 @property (weak, nonatomic) IBOutlet UILabel *loadContentFullMaxLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *loadFullAttachmentsViewSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *textSizeExampleLabel;
+@property (weak, nonatomic) IBOutlet UISlider *textSizeSlider;
 @property NSUInteger switches;
 @end @implementation SettingsViewController
 
@@ -55,6 +57,9 @@
     self.loadContentFullMaxSlider.value = (CGFloat) maxSize / 3000;
 
     self.passwordField.text = [UserDefaults postPassword];
+
+    [self.textSizeSlider setValue:[UserDefaults textSize]];
+    self.textSizeExampleLabel.font = [self.textSizeExampleLabel.font fontWithSize:[UserDefaults textSize]];
 }
 
 - (IBAction)noRatingSwitch:(UISwitch *)sender {
@@ -92,6 +97,11 @@
 
 - (IBAction)passwordValueChange:(id)sender {
     [[NSUserDefaults standardUserDefaults] setValue:self.passwordField.text forKey:@"post_password"];
+}
+
+- (IBAction)textSizeSlider:(UISlider *)sender {
+    self.textSizeExampleLabel.font = [self.textSizeExampleLabel.font fontWithSize:sender.value];
+    [[NSUserDefaults standardUserDefaults] setFloat:sender.value forKey:@"text_size"];
 }
 
 #pragma mark keyboard

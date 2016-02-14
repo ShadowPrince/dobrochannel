@@ -13,6 +13,8 @@
 @property NSURLConnection *currentConnection;
 @property NSURLSessionDataTask *currentTask;
 @property NSURLSession *imageLoadingSession;
+@property NSURLSessionConfiguration *apiRequestConfiguration;
+
 @property NSMutableDictionary *progressCallbacks;
 
 @end @implementation BoardAPI
@@ -33,8 +35,18 @@
 
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     config.requestCachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    config.HTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    config.HTTPCookieStorage.cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:300 * 1024 * 1024 diskPath:@"images.urlcache"];
+    config.URLCache = cache;
 
     self.imageLoadingSession = [NSURLSession sessionWithConfiguration:config];
+
+    self.apiRequestConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    self.apiRequestConfiguration.requestCachePolicy = NSURLRequestReloadIgnoringCacheData;
+    self.apiRequestConfiguration.HTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
     self.progressCallbacks = [NSMutableDictionary new];
 
     return self;
@@ -148,16 +160,16 @@
                          finishCallback:(BoardImageDownloadFinishCallback)finishCallback {
     NSURL *url = [self urlFor:path];
     
-    return [self requestURL:url
-           progressCallback:stateCallback
-             finishCallback:^(NSData *data) {
-                 UIImage *image = [UIImage imageWithData:data];
-                 if (image) {
-                     dispatch_sync(dispatch_get_main_queue(), ^{
-                         finishCallback(image);
-                     });
-                 }
-             }];
+    return [self requestImage:url
+             progressCallback:stateCallback
+               finishCallback:^(NSData *data) {
+                   UIImage *image = [UIImage imageWithData:data];
+                   if (image) {
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           finishCallback(image);
+                       });
+                   }
+               }];
 }
 
 - (NSURLSessionDataTask *) requestData:(NSString *)path
@@ -165,15 +177,15 @@
                          finishCallback:(BoardDataDownloadFinishCallback)finishCallback {
     NSURL *url = [self urlFor:path];
     
-    return [self requestURL:url
-           progressCallback:stateCallback
-             finishCallback:^(NSData *data) {
-                 if (data) {
-                     dispatch_sync(dispatch_get_main_queue(), ^{
-                         finishCallback(data);
-                     });
-                 }
-             }];
+    return [self requestImage:url
+             progressCallback:stateCallback
+               finishCallback:^(NSData *data) {
+                   if (data) {
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           finishCallback(data);
+                       });
+                   }
+               }];
 }
 
 - (NSURLSessionTask *) requestCaptchaAt:(NSString *) board
@@ -185,7 +197,6 @@
 
 - (void) requestSessionInfoWithFinishCallback:(BoardSessionFinishCallback)finishCallback {
     NSURL *url = [self urlFor:@"api/user.json"];
-
     self.currentTask = [self requestURL:url
                        progressCallback:nil
                          finishCallback:^(NSData *data) {
@@ -193,7 +204,22 @@
                                                                        options:0
                                                                          error:nil];
                              dispatch_sync(dispatch_get_main_queue(), ^{
-                                 finishCallback([json valueForKey:@"tokens"]);
+                                 finishCallback(json);
+                                 [self cancelRequest];
+                             });
+                         }];
+}
+
+- (void) requestDiffWithFinishCallback:(BoardSessionFinishCallback)finishCallback {
+    NSURL *url = [self urlFor:@"api/chan/stats/diff.json"];
+    self.currentTask = [self requestURL:url
+                       progressCallback:nil
+                         finishCallback:^(NSData *data) {
+                             id json = [NSJSONSerialization JSONObjectWithData:data
+                                                                       options:0
+                                                                         error:nil];
+                             dispatch_sync(dispatch_get_main_queue(), ^{
+                                 finishCallback(json);
                                  [self cancelRequest];
                              });
                          }];
@@ -217,7 +243,7 @@
     [data setValuesForKeysWithDictionary:@{@"task": @"post",
                                            @"scroll_to": @"",
                                            @"goto": @"thread",
-                                           @"post_files_count": [NSString stringWithFormat:@"%u", files.count + 1],
+                                           @"post_files_count": [NSString stringWithFormat:@"%lu", files.count + 1],
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
                                            @"name": @"Анонимус",
@@ -259,6 +285,7 @@
     // close boundary
     [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPBody = HTTPBody;
+    request.HTTPShouldHandleCookies = YES;
 
     NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/res/%@.xhtml", board, thread_display_id]];
     __weak BoardAPI *_self = self;
@@ -267,10 +294,13 @@
         BoardRequestProgressConnectionDelegate *d = [[BoardRequestProgressConnectionDelegate alloc] init];
         d.finishCallback = ^void (NSURLResponse *response, NSData *data) {
             if (![[response URL] isEqual:successUrl]) {
-                NSArray *errors = [BoardWebResponseParser parseErrorsFromPostData:data];
-                callback(errors);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    callback([BoardWebResponseParser parseErrorsFromPostData:data]);
+                }];
             } else {
-                callback(nil);
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    callback(nil);
+                }];
             }
 
             _self.currentConnection = nil;
@@ -296,21 +326,22 @@
 
     NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/delete", board]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+
     request.HTTPMethod = @"POST";
     request.HTTPBody = [postDataString dataUsingEncoding:NSUTF8StringEncoding];
 
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue new]
-                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-                               dispatch_sync(dispatch_get_main_queue(), ^{
-                                   NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/index.xhtml", board]];
-                                   if (![[response URL] isEqual:successUrl]) {
-                                       cb([BoardWebResponseParser parseErrorsFromDeleteData:data]);
-                                   } else {
-                                       cb(nil);
-                                   }
-                               });
-                           }];
+    [[[NSURLSession sessionWithConfiguration:self.apiRequestConfiguration]
+     dataTaskWithRequest:request
+     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+         dispatch_sync(dispatch_get_main_queue(), ^{
+             NSURL *successUrl = [self urlFor:[NSString stringWithFormat:@"%@/index.xhtml", board]];
+             if (![[response URL] isEqual:successUrl]) {
+                 cb([BoardWebResponseParser parseErrorsFromDeleteData:data]);
+             } else {
+                 cb(nil);
+             }
+         });
+     }] resume];
 }
 
 # pragma mark request managing
@@ -387,10 +418,29 @@
 }
 
 - (NSURLSessionDataTask *) requestURL:(NSURL *) url
-                 progressCallback:(BoardAPIProgressCallback) stateCallback
-                   finishCallback:(BoardAPIFinishCallback) finishCallback {
+                     progressCallback:(BoardAPIProgressCallback) stateCallback
+                       finishCallback:(BoardAPIFinishCallback) finishCallback {
+    return [self requestURL:url
+                  inSession:[NSURLSession sessionWithConfiguration:self.apiRequestConfiguration]
+           progressCallback:stateCallback
+             finishCallback:finishCallback];
+}
+
+- (NSURLSessionDataTask *) requestImage:(NSURL *) url
+                       progressCallback:(BoardAPIProgressCallback) stateCallback
+                         finishCallback:(BoardAPIFinishCallback) finishCallback {
+    return [self requestURL:url
+                  inSession:self.imageLoadingSession
+           progressCallback:stateCallback
+             finishCallback:finishCallback];
+}
+
+- (NSURLSessionDataTask *) requestURL:(NSURL *) url
+                            inSession:(NSURLSession *) session
+                     progressCallback:(BoardAPIProgressCallback) stateCallback
+                       finishCallback:(BoardAPIFinishCallback) finishCallback {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDataTask *task = [self.imageLoadingSession
+    NSURLSessionDataTask *task = [session
                                   dataTaskWithRequest:request
                                   completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                                       if (!error)
@@ -409,11 +459,10 @@
 - (NSURLSessionTask *) requestURL:(NSURL *) url
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
-//    url = [NSURL URLWithString:@"http://localhost/0.json"];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+    //url = [NSURL URLWithString:@"http://127.0.0.1/0.json"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:self.apiRequestConfiguration
                                                           delegate:ddelegate
                                                      delegateQueue:nil];
-
     NSURLRequest *request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:NSTimeIntervalSince1970];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request];

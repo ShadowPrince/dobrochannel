@@ -83,7 +83,6 @@ static NSMutableDictionary *ThreadHiderViewController_HideStatistics = nil;
                                             [c removeFromParentViewController];
                                         }]];
 
-    c.view.tintColor = self.view.tintColor;
     [self presentViewController:c animated:YES completion:^{
     }];
 }

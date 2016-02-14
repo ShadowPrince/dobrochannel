@@ -31,10 +31,12 @@
 
 - (IBAction)attachAction:(id)sender {
     [self.delegate didAttached:self.context];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)cancelAction:(id)sender {
     [self.delegate didCancelled:self.context];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -42,7 +44,7 @@
 }
 
 - (void) dealloc {
-    NSLog(@"dealloc");
+    NSLog(@"preview dealloc");
 }
 
 @end

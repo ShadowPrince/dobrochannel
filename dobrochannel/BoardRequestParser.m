@@ -127,6 +127,7 @@
             postStart = i;
         }
 
+
         if (ch == '}' && f_brackets == f_brackets_post_end && brackets == brackets_post_end) {
             // post end
             NSString *postJson = [[buffer substringWithRange:NSMakeRange(postStart, i - postStart)] stringByAppendingString:@"}"];
@@ -143,7 +144,6 @@
             }
         }
     }
-
 }
 
 @end

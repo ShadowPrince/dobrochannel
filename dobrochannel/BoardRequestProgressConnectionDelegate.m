@@ -40,6 +40,13 @@
     self.response = response;
 
     if (self.responseCallback) {
+
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *) response;
+            NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[httpResp allHeaderFields] forURL:[response URL]];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:cookies forURL:[httpResp URL] mainDocumentURL:nil];
+        }
+        
         self.responseCallback(self.response);
     }
 }

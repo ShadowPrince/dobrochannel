@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "UserDefaults.h"
 
+
+#define BoardMarkupParserText -1
 #define BoardMarkupParserTagBold 0
 #define BoardMarkupParserTagItalic 1
 #define BoardMarkupParserTagSpoiler 2

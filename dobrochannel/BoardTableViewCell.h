@@ -15,6 +15,7 @@
 #import "AttachmentsTableDelegate.h"
 
 @interface BoardTableViewCell : UITableViewCell
+@property BOOL isPrepared;
 @property NSUInteger attachmentsCount;
 @property MessageTextViewDelegate *textViewDelegate;
 @property NSManagedObject *object;

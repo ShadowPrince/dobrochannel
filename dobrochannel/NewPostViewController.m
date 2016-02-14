@@ -102,10 +102,12 @@
                           self.captchaImageView.image = image;
                       }];
 
-    [[BoardAPI api] requestSessionInfoWithFinishCallback:^(NSArray *info) {
-        for (NSDictionary *token in info) {
+    [[BoardAPI api] requestSessionInfoWithFinishCallback:^(NSDictionary *info) {
+        NSLog(@"User info: %@", info);
+        for (NSDictionary *token in info[@"tokens"]) {
             if ([token[@"token"] isEqualToString:@"no_user_captcha"]) {
                 self.captchaTextField.text = @"no need";
+                self.captchaTextField.enabled = NO;
             }
         }
     }];
@@ -221,8 +223,7 @@
     NSData *data = [NSData dataWithContentsOfURL:url];
     UIImage *image = [[UIImage alloc] initWithData:data];
 
-    [self.attachedImages addObject:@{UIImagePickerControllerOriginalImage: image,
-                                     }];
+    [self.attachedImages addObject:@{UIImagePickerControllerOriginalImage: image, }];
     [self.attachedRatings addObject:@"no rating"];
 }
 

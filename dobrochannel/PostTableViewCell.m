@@ -9,6 +9,7 @@
 #import "PostTableViewCell.h"
 
 @interface PostTableViewCell ()
+@property BOOL prevOpacity;
 @property NSMutableArray *answers;
 @property CGFloat answersBaseHeight;
 @property NSOperationQueue *queue;
@@ -60,6 +61,10 @@
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
 
+    UIFont *font = [self.messageTextView.font fontWithSize:[UserDefaults textSize]];
+    self.dateLabel.font = font;
+    self.idLabel.font = font;
+
     [super awakeFromNib];
 }
 
@@ -70,11 +75,24 @@
     [self.answersCollectionView reloadData];
 
     self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
+    /*
+    CGRect frame = self.frame;
+    frame.size = CGSizeMake(frame.size.width,
+                            frame.size.height - (self.answers.count == 0 ? self.answersBaseHeight : 0));
+    self.frame = frame;
+    self.answersCollectionView.frame = CGRectMake(self.frame.origin.x,
+                                                  self.frame.origin.y,
+                                                  self.frame.size.width,
+                                                  self.answersViewHeightConstraint.constant);
+     */
+
     [self layoutIfNeeded];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];
-    self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
+
+    NSAttributedString __block *message = [data valueForKey:@"attributedMessage"];
+    self.messageTextView.attributedText = message;
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
@@ -113,21 +131,26 @@
     return MAX(attach, message);
 }
 
-- (void) setOpacity:(BOOL) op {
-    UIColor *background = nil;
-
-    if (op) {
-        background = [UIColor clearColor];
+- (void) setOpacity:(BOOL) set_op {
+    if (self.prevOpacity == set_op) {
+        return;
     } else {
-        background = [UIColor whiteColor];
-    }
-
-    for (UIView *view in @[self.dateLabel,
-                           self.idLabel,
-                           self.messageTextView,
-                           self.attachmentsView, ]) {
-        [view setValuesForKeysWithDictionary:@{@"backgroundColor": background,
-                                               @"opaque": [NSNumber numberWithBool:op], }];
+        self.prevOpacity = set_op;
+        UIColor *background = nil;
+        
+        if (set_op) {
+            background = [UIColor clearColor];
+        } else {
+            background = [UIColor whiteColor];
+        }
+        
+        for (UIView *view in @[self.dateLabel,
+                               self.idLabel,
+                               self.messageTextView,
+                               self.attachmentsView, ]) {
+            [view setValuesForKeysWithDictionary:@{@"backgroundColor": background,
+                                                   @"opaque": [NSNumber numberWithBool:set_op], }];
+        }
     }
 }
 

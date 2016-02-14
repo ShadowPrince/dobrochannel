@@ -113,7 +113,6 @@
 
     DanbooruPickerViewController __weak *_self = self;
     [self.api downloadImage:entry finishCallback:^(NSURL *url) {
-
         PreviewViewController *pvc = [PreviewViewController new];
         pvc.context = @{@"entry": entry,
                         @"url": url, };
@@ -138,7 +137,6 @@
 #pragma mark - preview
 
 - (void) didCancelled:(NSObject *)context {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) didAttached:(NSObject *)context {
@@ -148,7 +146,6 @@
     
     [self.delegate danbooruPicker:self didPickImageAt:(NSURL *) [context valueForKey:@"url"]];
     self.attachedImages++;
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - api
@@ -287,6 +284,10 @@
 - (void) reloadRowsForImageDict:(NSDictionary *) image {
     NSInteger row = [self.imageInfos indexOfObject:image];
     [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]]];
+}
+
+- (void) dealloc {
+    NSLog(@"dealloc");
 }
 
 @end

@@ -31,7 +31,7 @@
 
 - (BOOL) textView:(nonnull UITextView *)textView shouldInteractWithURL:(nonnull NSURL *)URL inRange:(NSRange)characterRange {
     NSString *internal_protocol = @"dobrochannel://";
-    if ([[[URL absoluteString] substringToIndex:internal_protocol.length] isEqualToString:internal_protocol]) {
+    if ([[URL absoluteString] hasPrefix:internal_protocol]) {
         [self fireActionWith:[[URL absoluteString] substringFromIndex:internal_protocol.length]
                contextObject:self.contextObject];
         return NO;

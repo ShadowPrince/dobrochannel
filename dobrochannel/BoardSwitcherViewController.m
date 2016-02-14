@@ -11,6 +11,7 @@
 @interface BoardSwitcherViewController ()
 @property NSArray *boardsList;
 @property NSDictionary *boardsData;
+@property NSDictionary *boardsDiff;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @end @implementation BoardSwitcherViewController
 
@@ -34,6 +35,12 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES];
+
+    __weak BoardSwitcherViewController *_self = self;
+    [[BoardAPI api] requestDiffWithFinishCallback:^(NSDictionary *diff) {
+        _self.boardsDiff = diff;
+        [_self.collectionView reloadData];
+    }];
 }
 
 # pragma mark actions
@@ -57,6 +64,9 @@
     [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
 }
 
+- (IBAction) unwindFromSettings:(UIStoryboardSegue *)sender {
+    NSLog(@"undinw");
+}
 # pragma mark data source
 
 - (UICollectionViewCell *) collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -66,8 +76,14 @@
     NSArray *board = self.boardsData[key];
 
     UIButton *b = (UIButton *) [cell viewWithTag:100];
+    NSNumber *diff = self.boardsDiff[key];
+
     [UIView performWithoutAnimation:^{
-        [b setTitle:[NSString stringWithFormat:@"/%@/", key] forState:UIControlStateNormal];
+        if (diff && ![diff isEqualToNumber:@0]) {
+            [b setTitle:[NSString stringWithFormat:@"/%@/ [%@]", key, diff] forState:UIControlStateNormal];
+        } else {
+            [b setTitle:[NSString stringWithFormat:@"/%@/", key] forState:UIControlStateNormal];
+        }
     }];
 
     UILabel *l = (UILabel *) [cell viewWithTag:102];

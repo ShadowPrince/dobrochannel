@@ -17,6 +17,7 @@
 @property NSUInteger ratingMax;
 @property float ratingMedium, ratingTop;
 @property NSUInteger blockSizeMax;
+@property CGFloat blockSize;
 @end@implementation ThreadAttachmentsViewController
 
 - (void)viewDidLoad {
@@ -53,20 +54,22 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    float blockSizeCoef = 0, maxBlocksOnPage = 1;
+    float blockSizeCoef = 0, blockSizeMax = 1;
     CGFloat width = self.view.frame.size.width;
     if (width >= 1024) {
-        blockSizeCoef = 9;
-        maxBlocksOnPage = 3;
+        blockSizeCoef = 8;
+        blockSizeMax = 5;
     } else if (width >= 512) {
         blockSizeCoef = 6;
-        maxBlocksOnPage = 2;
+        blockSizeMax = 5;
     } else {
-        blockSizeCoef = 3;
+        blockSizeCoef = 4;
+        blockSizeMax = 4;
     }
 
     CGFloat size = self.collectionView.frame.size.width / blockSizeCoef;
-    self.blockSizeMax = (int) ((float) blockSizeCoef / maxBlocksOnPage);
+    self.blockSize = size;
+    self.blockSizeMax = blockSizeMax;
 
     RFQuiltLayout *layout = (RFQuiltLayout *) self.collectionView.collectionViewLayout;
     layout.delegate = self;
@@ -108,7 +111,7 @@
         // bottom - offset=0
         // top - offset=offset_max
 
-        CGFloat px_total_offset = 40.f;
+        CGFloat px_total_offset = 50.f;
         CGFloat n = (offset / offset_max) * px_total_offset;
 
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
@@ -129,7 +132,7 @@
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     NSManagedObject *attachment = self.attachments[indexPath.row];
-    UIImageView *iv = [cell viewWithTag:100];
+    UIImageView *iv = (UIImageView *) [cell viewWithTag:100];
     iv.image = nil;
 
     NSURLSessionTask *previousTask;
@@ -143,9 +146,14 @@
 
     NSString *src = [attachment valueForKey:@"thumb_src"];
     NSNumber *weight = [attachment valueForKey:@"weight"];
-
     BOOL weight_lesser_limit = weight.integerValue <= [UserDefaults contentReaderLoadFullMaxSize] * 1024;
-    if (weight_lesser_limit && [UserDefaults attachmentsViewLoadFull]) {
+
+    CGSize attachS = [(NSValue *) [attachment valueForKey:@"thumb_size"] CGSizeValue];
+    CGSize s = [self blockSizeForItemAtIndexPath:indexPath];
+    CGFloat width_ratio = s.width * self.blockSize / attachS.width;
+    CGFloat height_ratio = s.height * self.blockSize / attachS.height;
+
+    if (weight_lesser_limit && [UserDefaults attachmentsViewLoadFull] && (width_ratio >= 1.3f || height_ratio >= 1.3f)) {
         src = [attachment valueForKey:@"src"];
     }
 
@@ -157,6 +165,13 @@
                                            }];
     self.cellTasks[[NSNumber numberWithLongLong:(long long) cell]] = task;
 
+    UISegmentedControl *info = (UISegmentedControl *) [cell viewWithTag:101];
+    NSString *fullSrc = [[[attachment valueForKey:@"src"] componentsSeparatedByString:@"."] lastObject];
+    [info setTitle:fullSrc.length <= 4 ? fullSrc : @"?" forSegmentAtIndex:0];
+
+    NSString *weightStr = [NSByteCountFormatter stringFromByteCount:[(NSNumber *) [attachment valueForKey:@"weight"] longLongValue]
+                                                      countStyle:NSByteCountFormatterCountStyleFile];
+    [info setTitle:weightStr forSegmentAtIndex:1];
     return cell;
 }
 

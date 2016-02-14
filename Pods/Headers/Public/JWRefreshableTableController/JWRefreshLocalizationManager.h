@@ -1,1 +1,0 @@
-../../../JWRefreshableTableController/Classes/JWRefreshTableCluster/JWRefreshLocalizationManager.h

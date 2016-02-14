@@ -35,6 +35,12 @@
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
 
+
+    UIFont *font = [self.messageTextView.font fontWithSize:[UserDefaults textSize]];
+    self.dateLabel.font = font;
+    self.idLabel.font = font;
+    self.titleButton.titleLabel.font = font;
+
     [super awakeFromNib];
 }
 
@@ -44,7 +50,12 @@
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     [UIView performWithoutAnimation:^{
-        [self.titleButton setTitle:[data valueForKey:@"title"] forState:UIControlStateNormal];
+        NSMutableString *filler = [NSMutableString new];
+        for (int i = 0; i < 1000; i++)
+            [filler appendString:@" . "];
+
+        NSString *title = [[data valueForKey:@"title"] stringByAppendingString:filler];
+        [self.titleButton setTitle:title forState:UIControlStateNormal];
     }];
 
     NSNumber *postsCount = [data valueForKey:@"posts_count"];

@@ -1,25 +1,19 @@
 PODS:
-  - JWRefreshableTableController (0.1.4)
   - UIActionSheet+Blocks (0.9)
   - UIAlertController+Blocks (0.9)
   - UIAlertView+Blocks (0.9)
-  - UITableView-NXEmptyView (0.1.7)
   - YLGIFImage (0.11)
 
 DEPENDENCIES:
-  - JWRefreshableTableController (~> 0.1)
   - UIActionSheet+Blocks (>= 0.9)
   - UIAlertController+Blocks (>= 0.9)
   - UIAlertView+Blocks (>= 0.9)
-  - UITableView-NXEmptyView
   - YLGIFImage (~> 0.11)
 
 SPEC CHECKSUMS:
-  JWRefreshableTableController: 621adbe3c1fa5500e68ba0d8d3fbd84f1a66aea7
   UIActionSheet+Blocks: e180b7dad0a721ab7f212ac9742af799008bb358
   UIAlertController+Blocks: b48c673ff60726da468b32ab21bbc7683512d45b
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
-  UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
 
 COCOAPODS: 0.38.2

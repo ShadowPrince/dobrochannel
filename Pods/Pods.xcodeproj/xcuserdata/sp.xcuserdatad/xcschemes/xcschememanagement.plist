@@ -4,16 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>JWRefreshableTableController-JWRefreshableTableController-Localization.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>JWRefreshableTableController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-Dobrochannel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UITableView-NXEmptyView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>YLGIFImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,17 +37,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4215BA75171B132BC45DC30B63C91282</key>
+		<key>1539B2D13AD4352BA98404CC3CBBF319</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>547EA504C071A50E5CF78890947786F8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>664C1D7353884A580C32783B639CFFB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,17 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B24EE173E3D1445AC091214F0CF98D60</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C22B446999417314F5A727DEC494CBDF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CEA96A36CCCDFFF048191B8ED589FE7B</key>
+		<key>B72F82796E67B94F36B37137A34A5075</key>
 		<dict>
 			<key>primary</key>
 			<true/>

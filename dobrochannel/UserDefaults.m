@@ -45,6 +45,10 @@
                 [list addObject:comp];
             }
         }
+
+        if (list.count == 0) {
+            list = @[@"---", @"0", @"0", @"0", ].mutableCopy;
+        }
     }
 
     return list;
@@ -124,6 +128,11 @@
 
 + (NSString *) postPassword {
     return (NSString *) [[NSUserDefaults standardUserDefaults] valueForKey:@"post_password"];
+}
+
++ (float) textSize {
+    float value = [[[NSUserDefaults standardUserDefaults] valueForKey:@"text_size"] floatValue];
+    return value ?: 13.f;
 }
 
 + (BOOL) enhanced {

@@ -61,7 +61,15 @@
 }
 
 - (void) clearPersistentStorage {
-    [self reset];
+    NSArray *entities = @[@"Thread", @"Post", @"Attachment", ];
+    for (NSString *entity in entities) {
+        for (NSManagedObject *o in [self requestEntity:entity using:nil]) {
+            [self deleteObject:o];
+        }
+    }
+    [self save:nil];
+    return;
+    
     NSArray *documentDirectories =
     NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                         NSUserDomainMask,

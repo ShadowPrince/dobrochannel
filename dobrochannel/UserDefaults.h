@@ -21,6 +21,7 @@
 
 + (BOOL) showUnrated;
 + (NSInteger) maxRating;
++ (float) textSize;
 
 + (NSString *) postPassword;
 

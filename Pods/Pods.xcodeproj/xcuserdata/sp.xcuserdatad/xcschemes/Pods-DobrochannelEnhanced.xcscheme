@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8F04F7DECF6ACB7328D738A6"
+               BlueprintIdentifier = "F73C0AD7B34E82E0D9977B95"
                BuildableName = "libPods-DobrochannelEnhanced.a"
                BlueprintName = "Pods-DobrochannelEnhanced"
                ReferencedContainer = "container:Pods.xcodeproj">
