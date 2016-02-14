@@ -35,6 +35,7 @@
 
 - (void) populate:(NSManagedObject *) object
       attachments:(NSArray *) attachments;
+
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *) attachments;
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize;

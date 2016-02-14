@@ -1,5 +1,4 @@
-//
-//  BoardTableViewCell.m
+
 //  dobrochannel
 //
 //  Created by shdwprince on 7/21/15.
@@ -62,15 +61,11 @@
                           attachments:(NSArray *) attachments {
     self.attachmentsCount = [attachments count];
 
-    if (self.attachmentsCount) {
-        self.dynamicStackViewScrollWidthConstraint.constant = self.dynamicLeftOffset;
-    } else {
-        self.dynamicStackViewScrollWidthConstraint.constant = 0.f;
-    }
+    CGFloat width = self.attachmentsCount ? self.dynamicLeftOffset : 0.f;
 
     self.dynamicTableView.contentOffset = CGPointMake(0, 0);
     self.dynamicTableDelegate.objects = attachments;
-    self.dynamicTableDelegate.parentSize = CGSizeMake(self.dynamicStackViewScrollWidthConstraint.constant, MAXFLOAT);
+    self.dynamicTableDelegate.parentSize = CGSizeMake(width, MAXFLOAT);
 }
 
 - (CGFloat) messageExpandHeight:(CGSize) parentSize {

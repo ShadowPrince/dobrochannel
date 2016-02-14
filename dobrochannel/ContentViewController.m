@@ -504,8 +504,18 @@
     NSManagedObject *entry = self.threads[indexPath.row];
     BoardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@View", entry.entity.name]];
 
+    NSArray<NSManagedObject *> *attachments = [self.context requestAttachmentsFor:entry];
+
+    [cell populate:entry
+       attachments:attachments];
+
+    /*
+    [self prepareCell:cell];
+    [cell setupAttachmentOffsetFor:tableView.frame.size];
+     */
+
     if (![self.api isRequesting] && indexPath.row == [self.threads count] - 1) {
-        [self didScrollToBottom];
+        //[self didScrollToBottom];
     }
 
     return cell;
@@ -514,12 +524,15 @@
 - (void) tableView:(UITableView *)tableView willDisplayCell:(BoardTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *entry = self.threads[indexPath.row];
 
+    /*
     NSArray<NSManagedObject *> *attachments = [self.context requestAttachmentsFor:entry];
 
     [cell populate:entry
-       attachments:attachments];
+       attachments:attachments
+            height:self.rowHeightCache[indexPath]];
     [self prepareCell:cell];
     [cell setupAttachmentOffsetFor:tableView.frame.size];
+     */
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

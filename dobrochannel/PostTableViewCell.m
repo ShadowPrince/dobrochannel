@@ -65,6 +65,11 @@
     self.dateLabel.font = font;
     self.idLabel.font = font;
 
+    self.translatesAutoresizingMaskIntoConstraints = YES;
+    self.messageTextView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.attachmentsView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.answersCollectionView.translatesAutoresizingMaskIntoConstraints = YES;
+
     [super awakeFromNib];
 }
 
@@ -75,30 +80,42 @@
     [self.answersCollectionView reloadData];
 
     self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
-    /*
-    CGRect frame = self.frame;
-    frame.size = CGSizeMake(frame.size.width,
-                            frame.size.height - (self.answers.count == 0 ? self.answersBaseHeight : 0));
-    self.frame = frame;
     self.answersCollectionView.frame = CGRectMake(self.frame.origin.x,
                                                   self.frame.origin.y,
                                                   self.frame.size.width,
-                                                  self.answersViewHeightConstraint.constant);
-     */
+                                                  0);
 
-    [self layoutIfNeeded];
+    //[self layoutIfNeeded];
 
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];
+    //self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
+    //self.messageTextView.text = [[data valueForKey:@"attributedMessage"] string];
+}
 
-    NSAttributedString __block *message = [data valueForKey:@"attributedMessage"];
-    self.messageTextView.attributedText = message;
+- (void) layoutSubviews {
+    NSLog(@"lay out %@ %d, %f, %f", self, self.attachmentsCount, self.frame.size.width, self.frame.size.height);
+
+    CGFloat left = 16.f;
+    CGFloat top = 16.f;
+    CGFloat height = self.frame.size.height - top;
+    if (self.attachmentsCount) {
+        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left, top, self.frame.size.width - self.dynamicLeftOffset - left, height);
+        self.attachmentsView.frame = CGRectMake(left, top, self.dynamicLeftOffset, height);
+    } else {
+        self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left, height);
+        self.attachmentsView.frame = CGRectMake(0, 0, 0, 0);
+
+    }
+    self.answersCollectionView.frame = CGRectMake(0, 0, 0, 0);
+
+    [super layoutSubviews];
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *)attachments {
     self.dynamicText = [object valueForKey:@"attributedMessage"];
-    self.answers = [NSMutableArray new];
+    self.answers = nil; //[NSMutableArray new];
 
     for (NSString *identifier in [[object valueForKey:@"answers"] componentsSeparatedByString:@","]) {
         if (identifier.length)

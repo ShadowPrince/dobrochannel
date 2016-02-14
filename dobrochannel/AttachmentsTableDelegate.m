@@ -41,6 +41,7 @@
     CGFloat statusLabelFontSize = STATUS_LABEL_FONT_SIZE;
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
+        cell.backgroundColor = [UIColor greenColor];
 
         UILabel *sl = [[UILabel alloc] init];
         sl.backgroundColor = [UIColor whiteColor];
@@ -64,6 +65,9 @@
         NSLog(@"core data: attachment fullfill error on %@", attachment);
         return cell;
     }
+    CGRect frame = cell.frame;
+    frame.size.height = [self attachmentHeight:attachment];
+    cell.frame = frame;
 
     UIImageView *iv = (UIImageView *) [cell viewWithTag:111];
     UIActivityIndicatorView *aiv = (UIActivityIndicatorView *) [cell viewWithTag:112];
@@ -160,7 +164,8 @@
         NSLog(@"core data: attachment fullfill error on %@", object);
         return 1.f;
     } else {
-        return [self attachmentHeight:self.objects[indexPath.row]];
+        CGFloat f = [self attachmentHeight:self.objects[indexPath.row]];
+        return f;
     }
 }
 
