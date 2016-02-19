@@ -14,14 +14,18 @@
     static NSMutableArray *list = nil;
 
     if (!list) {
-        NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://shadowprince.github.io/dobrochannel/apple_banned_posts.txt"]
-                                                 encoding:NSUTF8StringEncoding
-                                                    error:nil];
-
-        list = [NSMutableArray new];
-        for (NSString *comp in [str componentsSeparatedByString:@"\n"]) {
-            if (![comp isEqualToString:@""]) {
-                [list addObject:[NSNumber numberWithInteger:comp.integerValue]];
+        if ([UserDefaults enhanced]) {
+            list = [NSMutableArray new];
+        } else {
+            NSString *str = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://shadowprince.github.io/dobrochannel/apple_banned_posts.txt"]
+                                                     encoding:NSUTF8StringEncoding
+                                                        error:nil];
+            
+            list = [NSMutableArray new];
+            for (NSString *comp in [str componentsSeparatedByString:@"\n"]) {
+                if (![comp isEqualToString:@""]) {
+                    [list addObject:[NSNumber numberWithInteger:comp.integerValue]];
+                }
             }
         }
     }
@@ -59,7 +63,11 @@
 }
 
 + (BOOL) showReportButton {
-    return [UserDefaults meta][1].boolValue;
+    if ([UserDefaults enhanced]) {
+        return NO;
+    } else {
+        return [UserDefaults meta][1].boolValue;
+    }
 }
 
 #pragma mark - user defaults
