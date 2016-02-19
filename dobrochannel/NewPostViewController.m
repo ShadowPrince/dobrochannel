@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewFixedWidthContraint;
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reportMessageHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *reportMessageButton;
 @property (weak, nonatomic) IBOutlet UIView *captchaView;
 
@@ -58,8 +59,10 @@
         self.danbooruButton.hidden = NO;
     }
 
-    if (![UserDefaults showReportButton])
+    if (![UserDefaults showReportButton]) {
         self.reportMessageButton.hidden = YES;
+        self.reportMessageHeightConstraint.constant = 0.f;
+    }
 
     [self loadInReplyTo];
     [self loadCaptcha];

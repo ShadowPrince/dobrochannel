@@ -36,12 +36,63 @@
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
 
 
-    UIFont *font = [self.messageTextView.font fontWithSize:[UserDefaults textSize]];
+    UIFont *font = [UserDefaults textFont];
     self.dateLabel.font = font;
     self.idLabel.font = font;
     self.titleButton.titleLabel.font = font;
+    self.statusLabel.font = font;
+
+    self.messageTextView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.titleButton.translatesAutoresizingMaskIntoConstraints = YES;
+    self.dateLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    self.idLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    self.replyButton.translatesAutoresizingMaskIntoConstraints = YES;
+    self.statusLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    self.translatesAutoresizingMaskIntoConstraints = YES;
+    self.attachmentsView.translatesAutoresizingMaskIntoConstraints = YES;
 
     [super awakeFromNib];
+}
+
+- (void) layoutSubviews {
+    CGFloat left = 0.f;
+    CGFloat top = 28.f;
+    CGFloat height = self.frame.size.height - top - self.statusLabel.frame.size.height;
+    if (self.attachmentsCount) {
+        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left + 3.f, top, self.frame.size.width - self.dynamicLeftOffset - left - 4.f, height);
+        self.attachmentsView.frame = CGRectMake(left, top, self.dynamicLeftOffset, height + self.statusLabel.frame.size.height);
+    } else {
+        self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left - 1.f, height);
+        self.attachmentsView.frame = CGRectMake(0, 0, 0, 0);
+    }
+
+    self.dateLabel.frame = CGRectMake(self.messageTextView.frame.origin.x,
+                                      top + self.messageTextView.frame.size.height,
+                                      floorf(self.messageTextView.frame.size.width - self.messageTextView.frame.size.width / 4),
+                                      self.dateLabel.frame.size.height);
+    self.statusLabel.frame = CGRectMake(self.messageTextView.frame.origin.x + self.dateLabel.frame.size.width,
+                                        top + self.messageTextView.frame.size.height,
+                                        self.frame.size.width - self.messageTextView.frame.origin.x - self.dateLabel.frame.size.width - 3.f,
+                                        self.statusLabel.frame.size.height);
+
+    CGRect frame = self.replyButton.frame;
+    frame.origin.x = self.frame.size.width - frame.size.width;
+    self.replyButton.frame = frame;
+
+    CGFloat idWidth = [@"#1234567" boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:@{NSFontAttributeName: [UserDefaults textFont], }
+                                                context:nil].size.width;
+    frame = self.idLabel.frame;
+    frame.origin.x = self.frame.size.width - self.replyButton.frame.size.width - idWidth;
+    frame.size.width = self.frame.size.width - frame.origin.x - 23.f;
+    self.idLabel.frame = frame;
+
+    frame = self.titleButton.frame;
+    frame.size.width = self.idLabel.frame.origin.x;
+    self.titleButton.frame = frame;
+
+    [super layoutSubviews];
 }
 
 - (void) populate:(NSManagedObject *)data
@@ -51,15 +102,20 @@
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     [UIView performWithoutAnimation:^{
         NSMutableString *filler = [NSMutableString new];
-        for (int i = 0; i < 1000; i++)
-            [filler appendString:@" . "];
+        for (int i = 0; i < 3000; i++)
+            [filler appendString:@"."];
 
         NSString *title = [[data valueForKey:@"title"] stringByAppendingString:filler];
         [self.titleButton setTitle:title forState:UIControlStateNormal];
     }];
 
-    NSNumber *postsCount = [data valueForKey:@"posts_count"];
-    self.statusLabel.text = [NSString stringWithFormat:@"%@ post%@", postsCount, [postsCount isEqualToNumber:@1] ? @"" : @"s"];
+    long postsCount = [(NSNumber *) [data valueForKey:@"posts_count"] longValue] - 10;
+    if (postsCount > 0) {
+        self.statusLabel.text = [NSString stringWithFormat:@"%ld post%@ hidden", postsCount, postsCount == 1 ? @"" : @"s"];
+    } else {
+        self.statusLabel.text = @"no posts hidden";
+    }
+
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKeyPath:@"op_post.date"]];
     self.messageTextView.attributedText = self.dynamicText;
     [self.attachmentsView reloadData];
@@ -74,7 +130,7 @@
 }
 
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize {
-    self.dynamicLeftOffset = parentSize.width / 3.7;
+    self.dynamicLeftOffset = floorf(parentSize.width / 3.7);
 }
 
 - (void) setThreadHeaderTouchTarget:(id) target

@@ -184,6 +184,7 @@
 
         attachment = [NSEntityDescription insertNewObjectForEntityForName:@"Attachment"
                                                    inManagedObjectContext:self];
+        [attachment setValue:object forKey:@"post"];
 
         // sizes
         CGSize thumb_size = CGSizeMake(((NSNumber *) attachData[@"thumb_width"]).integerValue,
@@ -209,8 +210,6 @@
                                                      @"rating": [NSNumber numberWithInt:rating_int],
                                                      @"thumb_size": [NSValue valueWithCGSize:thumb_size],
                                                      @"src": attachData[@"src"], }];
-        [attachment setValue:object forKey:@"post"];
-
     }
 
     [object setValue:threadObject forKey:@"thread"];

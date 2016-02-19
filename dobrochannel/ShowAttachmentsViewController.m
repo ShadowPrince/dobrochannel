@@ -94,12 +94,18 @@
         return;
 
     if (self.zoomingImages[page] == [NSNull null]) {
-        DetailedAttachmentViewController *img = [[DetailedAttachmentViewController alloc]
-                                                 initWithAttachment:self.attachments[page]
-                                                 frame:CGRectMake(offset,
-                                                                  0,
-                                                                  [self pageWidth],
-                                                                  [self pageHeight])];
+        Class klass;
+        if ([[self.attachments[page] valueForKey:@"type"] isEqualToString:@"image"]) {
+            klass = [DetailedAttachmentViewController class];
+        } else {
+            klass = [SafariAttachmentViewController class];
+        }
+
+        DetailedAttachmentViewController *img = [[klass alloc] initWithAttachment:self.attachments[page]
+                                                                            frame:CGRectMake(offset,
+                                                                                             0,
+                                                                                             [self pageWidth],
+                                                                                             [self pageHeight])];
 
         [self.scrollView addSubview:img.view];
         self.zoomingImages[page] = img;

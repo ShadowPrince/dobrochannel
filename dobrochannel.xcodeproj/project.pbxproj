@@ -28,6 +28,8 @@
 		F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */; };
 		F37DDFBA1B77F2380056D316 /* NewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F37DDFB91B77F2380056D316 /* NewPostViewController.m */; };
 		F38CAC491B68496E00A2EF98 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = F38CAC481B68496E00A2EF98 /* UserDefaults.m */; };
+		F38D0AC81C779C6F004D0C9F /* SafariAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38D0AC61C779C6F004D0C9F /* SafariAttachmentViewController.m */; };
+		F38D0AC91C779C6F004D0C9F /* SafariAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F38D0AC71C779C6F004D0C9F /* SafariAttachmentViewController.xib */; };
 		F38F1C441B606AF000DDDE64 /* BoardSwitcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */; };
 		F39369331B5E839F0068A85F /* ThreadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369321B5E839F0068A85F /* ThreadViewController.m */; };
 		F39369361B5E86290068A85F /* BoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F39369351B5E86290068A85F /* BoardViewController.m */; };
@@ -150,6 +152,9 @@
 		F37DDFB91B77F2380056D316 /* NewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPostViewController.m; sourceTree = "<group>"; };
 		F38CAC471B68496E00A2EF98 /* UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaults.h; sourceTree = "<group>"; };
 		F38CAC481B68496E00A2EF98 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
+		F38D0AC51C779C6F004D0C9F /* SafariAttachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariAttachmentViewController.h; sourceTree = "<group>"; };
+		F38D0AC61C779C6F004D0C9F /* SafariAttachmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariAttachmentViewController.m; sourceTree = "<group>"; };
+		F38D0AC71C779C6F004D0C9F /* SafariAttachmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafariAttachmentViewController.xib; sourceTree = "<group>"; };
 		F38F1C421B606AF000DDDE64 /* BoardSwitcherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardSwitcherViewController.h; sourceTree = "<group>"; };
 		F38F1C431B606AF000DDDE64 /* BoardSwitcherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardSwitcherViewController.m; sourceTree = "<group>"; };
 		F39369311B5E839F0068A85F /* ThreadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadViewController.h; sourceTree = "<group>"; };
@@ -331,6 +336,7 @@
 				F33D940C1B5BD8E7000AA303 /* Main.storyboard */,
 				F33D941D1B5BD9C8000AA303 /* ContentViewController.xib */,
 				F37CA0291B68E55400A885C7 /* DetailedAttachmentViewController.xib */,
+				F38D0AC71C779C6F004D0C9F /* SafariAttachmentViewController.xib */,
 				F32657EA1B7E99600013078E /* Launch Screen.xib */,
 				F310247E1C1B15C90064C473 /* CaptchaView~iphone.xib */,
 				F31024801C1B15D80064C473 /* CaptchaView.xib */,
@@ -385,6 +391,8 @@
 				F37CA0281B68E55400A885C7 /* DetailedAttachmentViewController.m */,
 				F39683561C1CEA49006CB10D /* ThreadAttachmentsViewController.h */,
 				F39683571C1CEA49006CB10D /* ThreadAttachmentsViewController.m */,
+				F38D0AC51C779C6F004D0C9F /* SafariAttachmentViewController.h */,
+				F38D0AC61C779C6F004D0C9F /* SafariAttachmentViewController.m */,
 			);
 			name = Attachments;
 			sourceTree = "<group>";
@@ -657,6 +665,7 @@
 				F3B937B51B5DAAD300721CD8 /* ThreadTableViewCell.xib in Resources */,
 				F37CA02B1B68E55400A885C7 /* DetailedAttachmentViewController.xib in Resources */,
 				F3B063DD1B7B68F1003BA83E /* SearchSuggestionTableViewCell.xib in Resources */,
+				F38D0AC91C779C6F004D0C9F /* SafariAttachmentViewController.xib in Resources */,
 				F3B063D11B7B3FD0003BA83E /* ImageCollectionViewCell.xib in Resources */,
 				F32657EB1B7E99600013078E /* Launch Screen.xib in Resources */,
 				F31024811C1B15D80064C473 /* CaptchaView.xib in Resources */,
@@ -775,6 +784,7 @@
 				F39ADD821C1ADDCB00F956F1 /* ILTranslucentView.m in Sources */,
 				F3DC6FED1B6A46FD0063857A /* MessageTextViewDelegate.m in Sources */,
 				F3B063DC1B7B68F1003BA83E /* SearchSuggestionTableViewCell.m in Sources */,
+				F38D0AC81C779C6F004D0C9F /* SafariAttachmentViewController.m in Sources */,
 				F33D94081B5BD8E7000AA303 /* AppDelegate.m in Sources */,
 				F3E4618A1B5FD09800A34BBF /* ShowAttachmentsViewController.m in Sources */,
 				F3B937B41B5DAAD300721CD8 /* ThreadTableViewCell.m in Sources */,

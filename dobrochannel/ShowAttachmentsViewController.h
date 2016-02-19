@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 #import "DetailedAttachmentViewController.h"
+#import "SafariAttachmentViewController.h"
 #import "BoardAPI.h"
 #import "UserDefaults.h"
 

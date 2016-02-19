@@ -15,6 +15,7 @@
 
 @interface DetailedAttachmentViewController : UIViewController <UIScrollViewDelegate>
 @property (nonatomic) UIImage *image;
+@property NSManagedObject *attachment;
 
 - (instancetype) initWithAttachment:(NSManagedObject *) attachment frame:(CGRect) frame;
 - (void) didCenter;

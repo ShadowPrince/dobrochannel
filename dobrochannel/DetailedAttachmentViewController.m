@@ -9,7 +9,6 @@
 #import "DetailedAttachmentViewController.h"
 
 @interface DetailedAttachmentViewController ()
-@property NSManagedObject *attachment;
 @property NSURLSessionTask *task;
 @property BOOL isCentered, didLoadedSource;
 //---

@@ -266,8 +266,9 @@
     if (lastPostPath) {
         __weak ContentViewController *_self = self;
         __block PostTableViewCell *cell;
-        [_self scrollToObjectAt:lastPostPath.row position:UITableViewScrollPositionMiddle animated:YES];
-        
+        [_self scrollToObjectAt:lastPostPath.row position:UITableViewScrollPositionBottom animated:YES];
+
+        /*
         [[[[[[SPAnimationChain new]
              backgroundCall:^{
                  while (!cell) {
@@ -279,7 +280,8 @@
                  }
              }]
             call:^{
-                [cell setOpacity:YES];
+                NSLog(@"%@", cell);
+                //[cell setOpacity:YES];
             }]
            animate:^{
                cell.backgroundColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
@@ -288,6 +290,7 @@
               cell.backgroundColor = [UIColor whiteColor];
           } withDuration:5.f damping:8.f velocity:2.f options:UIViewAnimationOptionAllowUserInteraction]
          run];
+         */
     }
 }
 
@@ -515,11 +518,10 @@
     NSManagedObject *entry = self.threads[indexPath.row];
 
     NSArray<NSManagedObject *> *attachments = [self.context requestAttachmentsFor:entry];
-
-    [cell populate:entry
-       attachments:attachments];
     [self prepareCell:cell];
     [cell setupAttachmentOffsetFor:tableView.frame.size];
+    [cell populate:entry
+       attachments:attachments];
 }
 
 - (NSInteger) tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

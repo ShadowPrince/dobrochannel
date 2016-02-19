@@ -25,25 +25,24 @@
 
 + (instancetype) defaultParser {
     static BoardMarkupParser *parser = nil;
-    CGFloat size = [UserDefaults textSize];
+    UIFont *defaultFont = [UserDefaults messageFont];
+    CGFloat size = defaultFont.pointSize;
 
     if (!parser) {
         UIColor *quoteColor = [UIColor colorWithRed:120.f/255.f green:153.f/255.f blue:34.f/255.f alpha:1.f];
         parser = [[BoardMarkupParser alloc] initWithAttributes:
                   @{
-                    @BoardMarkupParserText: @{NSFontAttributeName: [UIFont systemFontOfSize:size]},
-                    @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:size], },
+                     @BoardMarkupParserText: @{NSFontAttributeName: defaultFont},
+                     @BoardMarkupParserTagBold: @{NSFontAttributeName:[UIFont boldSystemFontOfSize:size], },
                      @BoardMarkupParserTagItalic: @{NSFontAttributeName:[UIFont italicSystemFontOfSize:size], },
                      @BoardMarkupParserTagBoldItalic: @{NSFontAttributeName:[UIFont fontWithName:@"Georgia-BoldItalic" size:size], },
                      @BoardMarkupParserTagSpoiler: @{NSForegroundColorAttributeName: [UIColor grayColor],
                                                      NSBackgroundColorAttributeName: [UIColor blackColor],
-                                                     NSFontAttributeName: [UIFont systemFontOfSize:size], },
-                     @BoardMarkupParserWeblink: @{NSFontAttributeName: [UIFont systemFontOfSize:size],},
-                     @BoardMarkupParserBoardlink: @{NSFontAttributeName: [UIFont systemFontOfSize:size],},
-                     @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor, NSFontAttributeName: [UIFont systemFontOfSize:size],},
-
-
-                     }];
+                                                     NSFontAttributeName: defaultFont, },
+                     @BoardMarkupParserWeblink: @{NSFontAttributeName: defaultFont,},
+                     @BoardMarkupParserBoardlink: @{NSFontAttributeName: defaultFont,},
+                     @BoardMarkupParserQuote: @{NSForegroundColorAttributeName: quoteColor,
+                                                NSFontAttributeName: defaultFont,}, }];
         
         parser.fontSize = size;
     }

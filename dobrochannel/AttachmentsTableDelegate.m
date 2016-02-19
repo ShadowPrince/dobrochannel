@@ -41,7 +41,6 @@
     CGFloat statusLabelFontSize = STATUS_LABEL_FONT_SIZE;
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
-        cell.backgroundColor = [UIColor greenColor];
 
         UILabel *sl = [[UILabel alloc] init];
         sl.backgroundColor = [UIColor whiteColor];
@@ -78,10 +77,6 @@
                           -1,
                           self.parentSize.width + 1,
                           [[UIFont systemFontOfSize:statusLabelFontSize] lineHeight]);
-    CGRect iv_frame = CGRectMake(0,
-                                10.f,
-                                self.parentSize.width,
-                                [self attachmentHeight:attachment] - 10.f);
     iv.frame = CGRectMake(0,
                           10.f,
                           self.parentSize.width,

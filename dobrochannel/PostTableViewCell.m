@@ -40,7 +40,7 @@
     self.headerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.headerButton.titleLabel.backgroundColor = [UIColor whiteColor];
 
-    self.answersBaseHeight = self.answersViewHeightConstraint.constant;
+    self.answersBaseHeight = 25.f;
 
     CGColorRef borderColor = [UIColor colorWithWhite:0.8f alpha:1.f].CGColor;
     CGFloat borderHeight = 0.5f;
@@ -61,7 +61,7 @@
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
 
-    UIFont *font = [self.messageTextView.font fontWithSize:[UserDefaults textSize]];
+    UIFont *font = [UserDefaults textFont];
     self.dateLabel.font = font;
     self.idLabel.font = font;
 
@@ -69,6 +69,8 @@
     self.messageTextView.translatesAutoresizingMaskIntoConstraints = YES;
     self.attachmentsView.translatesAutoresizingMaskIntoConstraints = YES;
     self.answersCollectionView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.answersLabel.translatesAutoresizingMaskIntoConstraints = YES;
+    self.dateLabel.translatesAutoresizingMaskIntoConstraints = YES;
 
     [super awakeFromNib];
 }
@@ -79,43 +81,63 @@
     [self.attachmentsView reloadData];
     [self.answersCollectionView reloadData];
 
-    self.answersViewHeightConstraint.constant = self.answers.count == 0 ? 0.f : self.answersBaseHeight;
-    self.answersCollectionView.frame = CGRectMake(self.frame.origin.x,
-                                                  self.frame.origin.y,
-                                                  self.frame.size.width,
-                                                  0);
-
-    //[self layoutIfNeeded];
-
     self.idLabel.text = [NSString stringWithFormat:@"#%@", [data valueForKey:@"display_identifier"]];
     self.dateLabel.text = [self.dateFormatter stringFromDate:[data valueForKey:@"date"]];
     self.messageTextView.attributedText = [data valueForKey:@"attributedMessage"];
-    //self.messageTextView.text = [[data valueForKey:@"attributedMessage"] string];
 }
 
 - (void) layoutSubviews {
-    NSLog(@"lay out %@ %d, %f, %f", self, self.attachmentsCount, self.frame.size.width, self.frame.size.height);
-
     CGFloat left = 16.f;
     CGFloat top = 16.f;
     CGFloat height = self.frame.size.height - top;
     if (self.attachmentsCount) {
-        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left, top, self.frame.size.width - self.dynamicLeftOffset - left, height);
+        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left + 3.f, top, self.frame.size.width - self.dynamicLeftOffset - left - 3.f, height);
         self.attachmentsView.frame = CGRectMake(left, top, self.dynamicLeftOffset, height);
     } else {
         self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left, height);
         self.attachmentsView.frame = CGRectMake(0, 0, 0, 0);
-
     }
-    self.answersCollectionView.frame = CGRectMake(0, 0, 0, 0);
 
+    if (self.answers.count) {
+        CGRect mframe = self.messageTextView.frame;
+        mframe.size.height -= self.answersBaseHeight;
+        self.messageTextView.frame = mframe;
+
+        self.answersLabel.frame = CGRectMake(mframe.origin.x,
+                                             self.frame.size.height - self.answersBaseHeight,
+                                             self.answersLabel.frame.size.width,
+                                             self.answersBaseHeight);
+        self.answersCollectionView.frame = CGRectMake(mframe.origin.x + self.answersLabel.frame.size.width,
+                                                      self.frame.size.height - self.answersBaseHeight,
+                                                      mframe.size.width - self.answersLabel.frame.size.width,
+                                                      self.answersBaseHeight);
+        self.answersLabel.hidden = NO;
+    } else {
+        self.answersCollectionView.frame = CGRectMake(0, 0, 0, 0);
+        self.answersLabel.hidden = YES;
+    }
+
+    CGRect frame = self.headerButton.frame;
+    frame.origin.x = self.frame.size.width - frame.size.width;
+    self.headerButton.frame = frame;
+
+    frame = self.idLabel.frame;
+    frame.origin.x = floorf(self.frame.size.width - frame.size.width - self.headerButton.frame.size.width / 2);
+    self.idLabel.frame = frame;
+
+    frame = self.dateLabel.frame;
+    frame.origin.x = left;
+    frame.size.width = self.idLabel.frame.origin.x - left;
+    self.dateLabel.frame = frame;
+
+    [self.attachmentsView layoutSubviews];
     [super layoutSubviews];
 }
 
 - (void) populateForHeightCalculation:(NSManagedObject *)object
                           attachments:(NSArray *)attachments {
     self.dynamicText = [object valueForKey:@"attributedMessage"];
-    self.answers = nil; //[NSMutableArray new];
+    self.answers = [NSMutableArray new];
 
     for (NSString *identifier in [[object valueForKey:@"answers"] componentsSeparatedByString:@","]) {
         if (identifier.length)
@@ -127,7 +149,7 @@
 }
 
 - (void) setupAttachmentOffsetFor:(CGSize) parentSize {
-    self.dynamicLeftOffset = parentSize.width / 3.5;
+    self.dynamicLeftOffset = floorf(parentSize.width / 3.5);
 }
 
 - (void) setBoardlinkTouchTarget:(id) target
@@ -197,7 +219,7 @@
     CGFloat base_height = 25.f;
     CGRect bounds = [@">>00000000" boundingRectWithSize:CGSizeMake(MAXFLOAT, base_height)
                                                options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:nil
+                                             attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.f]}
                                                context:nil];
     return CGSizeMake(bounds.size.width, base_height);
 }

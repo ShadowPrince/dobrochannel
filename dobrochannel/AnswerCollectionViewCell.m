@@ -13,7 +13,7 @@
 
 @end@implementation AnswerCollectionViewCell
 - (void)awakeFromNib {
-    // Initialization code
+    //self.button.titleLabel.font = [UserDefaults textFont];
 }
 
 - (void) populate:(NSNumber *)postId {

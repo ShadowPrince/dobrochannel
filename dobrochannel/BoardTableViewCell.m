@@ -9,6 +9,7 @@
 
 @interface BoardTableViewCell ()
 @property CGFloat autolayoutOffset;
+@property CGFloat attachmentsOffset;
 @end @implementation BoardTableViewCell
 
 - (void) awakeFromNib {
@@ -62,6 +63,7 @@
     self.attachmentsCount = [attachments count];
 
     CGFloat width = self.attachmentsCount ? self.dynamicLeftOffset : 0.f;
+    self.attachmentsOffset = width;
 
     self.dynamicTableView.contentOffset = CGPointMake(0, 0);
     self.dynamicTableDelegate.objects = attachments;
@@ -71,7 +73,7 @@
 - (CGFloat) messageExpandHeight:(CGSize) parentSize {
     CGFloat combined_offsets = self.dynamicTextViewCombinedOffsets + self.autolayoutOffset;
 
-    CGFloat width = parentSize.width - combined_offsets - self.dynamicStackViewScrollWidthConstraint.constant;
+    CGFloat width = parentSize.width - combined_offsets - self.attachmentsOffset;
     width = roundf(width * 2) / 2; // round it to x.0 or x.5
 
     // dynamic text height

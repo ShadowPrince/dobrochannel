@@ -58,8 +58,8 @@
 
     self.passwordField.text = [UserDefaults postPassword];
 
-    [self.textSizeSlider setValue:[UserDefaults textSize]];
-    self.textSizeExampleLabel.font = [self.textSizeExampleLabel.font fontWithSize:[UserDefaults textSize]];
+    [self.textSizeSlider setValue:[UserDefaults textFont].pointSize];
+    self.textSizeExampleLabel.font = [UserDefaults textFont];
 }
 
 - (IBAction)noRatingSwitch:(UISwitch *)sender {
@@ -100,6 +100,7 @@
 }
 
 - (IBAction)textSizeSlider:(UISlider *)sender {
+    sender.value = floorf(sender.value);
     self.textSizeExampleLabel.font = [self.textSizeExampleLabel.font fontWithSize:sender.value];
     [[NSUserDefaults standardUserDefaults] setFloat:sender.value forKey:@"text_size"];
 }

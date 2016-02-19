@@ -47,7 +47,7 @@
         }
 
         if (list.count == 0) {
-            list = @[@"---", @"0", @"0", @"0", ].mutableCopy;
+            list = @[@"###", @"1999", @"###", @"1", ].mutableCopy;
         }
     }
 
@@ -130,9 +130,19 @@
     return (NSString *) [[NSUserDefaults standardUserDefaults] valueForKey:@"post_password"];
 }
 
-+ (float) textSize {
++ (UIFont *) textFont {
     float value = [[[NSUserDefaults standardUserDefaults] valueForKey:@"text_size"] floatValue];
-    return value ?: 13.f;
+    float size =  floorf(value)  - 2.f ?: 12.f;
+
+    //return [UIFont fontWithName:@"Helvetica Neue" size:size];
+    return [UIFont systemFontOfSize:size];
+}
+
++ (UIFont *) messageFont {
+    float value = [[[NSUserDefaults standardUserDefaults] valueForKey:@"text_size"] floatValue];
+    float size =  floorf(value) ?: 14.f;
+
+    return [UIFont fontWithName:@"Helvetica Neue" size:size];
 }
 
 + (BOOL) enhanced {

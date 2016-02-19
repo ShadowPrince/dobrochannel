@@ -44,7 +44,7 @@ static NSString *const FavoritesViewController_DBVersion = @"1";
 
     self.favoriteThreads[0][0] = @{@"board": @"d",
                                    @"thread_id": [UserDefaults supportThreadNumber],
-                                   @"title": @"Dobrochannel",
+                                   @"title": @"Dobrochannel thread",
                                    @"date": [NSDate new], };
     [self.tableView reloadData];
 }

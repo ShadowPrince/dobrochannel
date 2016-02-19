@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UserDefaults : NSObject
 
@@ -21,7 +22,8 @@
 
 + (BOOL) showUnrated;
 + (NSInteger) maxRating;
-+ (float) textSize;
++ (UIFont *) textFont;
++ (UIFont *) messageFont;
 
 + (NSString *) postPassword;
 
