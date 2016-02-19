@@ -1,4 +1,4 @@
 # support thread number
 1999
 # show report button
-0
+1
