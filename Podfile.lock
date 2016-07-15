@@ -2,18 +2,24 @@ PODS:
   - UIActionSheet+Blocks (0.9)
   - UIAlertController+Blocks (0.9)
   - UIAlertView+Blocks (0.9)
+  - yajl (1.0.12)
+  - yajl-objc (0.2.27):
+    - yajl (~> 1.0.11)
   - YLGIFImage (0.11)
 
 DEPENDENCIES:
   - UIActionSheet+Blocks (>= 0.9)
   - UIAlertController+Blocks (>= 0.9)
   - UIAlertView+Blocks (>= 0.9)
+  - yajl-objc
   - YLGIFImage (~> 0.11)
 
 SPEC CHECKSUMS:
   UIActionSheet+Blocks: e180b7dad0a721ab7f212ac9742af799008bb358
   UIAlertController+Blocks: b48c673ff60726da468b32ab21bbc7683512d45b
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
+  yajl: e435f86f7429fe047dff3314608fb775defd8e09
+  yajl-objc: fe4ce4868434a4661fb446ba4400162ab48310cd
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
 
 COCOAPODS: 0.38.2

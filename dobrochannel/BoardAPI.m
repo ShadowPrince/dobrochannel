@@ -230,7 +230,7 @@
              data:(NSDictionary *)_postData
  progressCallback:(BoardAPIProgressCallback)progressCallback
    finishCallback:(BoardPostFinishCallback)callback {
-    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/post/new.json", board]];
+    NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/post/new.xhtml", board]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
 
@@ -243,7 +243,7 @@
     [data setValuesForKeysWithDictionary:@{@"task": @"post",
                                            @"scroll_to": @"",
                                            @"goto": @"thread",
-                                           @"post_files_count": [NSString stringWithFormat:@"%lu", files.count + 1],
+                                           @"post_files_count": [NSString stringWithFormat:@"%du", files.count + 1],
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
                                            @"name": @"Анонимус",
@@ -459,7 +459,6 @@
 - (NSURLSessionTask *) requestURL:(NSURL *) url
                          delegate:(id<NSURLSessionDataDelegate>) ddelegate
                  progressCallback:(BoardAPIProgressCallback) callback {
-    //url = [NSURL URLWithString:@"http://127.0.0.1/0.json"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:self.apiRequestConfiguration
                                                           delegate:ddelegate
                                                      delegateQueue:nil];

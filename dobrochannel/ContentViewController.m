@@ -20,8 +20,6 @@
 @property NSInteger tableLoadedRows;
 @property BOOL viewChangedSize;
 @property NSIndexPath *viewChangedSizeScrollTo;
-@property PostTableViewCell *cachedPostCell;
-@property ThreadTableViewCell *cachedThreadView;
 @property NSMutableDictionary *rowHeightCache;
 //---
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
@@ -471,12 +469,15 @@
     if ([object.entity.name isEqualToString:@"Thread"] && self.threads.count > 2)
         return NO;
 
-    if ([[object valueForKey:@"display_identifier"] isEqualToNumber:@3817431])
-        return YES;
-    else return NO;
-
      */
     //return self.threads.count < 2;
+
+
+    /*
+    if ([[object valueForKey:@"display_identifier"] isEqualToNumber:@3817474])
+        return YES;
+    else return NO;
+     */
 
     return YES;
 }

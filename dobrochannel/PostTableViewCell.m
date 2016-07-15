@@ -14,6 +14,7 @@
 @property CGFloat answersBaseHeight;
 @property NSOperationQueue *queue;
 @property NSDateFormatter *dateFormatter;
+@property CGFloat postOffset;
 //---
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *answersViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *answersCollectionView;
@@ -33,8 +34,9 @@
     self.dynamicTableView = self.attachmentsView;
 
     self.dynamicStackViewScrollWidthConstraint = self.scrollViewWidthConstraint;
+    self.postOffset = 16.f;
     self.dynamicTextViewCombinedOffsets =
-    16.f // post offset
+    self.postOffset // post offset
     + 3.f; // message view margin
 
     self.headerButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -87,11 +89,12 @@
 }
 
 - (void) layoutSubviews {
-    CGFloat left = 16.f;
+    CGFloat left = self.postOffset + 3.f;
+    left = self.dynamicTextViewCombinedOffsets;
     CGFloat top = 16.f;
     CGFloat height = self.frame.size.height - top;
     if (self.attachmentsCount) {
-        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left + 3.f, top, self.frame.size.width - self.dynamicLeftOffset - left - 3.f, height);
+        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left, top, self.frame.size.width - self.dynamicLeftOffset - left, height);
         self.attachmentsView.frame = CGRectMake(left, top, self.dynamicLeftOffset, height);
     } else {
         self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left, height);
@@ -167,7 +170,9 @@
 - (CGFloat) calculatedHeight:(CGSize)parentSize {
     CGFloat attach = [self attachmentExpandHeight];
     CGFloat message = [self messageExpandHeight:parentSize] - (self.answers.count ? 0 : self.answersBaseHeight);
-    return MAX(attach, message);
+    CGFloat height = MAX(attach, message);
+
+    return height;
 }
 
 - (void) setOpacity:(BOOL) set_op {

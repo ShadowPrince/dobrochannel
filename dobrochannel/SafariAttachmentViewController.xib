@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -21,44 +21,39 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g3N-cA-WI0">
-                    <rect key="frame" x="150" y="150" width="300" height="300"/>
-                    <animations/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                <webView contentMode="scaleToFill" scalesPageToFit="YES" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3N-cA-WI0">
+                    <rect key="frame" x="60" y="120" width="480" height="360"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </webView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pwl-kl-G7o">
-                    <rect key="frame" x="150" y="104" width="217" height="16"/>
-                    <animations/>
+                    <rect key="frame" x="60" y="74" width="397" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.99487179489999999" green="0.99487179489999999" blue="0.99487179489999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xTg-F1-xGt">
-                    <rect key="frame" x="375" y="67" width="75" height="75"/>
-                    <animations/>
+                    <rect key="frame" x="465" y="37" width="75" height="75"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="75" id="PwW-Nc-iKM"/>
                         <constraint firstAttribute="width" constant="75" id="TIV-jH-Ksh"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1d-r6-N4C">
-                    <rect key="frame" x="150" y="67" width="217" height="26"/>
-                    <animations/>
+                    <rect key="frame" x="60" y="37" width="397" height="26"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="textColor" red="0.99487179489999999" green="0.99487179489999999" blue="0.99487179489999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="g3N-cA-WI0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="613-Hg-U5Z"/>
                 <constraint firstItem="xTg-F1-xGt" firstAttribute="trailing" secondItem="g3N-cA-WI0" secondAttribute="trailing" id="6AF-KH-kkz"/>
-                <constraint firstItem="g3N-cA-WI0" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.5" id="6zW-gj-Oi9"/>
+                <constraint firstItem="g3N-cA-WI0" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="6zW-gj-Oi9"/>
                 <constraint firstItem="g3N-cA-WI0" firstAttribute="top" secondItem="xTg-F1-xGt" secondAttribute="bottom" constant="8" id="HG0-4G-xT7"/>
                 <constraint firstItem="Pwl-kl-G7o" firstAttribute="top" secondItem="P1d-r6-N4C" secondAttribute="bottom" constant="11" id="M1p-bq-Wh8"/>
                 <constraint firstItem="g3N-cA-WI0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Nf2-a7-yub"/>
-                <constraint firstItem="g3N-cA-WI0" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="QCY-gM-eB4"/>
+                <constraint firstItem="g3N-cA-WI0" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="QCY-gM-eB4"/>
                 <constraint firstItem="Pwl-kl-G7o" firstAttribute="leading" secondItem="P1d-r6-N4C" secondAttribute="leading" id="Rfa-xB-qct"/>
                 <constraint firstItem="xTg-F1-xGt" firstAttribute="leading" secondItem="P1d-r6-N4C" secondAttribute="trailing" constant="8" id="SbB-x6-ZSp"/>
                 <constraint firstItem="g3N-cA-WI0" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="UZY-dm-VXa"/>

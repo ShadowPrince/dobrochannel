@@ -38,6 +38,8 @@ BoardManagedObjectContextDelegate> {
 @property NSString *board;
 @property NSMutableArray *threads;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property PostTableViewCell *cachedPostCell;
+@property ThreadTableViewCell *cachedThreadView;
 
 - (void) startedRequest;
 - (void) reset;

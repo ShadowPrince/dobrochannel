@@ -78,11 +78,12 @@
 
     // dynamic text height
     CGSize size = [self.dynamicText boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
-                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                                 options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                  context:nil].size;
     CGFloat height = size.height;
 
-    return self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;
+    CGFloat result = self.frame.size.height - self.dynamicTextView.frame.size.height + height + 1.f;
+    return result;
 }
 
 - (CGFloat) attachmentExpandHeight {
@@ -94,7 +95,8 @@
 }
 
 - (CGFloat) calculatedHeight:(CGSize) parentSize {
-    return MAX([self messageExpandHeight:parentSize], [self attachmentExpandHeight]);
+    CGFloat height = MAX([self messageExpandHeight:parentSize], [self attachmentExpandHeight]);
+    return height;
 }
 
 @end

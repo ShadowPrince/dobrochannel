@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-DobrochannelEnhanced.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>UIActionSheet+Blocks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,10 +29,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>yajl-objc.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>yajl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1539B2D13AD4352BA98404CC3CBBF319</key>
+		<key>518A75C6B8C43718D67FC77D7B47A898</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,7 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B72F82796E67B94F36B37137A34A5075</key>
+		<key>B67A307F7CB73EC49BA2204741765671</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB5B0762A2A3C1E6349D7151B81C688F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

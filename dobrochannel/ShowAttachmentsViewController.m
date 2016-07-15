@@ -98,7 +98,7 @@
         if ([[self.attachments[page] valueForKey:@"type"] isEqualToString:@"image"]) {
             klass = [DetailedAttachmentViewController class];
         } else {
-            klass = [SafariAttachmentViewController class];
+            klass = [DetailedAttachmentViewController class];
         }
 
         DetailedAttachmentViewController *img = [[klass alloc] initWithAttachment:self.attachments[page]

@@ -55,14 +55,14 @@
 }
 
 - (void) layoutSubviews {
-    CGFloat left = 0.f;
+    CGFloat left = 3.f;
     CGFloat top = 28.f;
     CGFloat height = self.frame.size.height - top - self.statusLabel.frame.size.height;
     if (self.attachmentsCount) {
-        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left + 3.f, top, self.frame.size.width - self.dynamicLeftOffset - left - 4.f, height);
+        self.messageTextView.frame = CGRectMake(self.dynamicLeftOffset + left, top, self.frame.size.width - self.dynamicLeftOffset - left, height);
         self.attachmentsView.frame = CGRectMake(left, top, self.dynamicLeftOffset, height + self.statusLabel.frame.size.height);
     } else {
-        self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left - 1.f, height);
+        self.messageTextView.frame = CGRectMake(left, top, self.frame.size.width - left, height);
         self.attachmentsView.frame = CGRectMake(0, 0, 0, 0);
     }
 

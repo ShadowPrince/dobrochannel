@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YAJL.h"
 
 #define BoardRequestParserBoardForm 0
 #define BoardRequestParserPostsForm 1
@@ -20,7 +21,7 @@
 
 @end
 
-@interface BoardRequestParser : NSObject <NSURLSessionDataDelegate>
+@interface BoardRequestParser : NSObject <NSURLSessionDataDelegate, YAJLDocumentDelegate>
 - (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate;
 - (instancetype) initWithDelegate:(id<BoardRequestParserDelegate>) delegate
                              form:(int) _sf;

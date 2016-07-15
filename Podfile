@@ -6,12 +6,5 @@ target 'Dobrochannel' do
     pod  'UIActionSheet+Blocks', '>= 0.9'
     pod  'UIAlertController+Blocks', '>= 0.9'
     pod 'YLGIFImage', '~> 0.11'
+    pod 'yajl-objc'
 end
-
-target 'DobrochannelEnhanced' do
-    pod  'UIAlertView+Blocks', '>= 0.9'
-    pod  'UIActionSheet+Blocks', '>= 0.9'
-    pod  'UIAlertController+Blocks', '>= 0.9'
-    pod 'YLGIFImage', '~> 0.11'
-end
-

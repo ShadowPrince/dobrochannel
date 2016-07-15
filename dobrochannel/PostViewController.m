@@ -25,6 +25,7 @@
     [super viewDidLoad];
     [self setMode:ContentViewControllerModeSingle];
     [self.loadingIndicator startAnimating];
+    self.cachedPostCell.dynamicTextViewCombinedOffsets = 3.f;
 
     if (self.targetObject) {
         self.context = self.supercontroller.context;
@@ -145,7 +146,7 @@
 - (void) prepareCell:(BoardTableViewCell *) cell {
     [cell setAttachmentTouchTarget:self.supercontroller action:@selector(attachmentTouch:)];
     [cell setBoardlinkTouchTarget:self.supercontroller action:@selector(boardlinkTouch:context:)];
-
+    cell.dynamicTextViewCombinedOffsets = 3.f;
 
     if ([cell isKindOfClass:[PostTableViewCell class]]) {
         // NSSelectorFromString used for supressing compiler warning
