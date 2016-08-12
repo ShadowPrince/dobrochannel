@@ -24,7 +24,7 @@
     self.loadThread = YES;
     self.favoriteBarButtonItem.enabled = NO;
 
-    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"secret"] && ![UserDefaults enhanced]) {
         self.attachmentsViewBarButtonItem.enabled = NO;
     }
 }

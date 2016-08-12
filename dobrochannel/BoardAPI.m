@@ -102,7 +102,8 @@
 }
 
 - (NSArray *) ratingsList {
-    return @[@"no-images", @"sfw", @"r-15", @"r-18", @"r-18g"];
+    // @TODO: censor
+    return @[@"sfw", @"r-15", @"r-18", @"r-18g"];
 }
 
 - (NSURL *) urlFor:(NSString *)relative {
@@ -231,6 +232,7 @@
  progressCallback:(BoardAPIProgressCallback)progressCallback
    finishCallback:(BoardPostFinishCallback)callback {
     NSURL *url = [self urlFor:[NSString stringWithFormat:@"%@/post/new.xhtml", board]];
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
 
@@ -241,9 +243,9 @@
 
     NSMutableDictionary *data = [NSMutableDictionary new];
     [data setValuesForKeysWithDictionary:@{@"task": @"post",
-                                           @"scroll_to": @"",
                                            @"goto": @"thread",
-                                           @"post_files_count": [NSString stringWithFormat:@"%du", files.count + 1],
+                                           @"scroll_to": @"",
+                                           @"post_files_count": [NSString stringWithFormat:@"%lu", (unsigned long) files.count],
                                            @"new_post": @"Отправить",
                                            @"subject": @"",
                                            @"name": @"Анонимус",
@@ -266,13 +268,20 @@
     }];
 
     // fill HTTPBody with files
-    for (int i = 0; i < files.count; i++) {
-        NSDictionary *file = files[i];
-        NSData *fileData = UIImageJPEGRepresentation(file[@"image"], 0.8f);
+    for (int i = 0; i < 5; i++) {
+        NSDictionary *file = @{@"rating": @"SWF", };
+        NSString *filename = @"";
+        NSData *fileData = [NSData new];
+
+        if (files.count > i) {
+            file = files[i];
+            fileData = UIImageJPEGRepresentation(file[@"image"], 0.8f);
+            filename = [NSString stringWithFormat:@"%d.jpg", i+1];
+        }
 
         // file data
         [HTTPBody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file_%d\"; filename=\"%d.jpg\"\r\n", i+1, i]dataUsingEncoding:NSUTF8StringEncoding]];
+        [HTTPBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file_%d\"; filename=\"%@\"\r\n", i+1, filename] dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [HTTPBody appendData:fileData];
         // file rating

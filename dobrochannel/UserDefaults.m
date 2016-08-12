@@ -154,12 +154,15 @@
 }
 
 + (BOOL) enhanced {
+    return YES;
+    /*
 #ifdef RESTRICTIONS
     NSString *secret = [[NSUserDefaults standardUserDefaults] valueForKey:@"secret"];
     return secret != nil;
 #else
     return YES;
 #endif
+     */
 }
 
 @end

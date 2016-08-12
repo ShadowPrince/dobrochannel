@@ -55,7 +55,7 @@
     self.parser = [BoardMarkupParser defaultParser];
     self.parserQueue = [NSOperationQueue new];
 
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"secret"]) {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"secret"] || [UserDefaults enhanced]) {
         self.danbooruButton.hidden = NO;
     }
 
